@@ -19,7 +19,7 @@ public class Main extends Application {
 	private boolean started = false;
 
 	public static void main (String args[]) {
-		//novo teste abc
+		//novo teste de novo
 		Application.launch(args);
 		
 	}
