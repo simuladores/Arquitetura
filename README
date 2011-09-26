@@ -1,1 +1,34 @@
-teste
+
+Configuração do Git para o projeto no eclipse:
+
+- Instalar o plugin Eclipse EGit e todos os plugins relacionados ao EGit 
+(EGit Mylyn e Eclipse EGit Mylyn GitHub)
+
+- Como a conexão com o repositório é através de SSH, clicar em 
+Window -> Preferences -> General -> Network Connections -> SSH2
+e na aba Key Management clicar no botão Load Existing Key, selecionar
+o arquivo id_rsa_simuladores que eu mandei por email, que é a chave privada. Inserir a senha de ssh 
+ (eu mandei por email) que ele pedir
+e salvar as chaves privadas e pública que ele gerar no diretório .ssh que fica
+por padrão no diretório HOME do usuário, como C:/Users/Fulano/.ssh. Se não houver 
+esse diretório ele provavelmente vai pedir pra criar
+
+- Reiniciar o eclipse
+
+- Abrir a perspectiva Git Repository Exploring e em Git Repositories, clicar em Clone a Git Repository, 
+adicionar a seguinte URI: git@github.com:simuladores/Arquitetura.git e os outros campos serão preenchidos 
+automaticamente e clicar em Next. Provavelmente vai pedir a senha de ssh, quando inserir a senha, provavelmente 
+vai aparecer o branch master do projeto, clicar em Finish
+
+- Mudar a perspectiva para Java, clicar em File -> Import -> Git -> Projects from Git e clicar em Next.
+Selecionar a opção Import Existing Projects e o projeto Arquitetura no Working directory, clicar em Next e 
+prosseguir até o Finish
+
+Pronto, já está configurado. Para dar colaborar no projeto e dar commits, 
+o processo é semelhante ao do CVS, para quem já usou. Antes de usar o projeto, é bom atualizar: 
+Botão direito em cima do projeto -> Team -> Fetch from Upstream e sincronizar. Quando fizer alguma alteração 
+no projeto, para dar commit é só clicar em Team -> Commit. Diferente do CVS, esse comando não é suficiente 
+para escrever as alterações no servidor. Para isso, é necessário clicar em Team -> Push to Upstream
+Se der algum problema e não atualizar no servidor, provavelmente é conflito. Nesse caso tem que sincronizar,
+clicar em Override um cima do arquivo onde tá dando conflito (isso vai apagar as suas alterações !) e depois 
+em cima do projeto na perspecitiva Java e em Team -> Rebase. 
