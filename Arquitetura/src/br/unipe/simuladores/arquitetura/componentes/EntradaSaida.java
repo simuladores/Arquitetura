@@ -7,6 +7,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class EntradaSaida extends Componente{
@@ -58,7 +60,34 @@ public class EntradaSaida extends Componente{
 
 	@Override
 	protected void adicionarTexto() {
-		// TODO Auto-generated method stub
+
+		Text es = new Text("Entrada/Saída");
+		es.setX(500);
+		es.setY(260);
+		es.setFont(new Font(6));
+		
+		Text legiveisSerHumano = new Text("Legíveis\n ao ser\n humano");
+		legiveisSerHumano.setX(482);
+		legiveisSerHumano.setY(288);
+		legiveisSerHumano.setFont(new Font(5));
+		
+		Text legiveisMaquina = new Text("Legíveis\n à Máquina");
+		legiveisMaquina.setX(537);
+		legiveisMaquina.setY(292);
+		legiveisMaquina.setFont(new Font(5));
+		
+		Text comunicacaoDispositivosRemotos = 
+				new Text("   Comunicação \ncom dispositivos\n       remotos");
+		comunicacaoDispositivosRemotos.setX(500);
+		comunicacaoDispositivosRemotos.setY(340);
+		comunicacaoDispositivosRemotos.setFont(new Font(5));
+		
+		group.getChildren().add(es);
+		
+		grupoLegiveisSerHumano.getChildren().add(legiveisSerHumano);
+		grupoLegiveisMaquina.getChildren().add(legiveisMaquina);
+		grupoComunicacaoDispositivosRemotos.getChildren()
+			.add(comunicacaoDispositivosRemotos);
 		
 	}
 
@@ -66,8 +95,8 @@ public class EntradaSaida extends Componente{
 	protected void buildContent() {
 		
 		//remove todos os elementos do grupo desse componente para evitar a repetição deles
-		/*		group.getChildren().removeAll(circulo, grupoLegiveisSerHumano, 
-						grupoLegiveisMaquina, grupoComunicacaoDispositivosRemotos);*/
+			group.getChildren().removeAll(circulo, grupoLegiveisSerHumano, 
+						grupoLegiveisMaquina, grupoComunicacaoDispositivosRemotos);
 				
 		Circle legiveisSerHumano = new Circle();
 		Circle legiveisMaquina = new Circle();
@@ -104,6 +133,9 @@ public class EntradaSaida extends Componente{
 		
 		group.getChildren().addAll(circulo, grupoLegiveisSerHumano, 
 				grupoLegiveisMaquina, grupoComunicacaoDispositivosRemotos);
+		
+		adicionarTexto();
+		
 	}
 
 	@Override
