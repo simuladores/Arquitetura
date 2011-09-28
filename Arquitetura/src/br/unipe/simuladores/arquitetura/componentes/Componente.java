@@ -31,7 +31,11 @@ public abstract class Componente {
 	
 	public abstract void encolher(double fromScale, double toScale, double time);
 	
-	public abstract Group getContent();
+	public Group getContent() {
+		
+		return group;
+		
+	}
 	
 	protected abstract void adicionarTexto();
 	

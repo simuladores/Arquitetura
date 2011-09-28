@@ -133,13 +133,6 @@ public class MemoriaPrincipal extends Componente{
 	}
 
 	@Override
-	public Group getContent() {
-		
-		return group;
-		
-	}
-
-	@Override
 	protected void adicionarTexto() {
 		
 		Text memoriaPrincipal = new Text("Memória Principal");

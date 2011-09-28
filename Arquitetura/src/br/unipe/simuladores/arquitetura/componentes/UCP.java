@@ -129,13 +129,6 @@ public class UCP extends Componente{
 	}
 
 	@Override
-	public Group getContent() {
-		
-		return group;
-		
-	}
-
-	@Override
 	protected void adicionarTexto() {
 		
 		Text cpu = new Text("UCP");

@@ -24,6 +24,7 @@ public class Computador extends Componente {
 	
 	private UCP ucp;
 	private MemoriaPrincipal memoriaPrincipal;
+	private EntradaSaida entradaSaida;
 	
 	public Computador() {
 		
@@ -32,6 +33,7 @@ public class Computador extends Componente {
 		buildContent();
 		ucp = new UCP();
 		memoriaPrincipal = new MemoriaPrincipal();
+		entradaSaida = new EntradaSaida();
 		
 	}
 	
@@ -89,15 +91,6 @@ public class Computador extends Componente {
 		}
 		
 		expanded = false;
-		
-	}
-
-	@Override
-	public Group getContent() {
-		
-		/*retorna a referência do grupo que contém os elementos desse componente para 
-		cena. Assim, qualquer alteração que for feita aqui será refletida lá*/
-		return group;
 		
 	}
 	
@@ -290,6 +283,23 @@ public class Computador extends Componente {
 				if (!ucp.isExpanded()) { 
 					Main.adicionarAoPalco(ucp.getContent());
 					ucp.expandir(1, 2.5, 3000);
+				}
+	
+				
+			}
+			
+		});
+		
+		grupoES.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				encolher(1, 0.5, 3000);
+			    
+				if (!entradaSaida.isExpanded()) { 
+					Main.adicionarAoPalco(entradaSaida.getContent());
+					entradaSaida.expandir(1, 2.5, 3000);
 				}
 	
 				
