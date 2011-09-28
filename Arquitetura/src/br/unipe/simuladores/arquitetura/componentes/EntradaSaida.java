@@ -67,7 +67,7 @@ public class EntradaSaida extends Componente{
 		
 		//remove todos os elementos do grupo desse componente para evitar a repetição deles
 		/*		group.getChildren().removeAll(circulo, grupoLegiveisSerHumano, 
-						grupoLegiveisMaquina, grupoComunicacaoDispositivosRemotos);
+						grupoLegiveisMaquina, grupoComunicacaoDispositivosRemotos);*/
 				
 		Circle legiveisSerHumano = new Circle();
 		Circle legiveisMaquina = new Circle();
@@ -80,15 +80,30 @@ public class EntradaSaida extends Componente{
 		grupoComunicacaoDispositivosRemotos = new Group();
 		grupoComunicacaoDispositivosRemotos.getChildren().add(comunicacaoDispositivosRemotos);
 		
-		*/
 		circulo = new Circle(66, Color.AZURE);
 		circulo.setCenterX(520);
 		circulo.setCenterY(310);
 		
+		legiveisSerHumano.setFill(Color.rgb(255, 0, 0, 0.5f));
+		legiveisSerHumano.setCenterX(492);
+		legiveisSerHumano.setCenterY(295);
+		legiveisSerHumano.setRadius(26);
+		
+		legiveisMaquina.setFill(Color.rgb(0, 255, 0, 0.5f));
+		legiveisMaquina.setCenterX(549);
+		legiveisMaquina.setCenterY(295);
+		legiveisMaquina.setRadius(26);
+		
+		comunicacaoDispositivosRemotos.setFill(Color.rgb(0, 0, 255, 0.5f));
+		comunicacaoDispositivosRemotos.setCenterX(520);
+		comunicacaoDispositivosRemotos.setCenterY(345);
+		comunicacaoDispositivosRemotos.setRadius(26);
+		
 		//group.getChildren().addAll(circulo, grupoLegiveisSerHumano, 
 			//	grupoLegiveisMaquina, grupoComunicacaoDispositivosRemotos);
 		
-		group.getChildren().add(circulo);
+		group.getChildren().addAll(circulo, grupoLegiveisSerHumano, 
+				grupoLegiveisMaquina, grupoComunicacaoDispositivosRemotos);
 	}
 
 	@Override
