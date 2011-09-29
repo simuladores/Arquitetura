@@ -58,7 +58,7 @@ public class Main extends Application {
 		
 		root.getChildren().add(textClique);
 		
-        stage.show();
+        stage.setVisible(true);
         
         
         group.setOnMouseClicked(new EventHandler<MouseEvent>(){
