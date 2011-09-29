@@ -99,16 +99,26 @@ public class EntradaSaida extends Componente{
 					
 					Line linha = new Line();
 					linha.setStartX(463);
-					linha.setStartY(95);
+					linha.setStartY(100);
 					linha.setEndX(565);
 					linha.setEndY(320);
+					
+					Line linha2 = new Line();
+					linha2.setStartX(315);
+					linha2.setStartY(346);
+					linha2.setEndX(538);
+					linha2.setEndY(381);
 
 					
 					Main.adicionarAoPalco(linha);
+					Main.adicionarAoPalco(linha2);
 					
 					
 					linha.toBack();
 					linha.setStrokeWidth(0.5);
+					
+					linha2.toBack();
+					linha2.setStrokeWidth(0.5);
 
 				}
 		    	
