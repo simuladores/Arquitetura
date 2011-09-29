@@ -30,7 +30,7 @@ public class EntradaSaida extends Componente{
 	}
 	
 	@Override
-	public void expandir(double fromScale, double toScale, double time) {
+	public void expandir(double fromScale, double toScale, final double time) {
 		
 		expanded = true;
 		
@@ -57,7 +57,7 @@ public class EntradaSaida extends Componente{
 				@Override
 				public void handle(ActionEvent arg0) {
 					
-					/*final Line linha = new Line();
+					final Line linha = new Line();
 					final Line linha2 = new Line();
 					
 					Main.adicionarAoPalco(linha);
@@ -72,32 +72,32 @@ public class EntradaSaida extends Componente{
 					
 					timeline2.getKeyFrames().addAll(
 			                new KeyFrame(Duration.ZERO, 
-				                new KeyValue(linha.startXProperty(), 892),
-				                new KeyValue(linha.startYProperty(), 356),
-				                new KeyValue(linha.endXProperty(), 892),
-				                new KeyValue(linha.endYProperty(), 356),
-				                new KeyValue(linha2.startXProperty(), 800),
-				                new KeyValue(linha2.startYProperty(), 650),
-				                new KeyValue(linha2.endXProperty(), 800),
-				                new KeyValue(linha2.endYProperty(), 650)
+				                new KeyValue(linha.startXProperty(), 463),
+				                new KeyValue(linha.startYProperty(), 100),
+				                new KeyValue(linha.endXProperty(), 463),
+				                new KeyValue(linha.endYProperty(), 100),
+				                new KeyValue(linha2.startXProperty(), 315),
+				                new KeyValue(linha2.startYProperty(), 346),
+				                new KeyValue(linha2.endXProperty(), 315),
+				                new KeyValue(linha2.endYProperty(), 346)
 			                ),
 			                new KeyFrame(new Duration(time),		                		
-			                	new KeyValue(linha.startXProperty(), 892),
-				                new KeyValue(linha.startYProperty(), 356),
-				                new KeyValue(linha.endXProperty(), 600),
-				                new KeyValue(linha.endYProperty(), 425),
-				                new KeyValue(linha2.startXProperty(), 800),
-				                new KeyValue(linha2.startYProperty(), 650),
-				                new KeyValue(linha2.endXProperty(), 600),
-				                new KeyValue(linha2.endYProperty(), 495)
+			                	new KeyValue(linha.startXProperty(), 463),
+				                new KeyValue(linha.startYProperty(), 100),
+				                new KeyValue(linha.endXProperty(), 565),
+				                new KeyValue(linha.endYProperty(), 320),
+				                new KeyValue(linha2.startXProperty(), 315),
+				                new KeyValue(linha2.startYProperty(), 346),
+				                new KeyValue(linha2.endXProperty(), 538),
+				                new KeyValue(linha2.endYProperty(), 382)
 			                )
 			         );
 					
 					
 					
-					timeline2.play();*/
+					timeline2.play();
 					
-					Line linha = new Line();
+					/*Line linha = new Line();
 					linha.setStartX(463);
 					linha.setStartY(100);
 					linha.setEndX(565);
@@ -118,7 +118,7 @@ public class EntradaSaida extends Componente{
 					linha.setStrokeWidth(0.5);
 					
 					linha2.toBack();
-					linha2.setStrokeWidth(0.5);
+					linha2.setStrokeWidth(0.5);*/
 
 				}
 		    	
