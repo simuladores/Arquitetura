@@ -1,12 +1,16 @@
 package br.unipe.simuladores.arquitetura.componentes;
 
+import br.unipe.simuladores.arquitetura.principal.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -47,6 +51,68 @@ public class EntradaSaida extends Componente{
                 	new KeyValue(group.translateYProperty(), -130)
                 )
          );
+		
+		 timeline.setOnFinished(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					
+					/*final Line linha = new Line();
+					final Line linha2 = new Line();
+					
+					Main.adicionarAoPalco(linha);
+					Main.adicionarAoPalco(linha2);
+					
+					linha.toBack();
+					linha2.toBack();
+					linha.setStrokeWidth(0.5);
+					linha2.setStrokeWidth(0.5);
+					
+					Timeline timeline2 = new Timeline();
+					
+					timeline2.getKeyFrames().addAll(
+			                new KeyFrame(Duration.ZERO, 
+				                new KeyValue(linha.startXProperty(), 892),
+				                new KeyValue(linha.startYProperty(), 356),
+				                new KeyValue(linha.endXProperty(), 892),
+				                new KeyValue(linha.endYProperty(), 356),
+				                new KeyValue(linha2.startXProperty(), 800),
+				                new KeyValue(linha2.startYProperty(), 650),
+				                new KeyValue(linha2.endXProperty(), 800),
+				                new KeyValue(linha2.endYProperty(), 650)
+			                ),
+			                new KeyFrame(new Duration(time),		                		
+			                	new KeyValue(linha.startXProperty(), 892),
+				                new KeyValue(linha.startYProperty(), 356),
+				                new KeyValue(linha.endXProperty(), 600),
+				                new KeyValue(linha.endYProperty(), 425),
+				                new KeyValue(linha2.startXProperty(), 800),
+				                new KeyValue(linha2.startYProperty(), 650),
+				                new KeyValue(linha2.endXProperty(), 600),
+				                new KeyValue(linha2.endYProperty(), 495)
+			                )
+			         );
+					
+					
+					
+					timeline2.play();*/
+					
+					Line linha = new Line();
+					linha.setStartX(463);
+					linha.setStartY(95);
+					linha.setEndX(565);
+					linha.setEndY(320);
+
+					
+					Main.adicionarAoPalco(linha);
+					
+					
+					linha.toBack();
+					linha.setStrokeWidth(0.5);
+
+				}
+		    	
+		    });
 		
 		timeline.play();
 		
