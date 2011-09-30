@@ -36,6 +36,7 @@ public class Main extends Application {
         stage.setWidth(tela.getWidth());
         stage.setHeight(tela.getHeight());
         
+        //teste
         stage.setTitle("SOAC - Simulador de Organização e Arquitetura de Computadores");
         stage.setScene(scene);
         
