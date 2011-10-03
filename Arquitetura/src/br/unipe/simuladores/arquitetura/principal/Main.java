@@ -59,7 +59,7 @@ public class Main extends Application {
 		
 		root.getChildren().add(textClique);
 		
-        stage.setVisible(true);
+        stage.show();
         
         
         group.setOnMouseClicked(new EventHandler<MouseEvent>(){
