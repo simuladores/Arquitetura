@@ -7,7 +7,8 @@
 
 	<property name="javafx.tools.ant.jar" location="ant-javafx.jar"/>
 	<property name="nomeAplicacao" value="SOAC"/>
-
+	<property name="vendor" value="Unipê"/>
+	
     <target name="app-config">
         <property name="applet.width" value="800"/>
         <property name="applet.height" value="600"/>
@@ -47,7 +48,7 @@
             <fileset dir="bin"/>
 
             <manifest>
-              <attribute name="Implementation-Vendor" value="Tiago"/>
+              <attribute name="Implementation-Vendor" value="${vendor}"/>
               <attribute name="Implementation-Title" value="${nomeAplicacao}"/>
               <attribute name="Implementation-Version" value="1.0"/>
             </manifest>
@@ -58,7 +59,7 @@
                   outdir="dist" embedJNLP="true"
                   outfile="${nomeAplicacao}">
             <info title="${nomeAplicacao}"
-                  vendor="Tiago"/>
+                  vendor="${vendor}"/>
             <application name="${nomeAplicacao}"
                          mainClass="br.unipe.simuladores.arquitetura.principal.Main"/>
             <resources>
