@@ -18,7 +18,8 @@ public class SistemaInterconexao extends Componente{
 	
 	@Override
 	public void expandir(double fromScale, double toScale, double time) {
-		// TODO Auto-generated method stub
+		
+		expanded = true;
 		
 	}
 
@@ -38,7 +39,7 @@ public class SistemaInterconexao extends Componente{
 	protected void buildContent() {
 		
 		//remove todos os elementos do grupo desse componente para evitar a repetição deles
-		group.getChildren().removeAll(circulo, grupoBarramento,grupoModuloES);
+		group.getChildren().removeAll(grupoBarramento,grupoModuloES);
 		
 		Circle barramento = new Circle();
 		Circle moduloES = new Circle();
@@ -48,17 +49,17 @@ public class SistemaInterconexao extends Componente{
 		grupoModuloES = new Group();
 		grupoModuloES.getChildren().add(moduloES);
 		
-		barramento.setFill(Color.rgb(255, 0, 0, 0.5f));
-		barramento.setCenterX(1000);
-		barramento.setCenterY(1000);
-		barramento.setRadius(32);
+		barramento.setFill(Color.rgb(126, 126, 0, 0.5f));
+		barramento.setCenterX(1100);
+		barramento.setCenterY(320);
+		barramento.setRadius(70);
 		
-		/*moduloES.setFill(Color.rgb(255, 0, 0, 0.5f));
-		moduloES.setCenterX(650);
-		moduloES.setCenterY(295);
-		moduloES.setRadius(32);*/
+		moduloES.setFill(Color.rgb(126, 126, 0, 0.5f));
+		moduloES.setCenterX(450);
+		moduloES.setCenterY(580);
+		moduloES.setRadius(70);
 		
-		group.getChildren().addAll(circulo, grupoBarramento,grupoModuloES);
+		group.getChildren().addAll(grupoBarramento,grupoModuloES);
 		
 		//adicionarTexto();
 		

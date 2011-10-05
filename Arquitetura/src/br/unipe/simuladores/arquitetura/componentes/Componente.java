@@ -23,6 +23,7 @@ public abstract class Componente {
 	public Componente() {
 		
 		group = new Group();
+		circulo = new Circle();
 		definirAcoesGerais();
 		buildContent();
 		

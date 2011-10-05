@@ -318,7 +318,7 @@ public class Computador extends Componente {
 					if (! sistemaInterconexao.isExpanded()) {
 						
 						Main.adicionarAoPalco(sistemaInterconexao.getContent());
-						//sistemaInterconexao.expandir(1, 2.5, 3000);
+						sistemaInterconexao.expandir(1, 2.5, 3000);
 						
 					}
 					
