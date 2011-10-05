@@ -19,12 +19,13 @@ public class Computador extends Componente {
 
 	private Group grupoES;
 	private Group grupoMemoriaPrincipal;
-	private Group grupoBarramento;
+	private Group grupoSistemaInterconexao;
 	private Group grupoUCP;
 	
 	private UCP ucp;
 	private MemoriaPrincipal memoriaPrincipal;
 	private EntradaSaida entradaSaida;
+	private SistemaInterconexao sistemaInterconexao;
 	
 	public Computador() {
 		
@@ -34,6 +35,7 @@ public class Computador extends Componente {
 		ucp = new UCP();
 		memoriaPrincipal = new MemoriaPrincipal();
 		entradaSaida = new EntradaSaida();
+		sistemaInterconexao = new SistemaInterconexao();
 		
 	}
 	
@@ -123,7 +125,7 @@ public class Computador extends Componente {
 			
 			grupoES.getChildren().add(txtEntradaSaida);
 			grupoMemoriaPrincipal.getChildren().add(txtMemoriaPrincipal);
-			grupoBarramento.getChildren().add(txtSistema);
+			grupoSistemaInterconexao.getChildren().add(txtSistema);
 			grupoUCP.getChildren().add(txtUcp);
 			
 			group.getChildren().add(txtComputador);
@@ -144,7 +146,7 @@ public class Computador extends Componente {
 
 		//remove todos os elementos do grupo desse componente para evitar a repetição deles
 		group.getChildren().removeAll(circulo, grupoES, grupoMemoriaPrincipal, 
-				grupoBarramento, grupoUCP);
+				grupoSistemaInterconexao, grupoUCP);
 		
 		//se for expandir adiciona outros textos ao círculo do computador
 		if (expanded) {
@@ -158,8 +160,8 @@ public class Computador extends Componente {
 			grupoES.getChildren().add(es);
 			grupoMemoriaPrincipal = new Group();
 			grupoMemoriaPrincipal.getChildren().add(memoriaPrincipal);
-			grupoBarramento = new Group();
-			grupoBarramento.getChildren().add(barramento);
+			grupoSistemaInterconexao = new Group();
+			grupoSistemaInterconexao.getChildren().add(barramento);
 			grupoUCP = new Group();
 			grupoUCP.getChildren().add(cpu);
 			
@@ -188,7 +190,7 @@ public class Computador extends Componente {
 			
 			group.setBlendMode(BlendMode.MULTIPLY);
 			
-			group.getChildren().addAll(circulo, grupoES, grupoMemoriaPrincipal, grupoBarramento,
+			group.getChildren().addAll(circulo, grupoES, grupoMemoriaPrincipal, grupoSistemaInterconexao,
 					grupoUCP);
 			
 			definirAcoesEspecificas();
@@ -251,12 +253,12 @@ public class Computador extends Componente {
 			
 		});
 		
-		grupoBarramento.setOnMouseEntered(new EventHandler<MouseEvent>(){
+		grupoSistemaInterconexao.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent event) {
 								
-				grupoBarramento.setCursor(Cursor.HAND);
+				grupoSistemaInterconexao.setCursor(Cursor.HAND);
 				
 			}
 			
@@ -302,6 +304,26 @@ public class Computador extends Componente {
 					entradaSaida.expandir(1, 2.5, 3000);
 				}
 	
+				
+			}
+			
+		});
+		
+		grupoSistemaInterconexao.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if (ucp.isExpanded() && memoriaPrincipal.isExpanded() && entradaSaida.isExpanded() ) {
+					
+					if (! sistemaInterconexao.isExpanded()) {
+						
+						Main.adicionarAoPalco(sistemaInterconexao.getContent());
+						//sistemaInterconexao.expandir(1, 2.5, 3000);
+						
+					}
+					
+				}
 				
 			}
 			
