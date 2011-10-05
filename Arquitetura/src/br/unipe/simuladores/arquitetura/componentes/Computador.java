@@ -31,7 +31,6 @@ public class Computador extends Componente {
 		
 		super();
 		expanded = false;
-		buildContent();
 		ucp = new UCP();
 		memoriaPrincipal = new MemoriaPrincipal();
 		entradaSaida = new EntradaSaida();

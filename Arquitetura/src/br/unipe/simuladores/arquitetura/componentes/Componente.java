@@ -24,6 +24,7 @@ public abstract class Componente {
 		
 		group = new Group();
 		definirAcoesGerais();
+		buildContent();
 		
 	}
 	

@@ -25,7 +25,6 @@ public class EntradaSaida extends Componente{
 		
 		super();
 		expanded = false;
-		buildContent();
 		
 	}
 	

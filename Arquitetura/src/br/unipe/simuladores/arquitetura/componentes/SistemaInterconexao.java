@@ -13,7 +13,6 @@ public class SistemaInterconexao extends Componente{
 		
 		super();
 		expanded = false;
-		buildContent();
 		
 	}
 	
@@ -50,8 +49,8 @@ public class SistemaInterconexao extends Componente{
 		grupoModuloES.getChildren().add(moduloES);
 		
 		barramento.setFill(Color.rgb(255, 0, 0, 0.5f));
-		barramento.setCenterX(650);
-		barramento.setCenterY(295);
+		barramento.setCenterX(1000);
+		barramento.setCenterY(1000);
 		barramento.setRadius(32);
 		
 		/*moduloES.setFill(Color.rgb(255, 0, 0, 0.5f));
@@ -61,7 +60,7 @@ public class SistemaInterconexao extends Componente{
 		
 		group.getChildren().addAll(circulo, grupoBarramento,grupoModuloES);
 		
-		adicionarTexto();
+		//adicionarTexto();
 		
 		
 	}

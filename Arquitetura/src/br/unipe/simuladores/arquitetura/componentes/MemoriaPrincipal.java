@@ -24,7 +24,6 @@ public class MemoriaPrincipal extends Componente{
 		
 		super();
 		expanded = false;
-		buildContent();
 		
 	}
 
