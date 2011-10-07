@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -63,58 +64,40 @@ public class SistemaInterconexao extends Componente{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				/*final Line linha = new Line();
-				final Line linha2 = new Line();
+				Line linha1 = new Line();
+				linha1.setStartX(420);
+				linha1.setStartY(517);
+				linha1.setEndX(320);
+				linha1.setEndY(360);
+				linha1.setStrokeWidth(0.8);
+                
+				Polyline polyline1 = new Polyline(new double[]{
+						330, 363,
+						320, 360,
+						320, 370,
+				});
+				polyline1.setStrokeWidth(0.8);
 				
-				Main.adicionarAoPalco(linha);
-				Main.adicionarAoPalco(linha2);
-				
-				linha.toBack();
-				linha2.toBack();
-				linha.setStrokeWidth(0.5);
-				linha2.setStrokeWidth(0.5);
-				
-				Timeline timeline2 = new Timeline();
-				
-				timeline2.getKeyFrames().addAll(
-		                new KeyFrame(Duration.ZERO, 
-			                new KeyValue(linha.startXProperty(), 892),
-			                new KeyValue(linha.startYProperty(), 356),
-			                new KeyValue(linha.endXProperty(), 892),
-			                new KeyValue(linha.endYProperty(), 356),
-			                new KeyValue(linha2.startXProperty(), 800),
-			                new KeyValue(linha2.startYProperty(), 650),
-			                new KeyValue(linha2.endXProperty(), 800),
-			                new KeyValue(linha2.endYProperty(), 650)
-		                ),
-		                new KeyFrame(new Duration(time),		                		
-		                	new KeyValue(linha.startXProperty(), 892),
-			                new KeyValue(linha.startYProperty(), 356),
-			                new KeyValue(linha.endXProperty(), 600),
-			                new KeyValue(linha.endYProperty(), 425),
-			                new KeyValue(linha2.startXProperty(), 800),
-			                new KeyValue(linha2.startYProperty(), 650),
-			                new KeyValue(linha2.endXProperty(), 600),
-			                new KeyValue(linha2.endYProperty(), 495)
-		                )
-		         );
-				
-				
-				timeline2.play();*/
+				Main.adicionarAoPalco(linha1);
+				Main.adicionarAoPalco(polyline1);
 				
 				Line linha2 = new Line();
-				linha2.setStartX(600);
-				linha2.setStartY(495);
-				linha2.setEndX(800);
-				linha2.setEndY(650);
-
+				linha2.setStartX(516);
+				linha2.setStartY(604);
+				linha2.setEndX(780);
+				linha2.setEndY(660);
+				linha2.setStrokeWidth(0.8);
+				
+				Polyline polyline2 = new Polyline(new double[]{
+						770, 665,
+						780, 660,
+						775, 652,
+				});
+				polyline2.setStrokeWidth(0.8);
 				
 				Main.adicionarAoPalco(linha2);
+				Main.adicionarAoPalco(polyline2);
 				
-				
-				linha2.toBack();
-				linha2.setStrokeWidth(0.5);
-
 			}
 	    	
 	    });
