@@ -16,7 +16,7 @@
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="SOAC.jar" size="38595" download="eager" />
   </resources>
-  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="SOAC" />
-  <jfx:javafx-desc  width="800" height="600" main-class="br.unipe.simuladores.arquitetura.principal.Main"  name="SOAC" />
+  <applet-desc  width="1180" height="700" main-class="com.javafx.main.NoJavaFXFallback"  name="SOAC" />
+  <jfx:javafx-desc  width="1180" height="700" main-class="br.unipe.simuladores.arquitetura.principal.Main"  name="SOAC" />
   <update check="background"/>
 </jnlp>

@@ -10,8 +10,8 @@
 	<property name="vendor" value="Unipê"/>
 	
     <target name="app-config">
-        <property name="applet.width" value="800"/>
-        <property name="applet.height" value="600"/>
+        <property name="applet.width" value="1180"/>
+        <property name="applet.height" value="700"/>
     </target>
  
     <target name="init-fx-tasks">
