@@ -98,6 +98,40 @@ public class SistemaInterconexao extends Componente{
 				Main.adicionarAoPalco(linha2);
 				Main.adicionarAoPalco(polyline2);
 				
+				Line linha3 = new Line();
+				linha3.setStartX(1116);
+				linha3.setStartY(252);
+				linha3.setEndX(1030);
+				linha3.setEndY(200);
+				linha3.setStrokeWidth(0.8);
+				
+				Polyline polyline3 = new Polyline(new double[]{
+						1040, 198,
+						1030, 200,
+						1035, 210,
+				});
+				polyline3.setStrokeWidth(0.8);
+				
+				Main.adicionarAoPalco(linha3);
+				Main.adicionarAoPalco(polyline3);
+				
+				Line linha4 = new Line();
+				linha4.setStartX(1116);
+				linha4.setStartY(388);
+				linha4.setEndX(1060);
+				linha4.setEndY(440);
+				linha4.setStrokeWidth(0.8);
+				
+				Polyline polyline4 = new Polyline(new double[]{
+						1062, 430,
+						1060, 440,
+						1071, 438,
+				});
+				polyline4.setStrokeWidth(0.8);
+				
+				Main.adicionarAoPalco(linha4);
+				Main.adicionarAoPalco(polyline4);
+				
 			}
 	    	
 	    });
