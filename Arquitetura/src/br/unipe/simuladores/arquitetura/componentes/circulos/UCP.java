@@ -1,6 +1,8 @@
 package br.unipe.simuladores.arquitetura.componentes.circulos;
 
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
+import br.unipe.simuladores.arquitetura.componentes.internos.Quebravel;
+import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
 import br.unipe.simuladores.arquitetura.principal.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -17,12 +19,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class UCP extends ComponenteCirculo{
+public class UCP extends ComponenteCirculo implements Quebravel{
 	
 	private Group grupoRegistradores;
 	private Group grupoALU;
 	private Group grupoBarramentoInterno;
 	private Group grupoUnidadeControle;
+	private UCPInterna ucpInterna;
 	
 	public UCP() {
 		
@@ -235,6 +238,38 @@ public class UCP extends ComponenteCirculo{
 			}
 			
 		});
+		
+		group.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if(group.getOpacity() != 0.0f)
+					
+				    quebrar(3000);
+				
+			}
+			
+		});
+		
+	}
+
+	@Override
+	public void quebrar(double time) {
+		
+		//cria a animação
+	    timeline = new Timeline();
+		
+		timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.ZERO, 
+                    new KeyValue(group.opacityProperty(), 0.5f)
+                ),
+                new KeyFrame(new Duration(time), 
+                		new KeyValue(group.opacityProperty(), 0.0f)
+                )
+         );
+		
+		timeline.play();
 		
 	}
 
