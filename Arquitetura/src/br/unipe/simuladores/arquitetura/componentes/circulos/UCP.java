@@ -244,9 +244,14 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 			@Override
 			public void handle(MouseEvent event) {
 				
-				if(group.getOpacity() != 0.0f)
+				if(group.getOpacity() != 0.0f) {
+
+					quebrar(3000);
 					
-				    quebrar(3000);
+					ucpInterna = new UCPInterna();
+					Main.adicionarAoPalco(ucpInterna.getContent());
+					
+				}
 				
 			}
 			

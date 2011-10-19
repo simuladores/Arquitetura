@@ -1,5 +1,6 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
+import javafx.scene.paint.Color;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
 
 public class UCPInterna extends ComponenteInterno{
@@ -18,7 +19,16 @@ public class UCPInterna extends ComponenteInterno{
 
 	@Override
 	protected void buildContent() {
-		// TODO Auto-generated method stub
+		
+		group.getChildren().removeAll(retangulo);
+		
+		retangulo.setWidth(280);
+		retangulo.setHeight(280);
+		retangulo.setFill(Color.BLUEVIOLET);
+		retangulo.setX(750);
+		retangulo.setY(370);
+		
+		group.getChildren().addAll(retangulo);
 		
 	}
 

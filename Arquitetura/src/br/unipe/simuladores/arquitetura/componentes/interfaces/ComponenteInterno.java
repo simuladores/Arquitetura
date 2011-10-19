@@ -4,7 +4,7 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class ComponenteInterno extends Componente{
 	
-	private Rectangle retangulo;
+	protected Rectangle retangulo;
 	
 	public ComponenteInterno() {
 		
