@@ -1,5 +1,6 @@
-package br.unipe.simuladores.arquitetura.componentes;
+package br.unipe.simuladores.arquitetura.componentes.circulos;
 
+import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
 import br.unipe.simuladores.arquitetura.principal.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -15,7 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class EntradaSaida extends Componente{
+public class EntradaSaida extends ComponenteCirculo{
 
 	private Group grupoLegiveisSerHumano;
 	private Group grupoLegiveisMaquina;

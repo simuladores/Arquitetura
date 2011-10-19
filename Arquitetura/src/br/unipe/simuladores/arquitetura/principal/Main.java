@@ -1,6 +1,6 @@
 package br.unipe.simuladores.arquitetura.principal;
 
-import br.unipe.simuladores.arquitetura.componentes.Computador;
+import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;

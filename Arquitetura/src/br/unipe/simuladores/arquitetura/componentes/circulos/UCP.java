@@ -1,5 +1,6 @@
-package br.unipe.simuladores.arquitetura.componentes;
+package br.unipe.simuladores.arquitetura.componentes.circulos;
 
+import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
 import br.unipe.simuladores.arquitetura.principal.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -8,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -15,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class UCP extends Componente{
+public class UCP extends ComponenteCirculo{
 	
 	private Group grupoRegistradores;
 	private Group grupoALU;
@@ -215,12 +217,24 @@ public class UCP extends Componente{
 		
 		adicionarTexto();
 		
+		definirAcoesEspecificas();
+		
 	}
 
 
 	@Override
 	protected void definirAcoesEspecificas() {
-		// TODO Auto-generated method stub
+		
+		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+								
+				group.setCursor(Cursor.HAND);
+				
+			}
+			
+		});
 		
 	}
 
