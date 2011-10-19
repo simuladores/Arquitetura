@@ -15,6 +15,6 @@ public abstract class ComponenteInterno extends Componente{
 		
 	}
 	
-	public abstract void surgir();
+	public abstract void surgir(double time);
 
 }

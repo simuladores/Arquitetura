@@ -80,18 +80,18 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 				
 				timeline2.getKeyFrames().addAll(
 		                new KeyFrame(Duration.ZERO, 
-			                new KeyValue(linha.startXProperty(), 892),
-			                new KeyValue(linha.startYProperty(), 356),
-			                new KeyValue(linha.endXProperty(), 892),
-			                new KeyValue(linha.endYProperty(), 356),
+			                new KeyValue(linha.startXProperty(), 842),
+			                new KeyValue(linha.startYProperty(), 370),
+			                new KeyValue(linha.endXProperty(), 842),
+			                new KeyValue(linha.endYProperty(), 370),
 			                new KeyValue(linha2.startXProperty(), 800),
 			                new KeyValue(linha2.startYProperty(), 650),
 			                new KeyValue(linha2.endXProperty(), 800),
 			                new KeyValue(linha2.endYProperty(), 650)
 		                ),
 		                new KeyFrame(new Duration(time),		                		
-		                	new KeyValue(linha.startXProperty(), 892),
-			                new KeyValue(linha.startYProperty(), 356),
+		                	new KeyValue(linha.startXProperty(), 842),
+			                new KeyValue(linha.startYProperty(), 370),
 			                new KeyValue(linha.endXProperty(), 600),
 			                new KeyValue(linha.endYProperty(), 425),
 			                new KeyValue(linha2.startXProperty(), 800),
@@ -246,10 +246,11 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 				
 				if(group.getOpacity() != 0.0f) {
 
-					quebrar(3000);
-					
 					ucpInterna = new UCPInterna();
 					Main.adicionarAoPalco(ucpInterna.getContent());
+					
+					quebrar(3000);
+					ucpInterna.surgir(3000);
 					
 				}
 				
