@@ -9,6 +9,8 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
 
@@ -28,7 +30,37 @@ public class UCPInterna extends ComponenteInterno{
 
 	@Override
 	protected void adicionarTexto() {
-		// TODO Auto-generated method stub
+		
+		Text ucp = new Text("UCP");
+		ucp.setX(880);
+		ucp.setY(400);
+		ucp.setFont(new Font(14));
+		
+		List<Text> registradoresTxt = new ArrayList<Text>();
+		
+		int i, y = 438;
+		Text regTxt; 
+		for (i = 0; i < 4; i++, y += 25) {
+			
+			regTxt = new Text("R"+(i+1));
+			regTxt.setX(760);
+			regTxt.setY(y);
+			regTxt.setFont(new Font(12));
+			
+			registradoresTxt.add(regTxt);
+		
+		}
+		
+		
+		for (Text rg : registradoresTxt)
+			group.getChildren().add(rg);
+		
+		Text uc = new Text("UC");
+		uc.setX(760);
+		uc.setY(618);
+		uc.setFont(new Font(12));
+		
+		group.getChildren().addAll(ucp, uc);
 		
 	}
 
@@ -77,6 +109,8 @@ public class UCPInterna extends ComponenteInterno{
 		
 		group.getChildren().addAll(retangulo, grupoRegistradores, uc);
 		group.setVisible(false);
+		
+		adicionarTexto();
 		
 	}
 
