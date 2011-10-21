@@ -18,6 +18,8 @@ public class UCPInterna extends ComponenteInterno{
 	
 	private List<Rectangle> registradores;
 	private Rectangle uc;
+	private Rectangle pc;
+	private Rectangle ir;
 	
 	private Group grupoRegistradores; 
 	
@@ -60,14 +62,24 @@ public class UCPInterna extends ComponenteInterno{
 		uc.setY(618);
 		uc.setFont(new Font(12));
 		
-		group.getChildren().addAll(ucp, uc);
+		Text pc = new Text("PC");
+		pc.setX(848);
+		pc.setY(438);
+		pc.setFont(new Font(12));
+		
+		Text ir = new Text("IR");
+		ir.setX(848);
+		ir.setY(508);
+		ir.setFont(new Font(12));
+		
+		group.getChildren().addAll(ucp, uc, pc, ir);
 		
 	}
 
 	@Override
 	protected void buildContent() {
 		
-		group.getChildren().removeAll(retangulo, grupoRegistradores, uc);
+		group.getChildren().removeAll(retangulo, grupoRegistradores, uc, pc, ir);
 		
 		registradores = new ArrayList<Rectangle>();
 		grupoRegistradores = new Group();
@@ -104,10 +116,23 @@ public class UCPInterna extends ComponenteInterno{
 		uc.setFill(Color.CORAL);
 		uc.setX(780);
 		uc.setY(600);
-		//uc.setStroke(Color.BLACK);
-		//uc.setStrokeWidth(0.5);
 		
-		group.getChildren().addAll(retangulo, grupoRegistradores, uc);
+		pc = new Rectangle();
+		pc.setWidth(50);
+		pc.setHeight(25);
+		pc.setFill(Color.SANDYBROWN);
+		pc.setX(870);
+		pc.setY(420);
+		
+		ir = new Rectangle();
+		ir.setWidth(50);
+		ir.setHeight(25);
+		ir.setFill(Color.CADETBLUE);
+		ir.setX(870);
+		ir.setY(490);
+
+		
+		group.getChildren().addAll(retangulo, grupoRegistradores, uc, pc, ir);
 		group.setVisible(false);
 		
 		adicionarTexto();
