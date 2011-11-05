@@ -8,6 +8,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -20,6 +21,7 @@ public class UCPInterna extends ComponenteInterno{
 	private Rectangle uc;
 	private Rectangle pc;
 	private Rectangle ir;
+	private Polyline ula;
 	
 	private Group grupoRegistradores; 
 	
@@ -72,14 +74,19 @@ public class UCPInterna extends ComponenteInterno{
 		ir.setY(508);
 		ir.setFont(new Font(12));
 		
-		group.getChildren().addAll(ucp, uc, pc, ir);
+		Text ula = new Text("ULA");
+		ula.setX(875);
+		ula.setY(610);
+		ula.setFont(new Font(12));
+		
+		group.getChildren().addAll(ucp, uc, pc, ir, ula);
 		
 	}
 
 	@Override
 	protected void buildContent() {
 		
-		group.getChildren().removeAll(retangulo, grupoRegistradores, uc, pc, ir);
+		group.getChildren().removeAll(retangulo, grupoRegistradores, uc, pc, ir, ula);
 		
 		registradores = new ArrayList<Rectangle>();
 		grupoRegistradores = new Group();
@@ -132,7 +139,22 @@ public class UCPInterna extends ComponenteInterno{
 		ir.setY(490);
 
 		
-		group.getChildren().addAll(retangulo, grupoRegistradores, uc, pc, ir);
+		Polyline ula = new Polyline(new double[]{
+				850, 550,
+				880, 550,
+				885, 560,
+				890, 550,
+				920, 550,
+				910, 590,
+				860, 590,
+				850, 550
+		});
+		
+		ula.setStrokeWidth(0.5);
+		
+		ula.setFill(Color.YELLOW);
+		
+		group.getChildren().addAll(retangulo, grupoRegistradores, uc, pc, ir, ula);
 		group.setVisible(false);
 		
 		adicionarTexto();
