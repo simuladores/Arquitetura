@@ -22,6 +22,10 @@ public class UCPInterna extends ComponenteInterno{
 	private Rectangle pc;
 	private Rectangle ir;
 	private Polyline ula;
+	private Rectangle mar;
+	private Rectangle mbr;
+	private Rectangle ioar;
+	private Rectangle iobr;
 	
 	private Group grupoRegistradores; 
 	
@@ -79,14 +83,25 @@ public class UCPInterna extends ComponenteInterno{
 		ula.setY(610);
 		ula.setFont(new Font(12));
 		
-		group.getChildren().addAll(ucp, uc, pc, ir, ula);
+		Text mar = new Text("MAR");
+		mar.setX(932);
+		mar.setY(438);
+		mar.setFont(new Font(12));
+		
+		Text mbr = new Text("MBR");
+		mbr.setX(932);
+		mbr.setY(478);
+		mbr.setFont(new Font(12));
+		
+		group.getChildren().addAll(ucp, uc, pc, ir, ula, mar, mbr);
 		
 	}
 
 	@Override
 	protected void buildContent() {
 		
-		group.getChildren().removeAll(retangulo, grupoRegistradores, uc, pc, ir, ula);
+		group.getChildren().removeAll(retangulo, grupoRegistradores, uc, pc, ir, ula,
+				mar, mbr);
 		
 		registradores = new ArrayList<Rectangle>();
 		grupoRegistradores = new Group();
@@ -134,12 +149,12 @@ public class UCPInterna extends ComponenteInterno{
 		ir = new Rectangle();
 		ir.setWidth(50);
 		ir.setHeight(25);
-		ir.setFill(Color.CADETBLUE);
+		ir.setFill(Color.TURQUOISE);
 		ir.setX(870);
 		ir.setY(490);
 
 		
-		Polyline ula = new Polyline(new double[]{
+	    ula = new Polyline(new double[]{
 				850, 550,
 				880, 550,
 				885, 560,
@@ -154,7 +169,22 @@ public class UCPInterna extends ComponenteInterno{
 		
 		ula.setFill(Color.YELLOW);
 		
-		group.getChildren().addAll(retangulo, grupoRegistradores, uc, pc, ir, ula);
+		mar = new Rectangle();
+		mar.setWidth(50);
+		mar.setHeight(25);
+		mar.setFill(Color.BURLYWOOD);
+		mar.setX(965);
+		mar.setY(420);
+		
+		mbr = new Rectangle();
+		mbr.setWidth(50);
+		mbr.setHeight(25);
+		mbr.setFill(Color.THISTLE);
+		mbr.setX(965);
+		mbr.setY(460);
+		
+		group.getChildren().addAll(retangulo, grupoRegistradores, uc, pc, ir, ula, 
+				mar, mbr);
 		group.setVisible(false);
 		
 		adicionarTexto();
