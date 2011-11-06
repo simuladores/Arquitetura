@@ -93,7 +93,17 @@ public class UCPInterna extends ComponenteInterno{
 		mbr.setY(478);
 		mbr.setFont(new Font(12));
 		
-		group.getChildren().addAll(ucp, uc, pc, ir, ula, mar, mbr);
+		Text ioar = new Text("I/O AR");
+		ioar.setX(972);
+		ioar.setY(588);
+		ioar.setFont(new Font(12));
+		
+		Text iobr = new Text("I/O BR");
+		iobr.setX(972);
+		iobr.setY(638);
+		iobr.setFont(new Font(12));
+		
+		group.getChildren().addAll(ucp, uc, pc, ir, ula, mar, mbr, ioar, iobr);
 		
 	}
 
@@ -101,7 +111,7 @@ public class UCPInterna extends ComponenteInterno{
 	protected void buildContent() {
 		
 		group.getChildren().removeAll(retangulo, grupoRegistradores, uc, pc, ir, ula,
-				mar, mbr);
+				mar, mbr, ioar, iobr);
 		
 		registradores = new ArrayList<Rectangle>();
 		grupoRegistradores = new Group();
@@ -172,19 +182,33 @@ public class UCPInterna extends ComponenteInterno{
 		mar = new Rectangle();
 		mar.setWidth(50);
 		mar.setHeight(25);
-		mar.setFill(Color.BURLYWOOD);
+		mar.setFill(Color.THISTLE);
 		mar.setX(965);
 		mar.setY(420);
 		
 		mbr = new Rectangle();
 		mbr.setWidth(50);
 		mbr.setHeight(25);
-		mbr.setFill(Color.THISTLE);
+		mbr.setFill(Color.LIGHTSALMON);
 		mbr.setX(965);
 		mbr.setY(460);
 		
+		ioar = new Rectangle();
+		ioar.setWidth(50);
+		ioar.setHeight(25);
+		ioar.setFill(Color.LIGHTGRAY);
+		ioar.setX(965);
+		ioar.setY(550);
+		
+		iobr = new Rectangle();
+		iobr.setWidth(50);
+		iobr.setHeight(25);
+		iobr.setFill(Color.BURLYWOOD);
+		iobr.setX(965);
+		iobr.setY(600);
+		
 		group.getChildren().addAll(retangulo, grupoRegistradores, uc, pc, ir, ula, 
-				mar, mbr);
+				mar, mbr, ioar, iobr);
 		group.setVisible(false);
 		
 		adicionarTexto();
