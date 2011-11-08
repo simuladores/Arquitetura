@@ -1,6 +1,9 @@
 package br.unipe.simuladores.arquitetura.componentes.circulos;
 
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
+import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
+import br.unipe.simuladores.arquitetura.componentes.internos.Quebravel;
+import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
 import br.unipe.simuladores.arquitetura.principal.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -9,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -16,15 +20,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class MemoriaPrincipal extends ComponenteCirculo{
+public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 	
 	private Group grupoInstrucoes;
 	private Group grupoDados;
+	
+	private MemoriaInterna memoriaInterna;
 	
 	public MemoriaPrincipal(){
 		
 		super();
 		expanded = false;
+		definirAcoesEspecificas();
 		
 	}
 
@@ -193,7 +200,54 @@ public class MemoriaPrincipal extends ComponenteCirculo{
 
 	@Override
 	protected void definirAcoesEspecificas() {
-		// TODO Auto-generated method stub
+		
+		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+								
+				group.setCursor(Cursor.HAND);
+				
+			}
+			
+		});
+		
+		group.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if(group.getOpacity() != 0.0f) {
+
+					memoriaInterna = new MemoriaInterna();
+					Main.adicionarAoPalco(memoriaInterna.getContent());
+					
+					quebrar(3000);
+					memoriaInterna.surgir(3000);
+					
+				}
+				
+			}
+			
+		});
+	}
+
+	@Override
+	public void quebrar(double time) {
+		
+		//cria a animação
+	    timeline = new Timeline();
+		
+		timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.ZERO, 
+                    new KeyValue(group.opacityProperty(), 0.5f)
+                ),
+                new KeyFrame(new Duration(time), 
+                		new KeyValue(group.opacityProperty(), 0.0f)
+                )
+         );
+		
+		timeline.play();
 		
 	}
 
