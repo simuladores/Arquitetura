@@ -3,14 +3,21 @@ package br.unipe.simuladores.arquitetura.componentes.internos;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
 
 public class MemoriaInterna extends ComponenteInterno{
 	
-	private ScrollBar scroll;
+	private  ObservableList<Instrucao> instrucoes;
+	
+	private TableView<Instrucao> tabelaInstrucoes;
 	
 	public MemoriaInterna() {
 		
@@ -47,16 +54,62 @@ public class MemoriaInterna extends ComponenteInterno{
 	@Override
 	protected void buildContent() {
 		
-		group.getChildren().removeAll(scroll);
+		group.getChildren().removeAll(tabelaInstrucoes);
+        
+        instrucoes = FXCollections.observableArrayList(
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118),
+    			new Instrucao(1, 4, 123, 118)
+    	);
+        
+        TableColumn<Instrucao, Integer> enderecoCol = 
+        		new TableColumn<Instrucao, Integer>();
+        enderecoCol.setText("Endereço");
+        enderecoCol.setCellValueFactory(
+        		new PropertyValueFactory<Instrucao, Integer>("endereco"));
+        TableColumn<Instrucao, Integer> opcodeCol = 
+        		new TableColumn<Instrucao, Integer>();
+        opcodeCol.setText("Opcode");
+        opcodeCol.setCellValueFactory(
+        		new PropertyValueFactory<Instrucao, Integer>("opcode"));
+        TableColumn<Instrucao, Integer> referenciaOp1Col = 
+        		new TableColumn<Instrucao, Integer>();
+        referenciaOp1Col.setText("Referência ao Operando 1");
+        referenciaOp1Col.setCellValueFactory(
+        		new PropertyValueFactory<Instrucao, Integer>("referenciaOp1"));
+        TableColumn<Instrucao, Integer> referenciaOp2Col = 
+        		new TableColumn<Instrucao, Integer>();
+        referenciaOp2Col.setText("Referência ao Operando 2");
+        referenciaOp2Col.setCellValueFactory(
+        		new PropertyValueFactory<Instrucao, Integer>("referenciaOp2"));
+        
+        tabelaInstrucoes = new TableView<Instrucao>();
+        tabelaInstrucoes.setItems(instrucoes);
+        tabelaInstrucoes.getColumns().addAll(enderecoCol, opcodeCol, referenciaOp1Col, 
+        		referenciaOp2Col);
 		
-		scroll = new ScrollBar();
-		scroll.setLayoutX(500);
-        scroll.setMin(0);
-        scroll.setOrientation(Orientation.VERTICAL);
-        scroll.setPrefHeight(180);
-        scroll.setMax(360);
-		
-		group.getChildren().addAll(scroll);
+		group.getChildren().addAll(tabelaInstrucoes);
 		
 	}
 
