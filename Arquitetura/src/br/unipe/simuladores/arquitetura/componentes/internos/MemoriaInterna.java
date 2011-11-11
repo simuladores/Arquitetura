@@ -6,7 +6,10 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.geometry.Side;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,6 +21,8 @@ public class MemoriaInterna extends ComponenteInterno{
 	private  ObservableList<Instrucao> instrucoes;
 	
 	private TableView<Instrucao> tabelaInstrucoes;
+	
+	private TabPane tabPane;
 	
 	public MemoriaInterna() {
 		
@@ -54,7 +59,11 @@ public class MemoriaInterna extends ComponenteInterno{
 	@Override
 	protected void buildContent() {
 		
-		group.getChildren().removeAll(tabelaInstrucoes);
+		group.getChildren().removeAll(tabPane);
+		
+		tabPane = new TabPane();
+		tabPane.setSide(Side.TOP);
+		tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         
         instrucoes = FXCollections.observableArrayList(
     			new Instrucao(1, 4, 123, 118),
@@ -109,11 +118,17 @@ public class MemoriaInterna extends ComponenteInterno{
         tabelaInstrucoes.getColumns().addAll(enderecoCol, opcodeCol, referenciaOp1Col, 
         		referenciaOp2Col);
         
-        tabelaInstrucoes.setTranslateX(700);
-        tabelaInstrucoes.setTranslateY(20);
-        tabelaInstrucoes.setMaxHeight(320);
+        tabPane.setTranslateX(700);
+        tabPane.setTranslateY(20);
+        tabPane.setMaxHeight(320);
+        
+        Tab instrucoes = new Tab();
+        instrucoes.setText("Instruções");
+        instrucoes.setContent(tabelaInstrucoes);
+        
+        tabPane.getTabs().add(instrucoes);
 		
-		group.getChildren().addAll(tabelaInstrucoes);
+		group.getChildren().addAll(tabPane);
 		
 	}
 
