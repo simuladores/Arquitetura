@@ -108,6 +108,10 @@ public class MemoriaInterna extends ComponenteInterno{
         tabelaInstrucoes.setItems(instrucoes);
         tabelaInstrucoes.getColumns().addAll(enderecoCol, opcodeCol, referenciaOp1Col, 
         		referenciaOp2Col);
+        
+        tabelaInstrucoes.setTranslateX(700);
+        tabelaInstrucoes.setTranslateY(20);
+        tabelaInstrucoes.setMaxHeight(320);
 		
 		group.getChildren().addAll(tabelaInstrucoes);
 		
