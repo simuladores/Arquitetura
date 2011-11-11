@@ -20,7 +20,11 @@ public class MemoriaInterna extends ComponenteInterno{
 	
 	private  ObservableList<Instrucao> instrucoes;
 	
+	private  ObservableList<Dado> dados;
+	
 	private TableView<Instrucao> tabelaInstrucoes;
+	
+	private TableView<Dado> tabelaDados;
 	
 	private TabPane tabPane;
 	
@@ -92,10 +96,10 @@ public class MemoriaInterna extends ComponenteInterno{
     			new Instrucao(1, 4, 123, 118)
     	);
         
-        TableColumn<Instrucao, Integer> enderecoCol = 
+        TableColumn<Instrucao, Integer> enderecoColInst = 
         		new TableColumn<Instrucao, Integer>();
-        enderecoCol.setText("Endereço");
-        enderecoCol.setCellValueFactory(
+        enderecoColInst.setText("Endereço");
+        enderecoColInst.setCellValueFactory(
         		new PropertyValueFactory<Instrucao, Integer>("endereco"));
         TableColumn<Instrucao, Integer> opcodeCol = 
         		new TableColumn<Instrucao, Integer>();
@@ -113,20 +117,64 @@ public class MemoriaInterna extends ComponenteInterno{
         referenciaOp2Col.setCellValueFactory(
         		new PropertyValueFactory<Instrucao, Integer>("referenciaOp2"));
         
+        dados = FXCollections.observableArrayList(
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345),
+    			new Dado(1, 12345)
+    	);
+        
+        TableColumn<Dado, Integer> enderecoColDado = 
+        		new TableColumn<Dado, Integer>();
+        enderecoColDado.setText("Endereço");
+        enderecoColDado.setCellValueFactory(
+        		new PropertyValueFactory<Dado, Integer>("endereco"));
+        TableColumn<Dado, Integer> dataCol = 
+        		new TableColumn<Dado, Integer>();
+        dataCol.setText("Dado");
+        dataCol.setCellValueFactory(
+        		new PropertyValueFactory<Dado, Integer>("data"));
+               
         tabelaInstrucoes = new TableView<Instrucao>();
         tabelaInstrucoes.setItems(instrucoes);
-        tabelaInstrucoes.getColumns().addAll(enderecoCol, opcodeCol, referenciaOp1Col, 
+        tabelaInstrucoes.getColumns().addAll(enderecoColInst, opcodeCol, referenciaOp1Col, 
         		referenciaOp2Col);
+        
+        tabelaDados = new TableView<Dado>();
+        tabelaDados.setItems(dados);
+        tabelaDados.getColumns().addAll(enderecoColDado, dataCol);
         
         tabPane.setTranslateX(700);
         tabPane.setTranslateY(20);
-        tabPane.setMaxHeight(320);
+        tabPane.setMaxHeight(330);
         
-        Tab instrucoes = new Tab();
-        instrucoes.setText("Instruções");
-        instrucoes.setContent(tabelaInstrucoes);
+        Tab instrucoesTab = new Tab();
+        instrucoesTab.setText("Instruções");
+        instrucoesTab.setContent(tabelaInstrucoes);
         
-        tabPane.getTabs().add(instrucoes);
+        tabPane.getTabs().add(instrucoesTab);
+        
+        Tab dadosTab = new Tab();
+        dadosTab.setText("Dados");
+        dadosTab.setContent(tabelaDados);
+        
+        tabPane.getTabs().add(dadosTab);
 		
 		group.getChildren().addAll(tabPane);
 		
