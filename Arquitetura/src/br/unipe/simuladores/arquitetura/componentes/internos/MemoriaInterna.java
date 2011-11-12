@@ -158,6 +158,8 @@ public class MemoriaInterna extends ComponenteInterno{
         
         tabelaDados = new TableView<Dado>();
         tabelaDados.setItems(dados);
+        tabelaDados.getColumns().clear();
+        dataCol.setMinWidth(230);
         tabelaDados.getColumns().addAll(enderecoColDado, dataCol);
         
         tabPane.setTranslateX(700);
