@@ -196,11 +196,19 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 	public void quebrar(double time) {
 		
 		Group grupo;
+		Seta st1;
+		Seta st2;
 		
-		if (barramentoQuebrado) 
+		if (barramentoQuebrado) { 
 			grupo = grupoBarramento;
-		else if (moduloESQuebrado) 
+			st1 = seta3;
+			st2 = seta4;
+		}
+		else if (moduloESQuebrado) {
 			grupo = grupoModuloES;
+			st1 = seta1;
+			st2 = seta2;
+		}
 		else
 			return;
 		
@@ -209,10 +217,14 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 		
 		timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.ZERO, 
-                    new KeyValue(grupo.opacityProperty(), 0.5f)
+                    new KeyValue(grupo.opacityProperty(), 0.5f),
+                    new KeyValue(st1.opacityProperty(), 0.5f),
+                    new KeyValue(st2.opacityProperty(), 0.5f)
                 ),
                 new KeyFrame(new Duration(time), 
-                		new KeyValue(grupo.opacityProperty(), 0.0f)
+                		new KeyValue(grupo.opacityProperty(), 0.0f),
+                		new KeyValue(st1.opacityProperty(), 0.0f),
+                        new KeyValue(st2.opacityProperty(), 0.0f)
                 )
          );
 		
