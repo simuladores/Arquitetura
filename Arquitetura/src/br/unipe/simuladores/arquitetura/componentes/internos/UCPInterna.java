@@ -64,8 +64,8 @@ public class UCPInterna extends ComponenteInterno{
 			group.getChildren().add(rg);
 		
 		Text uc = new Text("UC");
-		uc.setX(760);
-		uc.setY(618);
+		uc.setX(945);
+		uc.setY(593);
 		uc.setFont(new Font(12));
 		
 		Text pc = new Text("PC");
@@ -75,12 +75,12 @@ public class UCPInterna extends ComponenteInterno{
 		
 		Text ir = new Text("IR");
 		ir.setX(848);
-		ir.setY(508);
+		ir.setY(528);
 		ir.setFont(new Font(12));
 		
 		Text ula = new Text("ULA");
-		ula.setX(875);
-		ula.setY(610);
+		ula.setX(885);
+		ula.setY(630);
 		ula.setFont(new Font(12));
 		
 		Text mar = new Text("MAR");
@@ -94,12 +94,12 @@ public class UCPInterna extends ComponenteInterno{
 		mbr.setFont(new Font(12));
 		
 		Text ioar = new Text("I/O AR");
-		ioar.setX(972);
+		ioar.setX(787);
 		ioar.setY(588);
 		ioar.setFont(new Font(12));
 		
 		Text iobr = new Text("I/O BR");
-		iobr.setX(972);
+		iobr.setX(787);
 		iobr.setY(638);
 		iobr.setFont(new Font(12));
 		
@@ -146,9 +146,9 @@ public class UCPInterna extends ComponenteInterno{
 		uc.setWidth(50);
 		uc.setHeight(25);
 		uc.setFill(Color.CORAL);
-		uc.setX(780);
-		uc.setY(600);
-		
+		uc.setX(965);
+		uc.setY(575);
+			
 		pc = new Rectangle();
 		pc.setWidth(50);
 		pc.setHeight(25);
@@ -161,7 +161,7 @@ public class UCPInterna extends ComponenteInterno{
 		ir.setHeight(25);
 		ir.setFill(Color.TURQUOISE);
 		ir.setX(870);
-		ir.setY(490);
+		ir.setY(510);
 
 		
 	    ula = new Polyline(new double[]{
@@ -178,6 +178,8 @@ public class UCPInterna extends ComponenteInterno{
 		ula.setStrokeWidth(0.5);
 		
 		ula.setFill(Color.YELLOW);
+		ula.setTranslateY(20);
+		ula.setTranslateX(10);
 		
 		mar = new Rectangle();
 		mar.setWidth(50);
@@ -197,14 +199,14 @@ public class UCPInterna extends ComponenteInterno{
 		ioar.setWidth(50);
 		ioar.setHeight(25);
 		ioar.setFill(Color.LIGHTGRAY);
-		ioar.setX(965);
+		ioar.setX(780);
 		ioar.setY(550);
 		
 		iobr = new Rectangle();
 		iobr.setWidth(50);
 		iobr.setHeight(25);
 		iobr.setFill(Color.BURLYWOOD);
-		iobr.setX(965);
+		iobr.setX(780);
 		iobr.setY(600);
 		
 		group.getChildren().addAll(retangulo, grupoRegistradores, uc, pc, ir, ula, 
