@@ -1,6 +1,7 @@
 package br.unipe.simuladores.arquitetura.componentes.circulos;
 
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
+import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.Quebravel;
 import br.unipe.simuladores.arquitetura.principal.Main;
@@ -37,6 +38,8 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 	private Seta seta2;
 	private Seta seta3;
 	private Seta seta4;
+	
+	private BarramentoInterno barramentoInterno;
 	
 	public SistemaInterconexao() {
 		
@@ -177,12 +180,12 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 				
 				if(grupoBarramento.getOpacity() != 0.0f) {
 
-					//memoriaInterna = new MemoriaInterna();
-					//Main.adicionarAoPalco(memoriaInterna.getContent());
+					barramentoInterno = new BarramentoInterno();
+					Main.adicionarAoPalco(barramentoInterno.getContent());
 					
 					barramentoQuebrado = true;
 					quebrar(3000);
-					//memoriaInterna.surgir(3000);
+					barramentoInterno.surgir(3000);
 					
 				}
 				

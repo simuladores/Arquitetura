@@ -229,26 +229,4 @@ public class UCPInterna extends ComponenteInterno{
 		
 	}
 
-	@Override
-	public void surgir(double time) {
-		
-		group.setVisible(true);
-		
-		  timeline = new Timeline();
-			
-		  timeline.getKeyFrames().addAll(
-	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(group.opacityProperty(), 0.0f)
-	               ),
-	               new KeyFrame(new Duration(time), 
-	                	new KeyValue(group.opacityProperty(), 1.0f)
-	               )
-	       );
-			
-	      timeline.play();
-		
-	}
-
-	
-
 }
