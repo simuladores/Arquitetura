@@ -12,6 +12,10 @@ public class BarramentoInterno extends ComponenteInterno {
 	private Rectangle enderecos;
 	private Rectangle controle;
 	
+	private Rectangle ligacaoMar;
+	private Rectangle ligacaoMbr;
+	private Rectangle ligacaoUc;
+	
 	public BarramentoInterno(){
 		
 		super();
@@ -21,12 +25,12 @@ public class BarramentoInterno extends ComponenteInterno {
 	@Override
 	protected void adicionarTexto() {
 		
-		Text enderecos = new Text("endereços");
+		Text enderecos = new Text("instruções");
 		enderecos.setX(1090);
 		enderecos.setY(620);
 		enderecos.setFont(new Font(10));
 		
-		Text instrucoes = new Text("instruções");
+		Text instrucoes = new Text("endereços");
 		instrucoes.setX(1145);
 		instrucoes.setY(620);
 		instrucoes.setFont(new Font(10));
@@ -43,7 +47,15 @@ public class BarramentoInterno extends ComponenteInterno {
 	@Override
 	protected void buildContent() {
 
-		group.getChildren().removeAll(dados, enderecos, controle);
+	    ligacaoMar = new Rectangle(1030, 417, 120, 30);
+		ligacaoMar.setFill(Color.THISTLE);
+	    ligacaoMbr = new Rectangle(1030, 456, 170, 30);
+		ligacaoMbr.setFill(Color.LIGHTSALMON);
+	    ligacaoUc = new Rectangle(1030, 572, 70, 30);
+		ligacaoUc.setFill(Color.CORAL);
+		
+		group.getChildren().removeAll(dados, enderecos, controle, ligacaoMar, 
+				ligacaoMbr, ligacaoUc);
 		
 		dados = new Rectangle(1100, 75, 30, 530);
 		dados.setFill(Color.LIGHTBLUE);
@@ -52,7 +64,12 @@ public class BarramentoInterno extends ComponenteInterno {
 		controle = new Rectangle(1200, 75, 30, 530);
 		controle.setFill(Color.LIGHTBLUE);
 		
-		group.getChildren().addAll(dados, enderecos, controle);
+		group.getChildren().addAll(dados, enderecos, controle, ligacaoMar, 
+				ligacaoMbr, ligacaoUc);
+		
+		ligacaoMar.toBack();
+		ligacaoMbr.toBack();
+		ligacaoUc.toBack();
 		
 		adicionarTexto();
 		
