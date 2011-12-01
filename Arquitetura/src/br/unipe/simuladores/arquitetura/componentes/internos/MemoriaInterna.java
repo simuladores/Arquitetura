@@ -88,12 +88,12 @@ public class MemoriaInterna extends ComponenteInterno{
         		new PropertyValueFactory<Instrucao, Integer>("opcode"));
         TableColumn<Instrucao, Integer> referenciaOp1Col = 
         		new TableColumn<Instrucao, Integer>();
-        referenciaOp1Col.setText("Referência ao Operando 1");
+        referenciaOp1Col.setText("Operando 1");
         referenciaOp1Col.setCellValueFactory(
         		new PropertyValueFactory<Instrucao, Integer>("referenciaOp1"));
         TableColumn<Instrucao, Integer> referenciaOp2Col = 
         		new TableColumn<Instrucao, Integer>();
-        referenciaOp2Col.setText("Referência ao Operando 2");
+        referenciaOp2Col.setText("Operando 2");
         referenciaOp2Col.setCellValueFactory(
         		new PropertyValueFactory<Instrucao, Integer>("referenciaOp2"));
         
