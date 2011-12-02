@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -234,6 +235,7 @@ public class Main extends Application {
 		
 		HBox hBox1 = new HBox();
 		hBox1.setSpacing(10);
+		hBox1.setAlignment(Pos.CENTER);
 		Text tipo = new Text("Tipo:");
 		hBox1.getChildren().add(tipo);
 		ChoiceBox<String> cbTipo = new ChoiceBox<String>();
@@ -243,31 +245,68 @@ public class Main extends Application {
 		vBox.getChildren().add(hBox1);
 		
 		HBox hBox2 = new HBox();
-		hBox2.setSpacing(20);
+		hBox2.setSpacing(50);
 		Text operando1 = new Text("Operando 1");
+		operando1.setTranslateX(120);
+		operando1.setTranslateY(5);
 		operando1.setFill(Color.BLUE);
 		hBox2.getChildren().add(operando1);
+		Text operando2 = new Text("Operando 2");
+		operando2.setTranslateX(338);
+		operando2.setTranslateY(5);
+		operando2.setFill(Color.BLUE);
+		hBox2.getChildren().add(operando2);
+		vBox.getChildren().add(hBox2);
+		
+		HBox hBox3 = new HBox();
+		hBox3.setSpacing(20);
 		
 		GridPane grid1 = new GridPane();
-		grid1.setTranslateY(40);
+		grid1.setTranslateY(10);
 		grid1.setHgap(10);
 		grid1.setVgap(10);
-
-		Text modEnd = new Text("Modo de endereçamento:");
-		grid1.add(modEnd, 0, 0);
-		ChoiceBox<String> cbModEnd = new ChoiceBox<String>();
-		cbModEnd.getItems().addAll("Imediato", "Direto", "Indireto", 
-				"Registrador", "Indireto de Registrador");
-		cbModEnd.getSelectionModel().selectFirst();
-		grid1.add(cbModEnd, 1, 0);
-		Text valor = new Text("Valor:");
-		grid1.add(valor, 0, 1);
-		TextField txtValor = new TextField();
-		txtValor.setMaxWidth(50);
-		grid1.add(txtValor, 1, 1);
-		hBox2.getChildren().add(grid1);
 		
-		vBox.getChildren().add(hBox2);
+		Text modEnd1 = new Text("Modo de endereçamento:");
+		grid1.add(modEnd1, 0, 0);
+		ChoiceBox<String> cbModEnd1 = new ChoiceBox<String>();
+		cbModEnd1.getItems().addAll("Imediato", "Direto", "Indireto", 
+				"Registrador", "Indireto de Registrador");
+		cbModEnd1.getSelectionModel().selectFirst();
+		grid1.add(cbModEnd1, 1, 0);
+		Text valor1 = new Text("Valor:");
+		grid1.add(valor1, 0, 1);
+		TextField txtValor1 = new TextField();
+		txtValor1.setMaxWidth(50);
+		grid1.add(txtValor1, 1, 1);
+		hBox3.getChildren().add(grid1);
+		
+		GridPane grid2 = new GridPane();
+		grid2.setTranslateY(10);
+		grid2.setHgap(10);
+		grid2.setVgap(10);
+		
+		Text modEnd2 = new Text("Modo de endereçamento:");
+		grid2.add(modEnd2, 0, 0);
+		ChoiceBox<String> cbModEnd2 = new ChoiceBox<String>();
+		cbModEnd2.getItems().addAll("Imediato", "Direto", "Indireto", 
+				"Registrador", "Indireto de Registrador");
+		cbModEnd2.getSelectionModel().selectFirst();
+		grid2.add(cbModEnd2, 1, 0);
+		Text valor2 = new Text("Valor:");
+		grid2.add(valor2, 0, 1);
+		TextField txtValor2 = new TextField();
+		txtValor2.setMaxWidth(50);
+		grid2.add(txtValor2, 1, 1);
+		hBox3.getChildren().add(grid2);
+		
+		HBox hBox4 = new HBox();
+		hBox4.setAlignment(Pos.CENTER);
+		Button btnInserir = new Button("Inserir>>");
+		btnInserir.setTranslateY(150);
+		hBox4.getChildren().add(btnInserir);
+		vBox.getChildren().add(hBox4);
+		
+		vBox.getChildren().add(hBox3);
 		
 		root.getChildren().add(vBox);
 		
