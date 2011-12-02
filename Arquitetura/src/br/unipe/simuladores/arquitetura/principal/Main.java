@@ -7,12 +7,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -20,7 +22,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
@@ -118,6 +122,12 @@ public class Main extends Application {
 		
 		Menu inserir = new Menu("Inserir");
 		MenuItem instrucoes = new MenuItem("Instruções");
+		instrucoes.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Stage formInserirInst = criarFormularioInserirInstrucao();
+		        formInserirInst.show();
+		    }
+		});
 		inserir.getItems().add(instrucoes);
 		MenuItem variavel = new MenuItem("Variável");
 		inserir.getItems().add(variavel);
@@ -204,6 +214,62 @@ public class Main extends Application {
 		
 		view.setMinWidth(stage.getWidth());
 		view.setMinHeight(stage.getHeight());
+		
+		stage.setScene(scene);
+		
+		return stage;
+		
+	}
+	
+	private Stage criarFormularioInserirInstrucao() {
+		
+		Stage stage = new Stage();
+		stage.setTitle("Inserir Instruções");
+		Group root = new Group();
+		Scene scene = new Scene(root, Color.rgb(245, 245, 245));
+		
+		VBox vBox = new VBox();
+		vBox.setPadding(new Insets(10, 10, 10, 10));
+		vBox.setSpacing(10);
+		
+		HBox hBox1 = new HBox();
+		hBox1.setSpacing(10);
+		Text tipo = new Text("Tipo:");
+		hBox1.getChildren().add(tipo);
+		ChoiceBox<String> cbTipo = new ChoiceBox<String>();
+		cbTipo.getItems().addAll("MOV", "ADD", "SUB", "MUL", "DIV");
+		cbTipo.getSelectionModel().selectFirst();
+		hBox1.getChildren().add(cbTipo);
+		vBox.getChildren().add(hBox1);
+		
+		HBox hBox2 = new HBox();
+		hBox2.setSpacing(20);
+		Text operando1 = new Text("Operando 1");
+		operando1.setFill(Color.BLUE);
+		hBox2.getChildren().add(operando1);
+		
+		GridPane grid1 = new GridPane();
+		grid1.setTranslateY(40);
+		grid1.setHgap(10);
+		grid1.setVgap(10);
+
+		Text modEnd = new Text("Modo de endereçamento:");
+		grid1.add(modEnd, 0, 0);
+		ChoiceBox<String> cbModEnd = new ChoiceBox<String>();
+		cbModEnd.getItems().addAll("Imediato", "Direto", "Indireto", 
+				"Registrador", "Indireto de Registrador");
+		cbModEnd.getSelectionModel().selectFirst();
+		grid1.add(cbModEnd, 1, 0);
+		Text valor = new Text("Valor:");
+		grid1.add(valor, 0, 1);
+		TextField txtValor = new TextField();
+		txtValor.setMaxWidth(50);
+		grid1.add(txtValor, 1, 1);
+		hBox2.getChildren().add(grid1);
+		
+		vBox.getChildren().add(hBox2);
+		
+		root.getChildren().add(vBox);
 		
 		stage.setScene(scene);
 		
