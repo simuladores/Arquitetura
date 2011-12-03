@@ -21,8 +21,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -135,6 +137,12 @@ public class Main extends Application {
 		});
 		inserir.getItems().add(instrucoes);
 		MenuItem variavel = new MenuItem("Variável");
+		variavel.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Stage formInserirVar = criarFormularioInserirVariavel();
+		        formInserirVar.show();
+		    }
+		});
 		inserir.getItems().add(variavel);
 		
 		Menu outros = new Menu("Outros");
@@ -372,6 +380,82 @@ public class Main extends Application {
 		
 		r.getChildren().add(caixa1);
 		r.getChildren().add(caixa2);
+		
+	}
+	
+	private Stage criarFormularioInserirVariavel() {
+		
+		Stage stage = new Stage();
+		stage.setTitle("Inserir Variável");
+		Group root = new Group();
+		Scene scene = new Scene(root, Color.rgb(245, 245, 245));
+		
+		VBox vBox = new VBox();
+		vBox.setSpacing(20);
+		vBox.setPadding(new Insets(10, 10, 10, 10));
+		
+		HBox hBox1 = new HBox();
+		hBox1.setSpacing(10);
+		Text txtIdentificador = new Text("Indentificador [A-Z]:");
+		hBox1.getChildren().add(txtIdentificador);
+		TextField tfIdentificador = new TextField();
+		tfIdentificador.setMaxWidth(50);
+		hBox1.getChildren().add(tfIdentificador);
+		Text txtTipo = new Text("Tipo:");
+		hBox1.getChildren().add(txtTipo);
+		ChoiceBox<String> cbTipo = new ChoiceBox<String>();
+		cbTipo.getItems().addAll("Inteiro", "String", "Ponto flutuante");
+		cbTipo.getSelectionModel().selectFirst();
+		hBox1.getChildren().add(cbTipo);
+		vBox.getChildren().add(hBox1);
+		
+		HBox hBox2 = new HBox();
+		hBox2.setSpacing(10);
+		VBox vBox2 = new VBox();
+		vBox2.setAlignment(Pos.CENTER);
+		
+		HBox hBox3 = new HBox();
+		hBox3.setSpacing(10);
+		Text txtValor = new Text("Valor Inicial:");
+		hBox3.getChildren().add(txtValor);
+		TextField tfValor = new TextField();
+		tfValor.setMaxWidth(50);
+		hBox3.getChildren().add(tfValor);
+		vBox2.getChildren().add(hBox3);
+		
+		hBox2.getChildren().add(vBox2);
+		
+		VBox vBox3 = new VBox();
+		vBox3.setSpacing(10);
+		
+		ToggleGroup tg = new ToggleGroup();
+		RadioButton rbNormal = new RadioButton("Normal");
+		rbNormal.setToggleGroup(tg);
+		rbNormal.setSelected(true);
+		rbNormal.setTranslateX(70);
+		vBox3.getChildren().add(rbNormal);
+		RadioButton rbPonteiro = new RadioButton("Ponteiro");
+		rbPonteiro.setToggleGroup(tg);
+		rbPonteiro.setSelected(true);
+		rbPonteiro.setTranslateX(70);
+		vBox3.getChildren().add(rbPonteiro);
+		
+		hBox2.getChildren().add(vBox3);
+		
+		vBox.getChildren().add(hBox2);
+		
+		HBox hBox4 = new HBox();
+		hBox4.setAlignment(Pos.CENTER);
+		Button btnInserirVar = new Button("Inserir");
+		hBox4.getChildren().add(btnInserirVar);
+		
+		vBox.getChildren().add(hBox4);
+		
+		root.getChildren().add(vBox);
+		
+		stage.setScene(scene);
+		
+		return stage;
 		
 	}
 	
