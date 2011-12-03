@@ -343,6 +343,7 @@ public class Main extends Application {
 		inserirCaixasFormulario(root);
 		
 		stage.setHeight(450);
+		stage.setWidth(760);
 		stage.setScene(scene);
 		
 		return stage;
@@ -365,8 +366,8 @@ public class Main extends Application {
 		pontos[5][0] = 15;
 		pontos[5][1] = 150;
 		
-		CaixaFormulario caixa1 = new CaixaFormulario(pontos);
-		CaixaFormulario caixa2 = new CaixaFormulario(pontos);
+		CaixaFormulario caixa1 = new CaixaFormulario(pontos, Color.GREY);
+		CaixaFormulario caixa2 = new CaixaFormulario(pontos, Color.GREY);
 		caixa2.setTranslateX(370);
 		
 		r.getChildren().add(caixa1);
