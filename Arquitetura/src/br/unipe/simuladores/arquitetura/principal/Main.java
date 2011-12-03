@@ -1,5 +1,6 @@
 package br.unipe.simuladores.arquitetura.principal;
 
+import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
 import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -29,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -254,14 +256,15 @@ public class Main extends Application {
 		operando1.setFill(Color.BLUE);
 		hBox2.getChildren().add(operando1);
 		Text operando2 = new Text("Operando 2");
-		operando2.setTranslateX(338);
+		operando2.setTranslateX(375);
 		operando2.setTranslateY(5);
 		operando2.setFill(Color.BLUE);
 		hBox2.getChildren().add(operando2);
 		vBox.getChildren().add(hBox2);
 		
 		HBox hBox3 = new HBox();
-		hBox3.setSpacing(20);
+		hBox3.setSpacing(60);
+		hBox3.setPadding(new Insets(0, 0, 0, 20));
 		
 		GridPane grid1 = new GridPane();
 		grid1.setTranslateY(10);
@@ -337,10 +340,37 @@ public class Main extends Application {
 		
 		root.getChildren().add(vBox);
 		
+		inserirCaixasFormulario(root);
+		
 		stage.setHeight(450);
 		stage.setScene(scene);
 		
 		return stage;
+		
+	}
+	
+	private void inserirCaixasFormulario(Group r) {
+		
+		double pontos[][] = new double[6][2];
+		pontos[0][0] = 15;
+		pontos[0][1] = 55;
+		pontos[1][0] = 120;
+		pontos[1][1] = 55;
+		pontos[2][0] = 200;
+		pontos[2][1] = 55;
+		pontos[3][0] = 355;
+		pontos[3][1] = 55;
+		pontos[4][0] = 355;
+		pontos[4][1] = 150;
+		pontos[5][0] = 15;
+		pontos[5][1] = 150;
+		
+		CaixaFormulario caixa1 = new CaixaFormulario(pontos);
+		CaixaFormulario caixa2 = new CaixaFormulario(pontos);
+		caixa2.setTranslateX(370);
+		
+		r.getChildren().add(caixa1);
+		r.getChildren().add(caixa2);
 		
 	}
 	
