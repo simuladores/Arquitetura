@@ -16,9 +16,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
@@ -299,17 +301,43 @@ public class Main extends Application {
 		grid2.add(txtValor2, 1, 1);
 		hBox3.getChildren().add(grid2);
 		
+		vBox.getChildren().add(hBox3);
+		
 		HBox hBox4 = new HBox();
 		hBox4.setAlignment(Pos.CENTER);
 		Button btnInserir = new Button("Inserir>>");
-		btnInserir.setTranslateY(150);
+		btnInserir.setTranslateY(50);
 		hBox4.getChildren().add(btnInserir);
 		vBox.getChildren().add(hBox4);
 		
-		vBox.getChildren().add(hBox3);
+		HBox hBox5 = new HBox();
+		hBox5.setAlignment(Pos.CENTER);
+		hBox5.setSpacing(80);
+		ListView<String> lstInstrucoes = new ListView<String>();
+		lstInstrucoes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		lstInstrucoes.setMaxWidth(200);
+		lstInstrucoes.setMaxHeight(100);
+		lstInstrucoes.setEditable(false);
+		lstInstrucoes.setTranslateY(70);
+		hBox5.getChildren().add(lstInstrucoes);
+		VBox vBox2 = new VBox();
+		vBox2.setAlignment(Pos.CENTER);
+		Button btnRemover = new Button("Remover Selecionada");
+		btnRemover.setTranslateY(70);
+		vBox2.getChildren().add(btnRemover);
+		hBox5.getChildren().add(vBox2);
+		vBox.getChildren().add(hBox5);
+		
+		HBox hBox6 = new HBox();
+		hBox6.setAlignment(Pos.CENTER);
+		Button btnIniciar = new Button("Iniciar Simulação");
+		btnIniciar.setTranslateY(90);
+	    hBox6.getChildren().add(btnIniciar);
+	    vBox.getChildren().add(hBox6);
 		
 		root.getChildren().add(vBox);
 		
+		stage.setHeight(450);
 		stage.setScene(scene);
 		
 		return stage;
