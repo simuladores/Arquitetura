@@ -3,16 +3,12 @@ package br.unipe.simuladores.arquitetura.componentes.internos;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
 
 public class UCPInterna extends ComponenteInterno{

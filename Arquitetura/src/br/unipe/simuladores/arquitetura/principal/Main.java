@@ -32,7 +32,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -187,8 +186,6 @@ public class Main extends Application {
 		Scene scene = new Scene(root, Color.WHITE);
 		
 		WebView view = new WebView();
-		//view.setMinSize(1000, 400);
-	    //view.setPrefSize(1000, 400);
 		view.setTranslateX(550);
 		final WebEngine eng = view.getEngine();
 		eng.load(url);

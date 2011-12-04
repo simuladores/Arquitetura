@@ -1,19 +1,13 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Orientation;
 import javafx.geometry.Side;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
 
 public class MemoriaInterna extends ComponenteInterno{
