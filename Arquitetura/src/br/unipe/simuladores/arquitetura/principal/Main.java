@@ -194,7 +194,10 @@ public class Main extends Application {
 		eng.load(url);
 		final TextField locationField = new TextField(url);
 		locationField.setMaxHeight(Double.MAX_VALUE);
+		locationField.setMinWidth(500);
+		locationField.setTranslateX(200);
 		Button goButton = new Button("Ir");
+		goButton.setTranslateX(400);
 	    goButton.setDefaultButton(true);
 		EventHandler<ActionEvent> goAction = new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent event) {
