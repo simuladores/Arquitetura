@@ -182,6 +182,7 @@ public class Main extends Application {
 	private Stage criarWebView(String url) {
 		
 		Stage stage = new Stage();
+		stage.setTitle("Outros Simuladores");
 		Group root = new Group();
 		Scene scene = new Scene(root, Color.WHITE);
 		
