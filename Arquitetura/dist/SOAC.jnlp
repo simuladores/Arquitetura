@@ -6,15 +6,12 @@
     <description>Sample JavaFX 2.0 application.</description>
     <offline-allowed/>
   </information>
-  <resources os="Windows" arch="x86">
-    <jfx:javafx-runtime version="2.0+" href="http://download.oracle.com/otn-pub/java/javafx/javafx-windows-i586__Vlatest.exe "/>
-  </resources>
-  <resources os="Windows" arch="x64">
-    <jfx:javafx-runtime version="2.0+" href="http://download.oracle.com/otn-pub/java/javafx/javafx-windows-x64__Vlatest.exe "/>
+  <resources os="Windows">
+    <jfx:javafx-runtime version="2.0+" href="http://javadl.sun.com/webapps/download/GetFile/javafx-latest/windows-i586/javafx2.jnlp"/>
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SOAC.jar" size="65755" download="eager" />
+    <jar href="SOAC.jar" size="65769" download="eager" />
   </resources>
   <applet-desc  width="1180" height="700" main-class="com.javafx.main.NoJavaFXFallback"  name="SOAC" />
   <jfx:javafx-desc  width="1180" height="700" main-class="br.unipe.simuladores.arquitetura.principal.Main"  name="SOAC" />
