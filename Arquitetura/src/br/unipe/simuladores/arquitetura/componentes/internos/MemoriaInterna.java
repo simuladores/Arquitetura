@@ -155,6 +155,14 @@ public class MemoriaInterna extends ComponenteInterno{
 		group.getChildren().addAll(tabPane);
 		
 	}
+	
+	public void inserirDado(Dado d) {
+		
+	}
+	
+	public void inserirInstrucao(Instrucao d) {
+		
+	}
 
 	@Override
 	protected void definirAcoesGerais() {

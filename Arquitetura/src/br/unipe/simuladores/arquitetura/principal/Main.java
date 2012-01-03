@@ -41,6 +41,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	private static Group group;
+	private final Computador computador = new Computador();
 	private boolean started = false;
 	
 	private MenuBar menu;
@@ -67,8 +68,6 @@ public class Main extends Application {
         stage.setScene(scene);
         
 		group = new Group();
-				
-		final Computador computador = new Computador();
         
 		group.getChildren().add(computador.getContent());
 		
@@ -448,6 +447,15 @@ public class Main extends Application {
 		HBox hBox4 = new HBox();
 		hBox4.setAlignment(Pos.CENTER);
 		Button btnInserirVar = new Button("Inserir");
+		btnInserirVar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		hBox4.getChildren().add(btnInserirVar);
 		
 		vBox.getChildren().add(hBox4);
