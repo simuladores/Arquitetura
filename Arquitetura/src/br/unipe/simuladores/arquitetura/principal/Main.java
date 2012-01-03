@@ -396,14 +396,14 @@ public class Main extends Application {
 		
 		HBox hBox1 = new HBox();
 		hBox1.setSpacing(10);
-		Text txtIdentificador = new Text("Indentificador [A-Z]:");
+		final Text txtIdentificador = new Text("Indentificador [A-Z]:");
 		hBox1.getChildren().add(txtIdentificador);
 		TextField tfIdentificador = new TextField();
 		tfIdentificador.setMaxWidth(50);
 		hBox1.getChildren().add(tfIdentificador);
 		Text txtTipo = new Text("Tipo:");
 		hBox1.getChildren().add(txtTipo);
-		ChoiceBox<String> cbTipo = new ChoiceBox<String>();
+		final ChoiceBox<String> cbTipo = new ChoiceBox<String>();
 		cbTipo.getItems().addAll("Inteiro", "String", "Ponto flutuante");
 		cbTipo.getSelectionModel().selectFirst();
 		hBox1.getChildren().add(cbTipo);
@@ -416,7 +416,7 @@ public class Main extends Application {
 		
 		HBox hBox3 = new HBox();
 		hBox3.setSpacing(10);
-		Text txtValor = new Text("Valor Inicial:");
+		final Text txtValor = new Text("Valor Inicial:");
 		hBox3.getChildren().add(txtValor);
 		TextField tfValor = new TextField();
 		tfValor.setMaxWidth(50);
@@ -428,8 +428,8 @@ public class Main extends Application {
 		VBox vBox3 = new VBox();
 		vBox3.setSpacing(10);
 		
-		ToggleGroup tg = new ToggleGroup();
-		RadioButton rbNormal = new RadioButton("Normal");
+		final ToggleGroup tg = new ToggleGroup();
+		final RadioButton rbNormal = new RadioButton("Normal");
 		rbNormal.setToggleGroup(tg);
 		rbNormal.setSelected(true);
 		rbNormal.setTranslateX(70);
@@ -451,7 +451,16 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				String identificador = txtIdentificador.getText();
+				Integer tipoVariavel = cbTipo.getSelectionModel().
+						selectedIndexProperty().intValue();
+				String valor = txtValor.getText();
+				Boolean normal;
+				if (tg.getSelectedToggle() == rbNormal)
+					normal = true;
+				else 
+					normal = false;
 				
 			}
 			

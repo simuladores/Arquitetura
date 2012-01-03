@@ -1,5 +1,8 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
@@ -20,11 +23,18 @@ public class MemoriaInterna extends ComponenteInterno{
 	
 	private TableView<Dado> tabelaDados;
 	
+	private Map<String, Integer> mapaEnderecos;
+	
 	private TabPane tabPane;
+	
+	private Integer nextEnd;
 	
 	public MemoriaInterna() {
 		
 		super();
+		dados = FXCollections.observableArrayList();
+		mapaEnderecos = new HashMap<String, Integer>();
+		nextEnd = 1;
 		
 	}
 
@@ -91,7 +101,10 @@ public class MemoriaInterna extends ComponenteInterno{
         referenciaOp2Col.setCellValueFactory(
         		new PropertyValueFactory<Instrucao, Integer>("referenciaOp2"));
         
-        dados = FXCollections.observableArrayList(
+        /*
+         *Isso é um teste
+         * 
+         * dados = FXCollections.observableArrayList(
     			new Dado(1, 12345),
     			new Dado(1, 12345),
     			new Dado(1, 12345),
@@ -112,7 +125,7 @@ public class MemoriaInterna extends ComponenteInterno{
     			new Dado(1, 12345),
     			new Dado(1, 12345),
     			new Dado(1, 12345)
-    	);
+    	);*/
         
         TableColumn<Dado, Integer> enderecoColDado = 
         		new TableColumn<Dado, Integer>();
@@ -156,7 +169,11 @@ public class MemoriaInterna extends ComponenteInterno{
 		
 	}
 	
-	public void inserirDado(Dado d) {
+	public void inserirDado(Dado d, String var) {
+		
+		dados.add(d);
+		mapaEnderecos.put(var, nextEnd);
+		nextEnd++;
 		
 	}
 	

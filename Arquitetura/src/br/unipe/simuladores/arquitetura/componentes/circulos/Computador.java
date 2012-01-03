@@ -331,6 +331,11 @@ public class Computador extends ComponenteCirculo {
 		
 		
 	}
+	
+	public MemoriaPrincipal getMemoriaPrincipal() {
+		
+		return memoriaPrincipal;
+	}
 
 
 }

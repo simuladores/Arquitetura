@@ -249,5 +249,11 @@ public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 		timeline.play();
 		
 	}
+	
+	public MemoriaInterna getMemoriaInterna() {
+		
+		return memoriaInterna;
+		
+	}
 
 }
