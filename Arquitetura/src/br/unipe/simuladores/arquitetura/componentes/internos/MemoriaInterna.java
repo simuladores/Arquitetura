@@ -17,11 +17,11 @@ public class MemoriaInterna extends ComponenteInterno{
 	
 	private  ObservableList<Instrucao> instrucoes;
 	
-	private  ObservableList<Dado> dados;
+	private  ObservableList<Variavel> dados;
 	
 	private TableView<Instrucao> tabelaInstrucoes;
 	
-	private TableView<Dado> tabelaDados;
+	private TableView<Variavel> tabelaDados;
 	
 	private Map<String, Integer> mapaEnderecos;
 	
@@ -127,23 +127,23 @@ public class MemoriaInterna extends ComponenteInterno{
     			new Dado(1, 12345)
     	);*/
         
-        TableColumn<Dado, Integer> enderecoColDado = 
-        		new TableColumn<Dado, Integer>();
+        TableColumn<Variavel, Integer> enderecoColDado = 
+        		new TableColumn<Variavel, Integer>();
         enderecoColDado.setText("Endereço");
         enderecoColDado.setCellValueFactory(
-        		new PropertyValueFactory<Dado, Integer>("endereco"));
-        TableColumn<Dado, Integer> dataCol = 
-        		new TableColumn<Dado, Integer>();
+        		new PropertyValueFactory<Variavel, Integer>("endereco"));
+        TableColumn<Variavel, Integer> dataCol = 
+        		new TableColumn<Variavel, Integer>();
         dataCol.setText("Dado");
         dataCol.setCellValueFactory(
-        		new PropertyValueFactory<Dado, Integer>("data"));
+        		new PropertyValueFactory<Variavel, Integer>("data"));
                
         tabelaInstrucoes = new TableView<Instrucao>();
         tabelaInstrucoes.setItems(instrucoes);
         tabelaInstrucoes.getColumns().addAll(enderecoColInst, opcodeCol, referenciaOp1Col, 
         		referenciaOp2Col);
         
-        tabelaDados = new TableView<Dado>();
+        tabelaDados = new TableView<Variavel>();
         tabelaDados.setItems(dados);
         tabelaDados.getColumns().clear();
         dataCol.setMinWidth(230);
@@ -169,7 +169,7 @@ public class MemoriaInterna extends ComponenteInterno{
 		
 	}
 	
-	public void inserirDado(Dado d, String var) {
+	public void inserirDado(Variavel d, String var) {
 		
 		dados.add(d);
 		mapaEnderecos.put(var, nextEnd);

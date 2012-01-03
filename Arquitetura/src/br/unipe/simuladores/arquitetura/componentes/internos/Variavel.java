@@ -4,13 +4,13 @@ import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Dado extends CelulaMemoria {
+public class Variavel extends CelulaMemoria {
 	
 	private IntegerProperty data;
 	
 	private TipoVariavel tipo;
 	
-	public Dado(Integer end, Integer d, TipoVariavel t) {
+	public Variavel(Integer end, Integer d, TipoVariavel t) {
 		
 		super(end);
 		data = new SimpleIntegerProperty(d);
