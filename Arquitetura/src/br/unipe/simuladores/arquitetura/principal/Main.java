@@ -2,6 +2,8 @@ package br.unipe.simuladores.arquitetura.principal;
 
 import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
 import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
+import br.unipe.simuladores.arquitetura.componentes.internos.Variavel;
+import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -462,6 +464,8 @@ public class Main extends Application {
 				else 
 					normal = false;
 				
+				inserirVariavelMemoria(identificador, tipoVariavel, valor, normal);
+				
 			}
 			
 		});
@@ -474,6 +478,22 @@ public class Main extends Application {
 		stage.setScene(scene);
 		
 		return stage;
+		
+	}
+	
+	public void inserirVariavelMemoria(String id, Integer tipo, String val, Boolean normal) {
+		
+		TipoVariavel tpVariavel = null;
+		
+		switch(tipo) {
+		case 0: tpVariavel = TipoVariavel.INTEIRO; break;
+		case 1: tpVariavel = TipoVariavel.STRING; break;
+		case 2: tpVariavel = TipoVariavel.PONTO_FLUTUANTE; break;
+		}
+		
+		Variavel variavel = new Variavel(val, tpVariavel, normal);
+		computador.getMemoriaPrincipal().getMemoriaInterna().
+			inserirDado(variavel, id);
 		
 	}
 	

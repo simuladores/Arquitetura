@@ -17,11 +17,11 @@ public class MemoriaInterna extends ComponenteInterno{
 	
 	private  ObservableList<Instrucao> instrucoes;
 	
-	private  ObservableList<Variavel> dados;
+	private  ObservableList<Variavel> variaveis;
 	
 	private TableView<Instrucao> tabelaInstrucoes;
 	
-	private TableView<Variavel> tabelaDados;
+	private TableView<Variavel> tabelaVariaveis;
 	
 	private Map<String, Integer> mapaEnderecos;
 	
@@ -32,7 +32,7 @@ public class MemoriaInterna extends ComponenteInterno{
 	public MemoriaInterna() {
 		
 		super();
-		dados = FXCollections.observableArrayList();
+		variaveis = FXCollections.observableArrayList();
 		mapaEnderecos = new HashMap<String, Integer>();
 		nextEnd = 1;
 		
@@ -132,22 +132,22 @@ public class MemoriaInterna extends ComponenteInterno{
         enderecoColDado.setText("Endereço");
         enderecoColDado.setCellValueFactory(
         		new PropertyValueFactory<Variavel, Integer>("endereco"));
-        TableColumn<Variavel, Integer> dataCol = 
-        		new TableColumn<Variavel, Integer>();
+        TableColumn<Variavel, String> dataCol = 
+        		new TableColumn<Variavel, String>();
         dataCol.setText("Dado");
         dataCol.setCellValueFactory(
-        		new PropertyValueFactory<Variavel, Integer>("data"));
+        		new PropertyValueFactory<Variavel, String>("data"));
                
         tabelaInstrucoes = new TableView<Instrucao>();
         tabelaInstrucoes.setItems(instrucoes);
         tabelaInstrucoes.getColumns().addAll(enderecoColInst, opcodeCol, referenciaOp1Col, 
         		referenciaOp2Col);
         
-        tabelaDados = new TableView<Variavel>();
-        tabelaDados.setItems(dados);
-        tabelaDados.getColumns().clear();
+        tabelaVariaveis = new TableView<Variavel>();
+        tabelaVariaveis.setItems(variaveis);
+        tabelaVariaveis.getColumns().clear();
         dataCol.setMinWidth(230);
-        tabelaDados.getColumns().addAll(enderecoColDado, dataCol);
+        tabelaVariaveis.getColumns().addAll(enderecoColDado, dataCol);
         
         tabPane.setTranslateX(700);
         tabPane.setTranslateY(20);
@@ -161,7 +161,7 @@ public class MemoriaInterna extends ComponenteInterno{
         
         Tab dadosTab = new Tab();
         dadosTab.setText("Dados");
-        dadosTab.setContent(tabelaDados);
+        dadosTab.setContent(tabelaVariaveis);
         
         tabPane.getTabs().add(dadosTab);
 		
@@ -169,9 +169,9 @@ public class MemoriaInterna extends ComponenteInterno{
 		
 	}
 	
-	public void inserirDado(Variavel d, String var) {
+	public void inserirDado(Variavel v, String var) {
 		
-		dados.add(d);
+		variaveis.add(v);
 		mapaEnderecos.put(var, nextEnd);
 		nextEnd++;
 		

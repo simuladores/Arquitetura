@@ -7,6 +7,12 @@ public abstract class CelulaMemoria {
 	
 	protected IntegerProperty endereco;
 	
+	public CelulaMemoria() {
+		
+		endereco = new SimpleIntegerProperty(0);
+		
+	}
+	
 	public CelulaMemoria(Integer end) {
 		
 		endereco = new SimpleIntegerProperty(end);
