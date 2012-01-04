@@ -1,8 +1,6 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
 import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 

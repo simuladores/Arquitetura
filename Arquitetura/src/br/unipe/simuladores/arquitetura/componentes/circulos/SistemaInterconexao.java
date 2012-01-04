@@ -3,7 +3,6 @@ package br.unipe.simuladores.arquitetura.componentes.circulos;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
 import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;
 import br.unipe.simuladores.arquitetura.componentes.internos.Quebravel;
-import br.unipe.simuladores.arquitetura.principal.Main;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

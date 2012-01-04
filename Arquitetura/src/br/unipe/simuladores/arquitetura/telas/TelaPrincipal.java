@@ -19,7 +19,7 @@ public class TelaPrincipal extends Tela{
 
 	private static Group group;
 	private static final Computador computador = new Computador();
-	private MenuBar menuSuperior;
+	private static MenuBar menuSuperior;
 	private boolean started = false;
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
@@ -83,6 +83,7 @@ public class TelaPrincipal extends Tela{
 		    	inserirInstrucoes.exibir();
 		    }
 		});
+		instrucoes.setDisable(true);
 		inserir.getItems().add(instrucoes);
 		MenuItem variavel = new MenuItem("Variável");
 		variavel.setOnAction(new EventHandler<ActionEvent>() {
@@ -93,6 +94,7 @@ public class TelaPrincipal extends Tela{
 		    	inserirVariavel.exibir();
 		    }
 		});
+		variavel.setDisable(true);
 		inserir.getItems().add(variavel);
 		
 		Menu outros = new Menu("Outros");
@@ -150,6 +152,10 @@ public class TelaPrincipal extends Tela{
 	
 	public static Computador getComputador() {
 		return computador;
+	}
+	
+	public static MenuBar getMenuSuperior() {
+		return menuSuperior;
 	}
 
 }
