@@ -8,6 +8,7 @@ import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
 import br.unipe.simuladores.arquitetura.componentes.internos.Variavel;
 import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
 import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
+import br.unipe.simuladores.arquitetura.excecoes.VariavelExistenteException;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -473,6 +474,8 @@ public class Main extends Application {
 					stage.close();
 				} catch (DadosInvalidosException die) {
 					exibirJanelaMensagemErro(die.getMessage());
+				} catch (VariavelExistenteException vee) {
+					exibirJanelaMensagemErro(vee.getMessage());
 				}
 				
 			}
@@ -490,7 +493,7 @@ public class Main extends Application {
 		
 	}
 	
-	public void inserirVariavelMemoria(String id, Integer tipo, String val, Boolean normal) throws DadosInvalidosException{
+	public void inserirVariavelMemoria(String id, Integer tipo, String val, Boolean normal) throws DadosInvalidosException, VariavelExistenteException{
 		
 		TipoVariavel tpVariavel = null;
 		

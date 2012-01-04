@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
+import br.unipe.simuladores.arquitetura.excecoes.VariavelExistenteException;
 
 public class MemoriaInterna extends ComponenteInterno{
 	
@@ -169,8 +170,11 @@ public class MemoriaInterna extends ComponenteInterno{
 		
 	}
 	
-	public void inserirDado(Variavel v, String var) {
+	public void inserirDado(Variavel v, String var) throws VariavelExistenteException {
 		
+		if (mapaEnderecos.containsKey(var))
+			throw new VariavelExistenteException("A variável já existe. Informe outro identificador");
+			
 		v.endereco.setValue(nextEnd);
 		variaveis.add(v);
 		tabelaVariaveis.setItems(variaveis);
