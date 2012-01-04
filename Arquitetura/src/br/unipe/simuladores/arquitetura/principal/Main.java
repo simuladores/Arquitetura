@@ -1,9 +1,13 @@
 package br.unipe.simuladores.arquitetura.principal;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
 import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
 import br.unipe.simuladores.arquitetura.componentes.internos.Variavel;
 import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
+import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -464,8 +468,12 @@ public class Main extends Application {
 				else 
 					normal = false;
 				
-				inserirVariavelMemoria(identificador, tipoVariavel, valor, normal);
-				stage.close();
+				try {
+					inserirVariavelMemoria(identificador, tipoVariavel, valor, normal);
+					stage.close();
+				} catch (DadosInvalidosException die) {
+					exibirJanelaMensagemErro(die.getMessage());
+				}
 				
 			}
 			
@@ -482,7 +490,7 @@ public class Main extends Application {
 		
 	}
 	
-	public void inserirVariavelMemoria(String id, Integer tipo, String val, Boolean normal) {
+	public void inserirVariavelMemoria(String id, Integer tipo, String val, Boolean normal) throws DadosInvalidosException{
 		
 		TipoVariavel tpVariavel = null;
 		
@@ -492,9 +500,84 @@ public class Main extends Application {
 		case 2: tpVariavel = TipoVariavel.PONTO_FLUTUANTE; break;
 		}
 		
+		validarDadosInserirVariavel(id, val, tpVariavel);
+		
 		Variavel variavel = new Variavel(val, tpVariavel, normal);
 		computador.getMemoriaPrincipal().getMemoriaInterna().
 			inserirDado(variavel, id);
+		
+	}
+	
+	private void validarDadosInserirVariavel(String id, String valor, TipoVariavel tp) throws DadosInvalidosException{
+		
+		if (id.isEmpty()) 
+			throw new DadosInvalidosException("Por favor, informe um identificador");
+		
+		if (valor.isEmpty()) 
+			throw new DadosInvalidosException("Por favor, informe um valor");
+		
+		Pattern padraoId = Pattern.compile("([a-zA-Z])\\w*");
+		Matcher pesquisa = padraoId.matcher(id);
+		
+		if(!pesquisa.matches())
+			throw new DadosInvalidosException(id+" não é um identificador válido");
+		
+		if (tp == TipoVariavel.INTEIRO) {
+			
+			try {
+				Integer.parseInt(valor);
+			}catch(NumberFormatException nfe) {
+				throw new DadosInvalidosException("O valor informado não é um número inteiro");
+			}
+			
+			
+		} else if (tp == TipoVariavel.PONTO_FLUTUANTE) {
+			
+			try {
+				Float.parseFloat(valor);
+			}catch(NumberFormatException nfe) {
+				throw new DadosInvalidosException("O valor informado não é um número de ponto flutuante");
+			}
+			
+		}
+		
+		
+	}
+	
+	private void exibirJanelaMensagemErro (String errMsg) {
+		
+		final Stage stage = new Stage();
+		stage.setTitle("Erro");
+		Group root = new Group();
+		Scene scene = new Scene(root, Color.rgb(245, 245, 245));
+		
+		VBox vBox = new VBox();
+		vBox.setPadding(new Insets(5, 5, 5, 5));
+		vBox.setSpacing(20);
+		Text txtErro = new Text(errMsg);
+		vBox.getChildren().add(txtErro);
+		
+		HBox hBox = new HBox();
+		hBox.setAlignment(Pos.CENTER);
+		Button btn = new Button("OK");
+		btn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				stage.close();
+				
+			}
+			
+		});
+		hBox.getChildren().add(btn);
+		
+		vBox.getChildren().add(hBox);
+		
+		root.getChildren().add(vBox);
+		
+		stage.setScene(scene);
+		stage.show();
 		
 	}
 	
