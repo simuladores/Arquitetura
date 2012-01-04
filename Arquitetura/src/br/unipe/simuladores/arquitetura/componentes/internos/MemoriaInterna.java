@@ -171,7 +171,9 @@ public class MemoriaInterna extends ComponenteInterno{
 	
 	public void inserirDado(Variavel v, String var) {
 		
+		v.endereco.setValue(nextEnd);
 		variaveis.add(v);
+		tabelaVariaveis.setItems(variaveis);
 		mapaEnderecos.put(var, nextEnd);
 		nextEnd++;
 		

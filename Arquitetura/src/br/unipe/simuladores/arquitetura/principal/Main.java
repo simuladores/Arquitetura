@@ -387,7 +387,7 @@ public class Main extends Application {
 	
 	private Stage criarFormularioInserirVariavel() {
 		
-		Stage stage = new Stage();
+		final Stage stage = new Stage();
 		stage.setTitle("Inserir Variável");
 		Group root = new Group();
 		Scene scene = new Scene(root, Color.rgb(245, 245, 245));
@@ -398,9 +398,9 @@ public class Main extends Application {
 		
 		HBox hBox1 = new HBox();
 		hBox1.setSpacing(10);
-		final Text txtIdentificador = new Text("Indentificador [A-Z]:");
+	    Text txtIdentificador = new Text("Indentificador [A-Z]:");
 		hBox1.getChildren().add(txtIdentificador);
-		TextField tfIdentificador = new TextField();
+		final TextField tfIdentificador = new TextField();
 		tfIdentificador.setMaxWidth(50);
 		hBox1.getChildren().add(tfIdentificador);
 		Text txtTipo = new Text("Tipo:");
@@ -420,7 +420,7 @@ public class Main extends Application {
 		hBox3.setSpacing(10);
 		final Text txtValor = new Text("Valor Inicial:");
 		hBox3.getChildren().add(txtValor);
-		TextField tfValor = new TextField();
+		final TextField tfValor = new TextField();
 		tfValor.setMaxWidth(50);
 		hBox3.getChildren().add(tfValor);
 		vBox2.getChildren().add(hBox3);
@@ -438,7 +438,7 @@ public class Main extends Application {
 		vBox3.getChildren().add(rbNormal);
 		RadioButton rbPonteiro = new RadioButton("Ponteiro");
 		rbPonteiro.setToggleGroup(tg);
-		rbPonteiro.setSelected(true);
+		rbPonteiro.setSelected(false);
 		rbPonteiro.setTranslateX(70);
 		vBox3.getChildren().add(rbPonteiro);
 		
@@ -453,11 +453,11 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent e) {
-				
-				String identificador = txtIdentificador.getText();
+		
+				String identificador = tfIdentificador.getText();
 				Integer tipoVariavel = cbTipo.getSelectionModel().
 						selectedIndexProperty().intValue();
-				String valor = txtValor.getText();
+				String valor = tfValor.getText();
 				Boolean normal;
 				if (tg.getSelectedToggle() == rbNormal)
 					normal = true;
@@ -465,6 +465,7 @@ public class Main extends Application {
 					normal = false;
 				
 				inserirVariavelMemoria(identificador, tipoVariavel, valor, normal);
+				stage.close();
 				
 			}
 			
