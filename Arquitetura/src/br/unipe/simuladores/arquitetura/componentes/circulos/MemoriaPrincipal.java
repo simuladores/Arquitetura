@@ -4,6 +4,7 @@ import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.Quebravel;
 import br.unipe.simuladores.arquitetura.principal.Main;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -68,8 +69,8 @@ public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 					final Line linha = new Line();
 					final Line linha2 = new Line();
 					
-					Main.adicionarAoPalco(linha);
-					Main.adicionarAoPalco(linha2);
+					TelaPrincipal.adicionarAoPalco(linha);
+					TelaPrincipal.adicionarAoPalco(linha2);
 					
 					linha.toBack();
 					linha2.toBack();
@@ -219,7 +220,7 @@ public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 				if(group.getOpacity() != 0.0f) {
 
 					memoriaInterna = new MemoriaInterna();
-					Main.adicionarAoPalco(memoriaInterna.getContent());
+					TelaPrincipal.adicionarAoPalco(memoriaInterna.getContent());
 					
 					quebrar(3000);
 					memoriaInterna.surgir(3000);

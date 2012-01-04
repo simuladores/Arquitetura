@@ -2,6 +2,7 @@ package br.unipe.simuladores.arquitetura.componentes.circulos;
 
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
 import br.unipe.simuladores.arquitetura.principal.Main;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -60,8 +61,8 @@ public class EntradaSaida extends ComponenteCirculo{
 					final Line linha = new Line();
 					final Line linha2 = new Line();
 					
-					Main.adicionarAoPalco(linha);
-					Main.adicionarAoPalco(linha2);
+					TelaPrincipal.adicionarAoPalco(linha);
+					TelaPrincipal.adicionarAoPalco(linha2);
 					
 					linha.toBack();
 					linha2.toBack();

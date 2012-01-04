@@ -4,6 +4,7 @@ import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo
 import br.unipe.simuladores.arquitetura.componentes.internos.Quebravel;
 import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
 import br.unipe.simuladores.arquitetura.principal.Main;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -68,8 +69,8 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 				final Line linha = new Line();
 				final Line linha2 = new Line();
 				
-				Main.adicionarAoPalco(linha);
-				Main.adicionarAoPalco(linha2);
+				TelaPrincipal.adicionarAoPalco(linha);
+				TelaPrincipal.adicionarAoPalco(linha2);
 				
 				linha.toBack();
 				linha2.toBack();
@@ -247,7 +248,7 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 				if(group.getOpacity() != 0.0f) {
 
 					ucpInterna = new UCPInterna();
-					Main.adicionarAoPalco(ucpInterna.getContent());
+					TelaPrincipal.adicionarAoPalco(ucpInterna.getContent());
 					
 					quebrar(3000);
 					ucpInterna.surgir(3000);

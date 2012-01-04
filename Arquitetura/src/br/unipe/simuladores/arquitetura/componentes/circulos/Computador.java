@@ -2,6 +2,7 @@ package br.unipe.simuladores.arquitetura.componentes.circulos;
 
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
 import br.unipe.simuladores.arquitetura.principal.Main;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -244,7 +245,7 @@ public class Computador extends ComponenteCirculo {
 				encolher(1, 0.5, 3000);
 			    
 				if (!memoriaPrincipal.isExpanded()) { 
-					Main.adicionarAoPalco(memoriaPrincipal.getContent());
+					TelaPrincipal.adicionarAoPalco(memoriaPrincipal.getContent());
 					memoriaPrincipal.expandir(1, 2, 3000);
 				}
 	
@@ -283,7 +284,7 @@ public class Computador extends ComponenteCirculo {
 				encolher(1, 0.5, 3000);
 			    
 				if (!ucp.isExpanded()) { 
-					Main.adicionarAoPalco(ucp.getContent());
+					TelaPrincipal.adicionarAoPalco(ucp.getContent());
 					ucp.expandir(1, 2.5, 3000);
 				}
 	
@@ -300,7 +301,7 @@ public class Computador extends ComponenteCirculo {
 				encolher(1, 0.5, 3000);
 			    
 				if (!entradaSaida.isExpanded()) { 
-					Main.adicionarAoPalco(entradaSaida.getContent());
+					TelaPrincipal.adicionarAoPalco(entradaSaida.getContent());
 					entradaSaida.expandir(1, 2.5, 3000);
 				}
 	
@@ -318,7 +319,7 @@ public class Computador extends ComponenteCirculo {
 					
 					if (! sistemaInterconexao.isExpanded()) {
 						
-						Main.adicionarAoPalco(sistemaInterconexao.getContent());
+						TelaPrincipal.adicionarAoPalco(sistemaInterconexao.getContent());
 						sistemaInterconexao.expandir(1, 2.5, 3000);
 						
 					}
