@@ -336,6 +336,11 @@ public class Computador extends ComponenteCirculo {
 		
 		return memoriaPrincipal;
 	}
+	
+	public UCP getUCP() {
+		
+		return ucp;
+	}
 
 
 }

@@ -21,8 +21,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class TelaInserirVariavel extends Tela{
+public class TelaInserirVariavel extends Tela implements Formulario{
 
+	private final TextField tfIdentificador = new TextField();
+	private final ChoiceBox<String> cbTipo = new ChoiceBox<String>();
+	private final Text txtValor = new Text("Valor Inicial:");
+	private final TextField tfValor = new TextField();
+	private final ToggleGroup tg = new ToggleGroup();
+	private Button btnInserirVar = new Button("Inserir");
+	private TipoVariavel tipoVariavel;
+	private final RadioButton rbNormal = new RadioButton("Normal");
+	private RadioButton rbPonteiro = new RadioButton("Ponteiro");
+	private Boolean normal;
+	
 	public TelaInserirVariavel(String titulo, Color cor) {		
 		super(titulo, cor);
 		criar();		
@@ -39,12 +50,10 @@ public class TelaInserirVariavel extends Tela{
 		hBox1.setSpacing(10);
 	    Text txtIdentificador = new Text("Indentificador [A-Z]:");
 		hBox1.getChildren().add(txtIdentificador);
-		final TextField tfIdentificador = new TextField();
 		tfIdentificador.setMaxWidth(50);
 		hBox1.getChildren().add(tfIdentificador);
 		Text txtTipo = new Text("Tipo:");
 		hBox1.getChildren().add(txtTipo);
-		final ChoiceBox<String> cbTipo = new ChoiceBox<String>();
 		cbTipo.getItems().addAll("Inteiro", "String", "Ponto flutuante");
 		cbTipo.getSelectionModel().selectFirst();
 		hBox1.getChildren().add(cbTipo);
@@ -57,9 +66,7 @@ public class TelaInserirVariavel extends Tela{
 		
 		HBox hBox3 = new HBox();
 		hBox3.setSpacing(10);
-		final Text txtValor = new Text("Valor Inicial:");
 		hBox3.getChildren().add(txtValor);
-		final TextField tfValor = new TextField();
 		tfValor.setMaxWidth(50);
 		hBox3.getChildren().add(tfValor);
 		vBox2.getChildren().add(hBox3);
@@ -69,13 +76,10 @@ public class TelaInserirVariavel extends Tela{
 		VBox vBox3 = new VBox();
 		vBox3.setSpacing(10);
 		
-		final ToggleGroup tg = new ToggleGroup();
-		final RadioButton rbNormal = new RadioButton("Normal");
 		rbNormal.setToggleGroup(tg);
 		rbNormal.setSelected(true);
 		rbNormal.setTranslateX(70);
 		vBox3.getChildren().add(rbNormal);
-		RadioButton rbPonteiro = new RadioButton("Ponteiro");
 		rbPonteiro.setToggleGroup(tg);
 		rbPonteiro.setSelected(false);
 		rbPonteiro.setTranslateX(70);
@@ -87,24 +91,13 @@ public class TelaInserirVariavel extends Tela{
 		
 		HBox hBox4 = new HBox();
 		hBox4.setAlignment(Pos.CENTER);
-		Button btnInserirVar = new Button("Inserir");
 		btnInserirVar.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
-		
-				String identificador = tfIdentificador.getText();
-				Integer tipoVariavel = cbTipo.getSelectionModel().
-						selectedIndexProperty().intValue();
-				String valor = tfValor.getText();
-				Boolean normal;
-				if (tg.getSelectedToggle() == rbNormal)
-					normal = true;
-				else 
-					normal = false;
 				
 				try {
-					inserirVariavelMemoria(identificador, tipoVariavel, valor, normal);
+					inserirVariavelMemoria();
 					stage.close();
 				} catch (DadosInvalidosException die) {
 					TelaErro erro = new TelaErro("Erro", Color.rgb(245, 245, 245),
@@ -127,39 +120,40 @@ public class TelaInserirVariavel extends Tela{
 		
 	}
 	
-	public void inserirVariavelMemoria(String id, Integer tipo, String val, Boolean normal) throws DadosInvalidosException, VariavelExistenteException{
+	public void inserirVariavelMemoria() throws DadosInvalidosException, VariavelExistenteException{
 		
-		TipoVariavel tpVariavel = null;
+		tipoVariavel = obterTipoVariavel();
 		
-		switch(tipo) {
-		case 0: tpVariavel = TipoVariavel.INTEIRO; break;
-		case 1: tpVariavel = TipoVariavel.STRING; break;
-		case 2: tpVariavel = TipoVariavel.PONTO_FLUTUANTE; break;
-		}
+		validarDados();
 		
-		validarDadosInserirVariavel(id, val, tpVariavel);
-		
-		Variavel variavel = new Variavel(val, tpVariavel, normal);
+		Variavel variavel = new Variavel(tfValor.getText(), tipoVariavel, normal);
 		TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().
-			inserirDado(variavel, id);
+			inserirDado(variavel, tfIdentificador.getText());
 		
 	}
 	
-	private void validarDadosInserirVariavel(String id, String valor, TipoVariavel tp) throws DadosInvalidosException{
+	public void validarDados() throws DadosInvalidosException{
 		
-		if (id.isEmpty()) 
+		String identificador = tfIdentificador.getText();
+		String valor = tfValor.getText();
+		if (tg.getSelectedToggle() == rbNormal)
+			normal = true;
+		else 
+			normal = false;
+		
+		if (identificador.isEmpty()) 
 			throw new DadosInvalidosException("Por favor, informe um identificador");
 		
 		if (valor.isEmpty()) 
 			throw new DadosInvalidosException("Por favor, informe um valor");
 		
 		Pattern padraoId = Pattern.compile("([a-zA-Z])\\w*");
-		Matcher pesquisa = padraoId.matcher(id);
+		Matcher pesquisa = padraoId.matcher(identificador);
 		
 		if(!pesquisa.matches())
-			throw new DadosInvalidosException(id+" não é um identificador válido");
+			throw new DadosInvalidosException(identificador+" não é um identificador válido");
 		
-		if (tp == TipoVariavel.INTEIRO) {
+		if (tipoVariavel == TipoVariavel.INTEIRO) {
 			
 			try {
 				Integer.parseInt(valor);
@@ -168,7 +162,7 @@ public class TelaInserirVariavel extends Tela{
 			}
 			
 			
-		} else if (tp == TipoVariavel.PONTO_FLUTUANTE) {
+		} else if (tipoVariavel == TipoVariavel.PONTO_FLUTUANTE) {
 			
 			try {
 				Float.parseFloat(valor);
@@ -178,6 +172,21 @@ public class TelaInserirVariavel extends Tela{
 			
 		}
 		
+		
+	}
+	
+	private TipoVariavel obterTipoVariavel() {
+		
+		TipoVariavel tpVariavel = null;
+		
+		switch( cbTipo.getSelectionModel().
+				selectedIndexProperty().intValue()) {
+		case 0: tpVariavel = TipoVariavel.INTEIRO; break;
+		case 1: tpVariavel = TipoVariavel.STRING; break;
+		case 2: tpVariavel = TipoVariavel.PONTO_FLUTUANTE; break;
+		}
+		
+		return tpVariavel;
 		
 	}
 

@@ -172,7 +172,7 @@ public class MemoriaInterna extends ComponenteInterno{
 	
 	public void inserirDado(Variavel v, String var) throws VariavelExistenteException {
 		
-		if (mapaEnderecos.containsKey(var))
+		if (contemVar(var))
 			throw new VariavelExistenteException("A variável já existe. Informe outro identificador");
 			
 		v.endereco.setValue(nextEnd);
@@ -183,7 +183,42 @@ public class MemoriaInterna extends ComponenteInterno{
 		
 	}
 	
-	public void inserirInstrucao(Instrucao d) {
+	public void inserirInstrucao(Instrucao i) {
+		
+		i.endereco.setValue(nextEnd);
+		instrucoes.add(i);
+		tabelaInstrucoes.setItems(instrucoes);
+		nextEnd++;
+		
+	}
+	
+	public boolean contemVar(String var) {
+		
+		if (mapaEnderecos.containsKey(var))
+			return true;
+		
+		return false;
+		
+	}
+	
+	public boolean ehPonteiro(String var) {
+		
+		if (!contemVar(var))
+			return false;
+		Integer endereco = mapaEnderecos.get(var);
+		
+		for (Variavel v : variaveis) {
+			
+			if (v.endereco.getValue().equals(endereco)) {
+				if (v.getNormal())
+					return false;
+				else 
+					return true;
+			}
+			
+		}
+		
+		return false;
 		
 	}
 

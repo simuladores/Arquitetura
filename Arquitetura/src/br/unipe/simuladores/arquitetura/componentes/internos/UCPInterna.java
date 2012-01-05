@@ -2,6 +2,7 @@ package br.unipe.simuladores.arquitetura.componentes.internos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -23,12 +24,19 @@ public class UCPInterna extends ComponenteInterno{
 	private Rectangle ioar;
 	private Rectangle iobr;
 	
+	private Map<String, Integer> mapaRegistradores;
+	
 	private Group grupoRegistradores; 
 	
 	
 	public UCPInterna() {
 		
 		super();
+		
+		mapaRegistradores.put("R1", 0);
+		mapaRegistradores.put("R2", 0);
+		mapaRegistradores.put("R3", 0);
+		mapaRegistradores.put("R4", 0);
 		
 	}
 
@@ -222,6 +230,15 @@ public class UCPInterna extends ComponenteInterno{
 	@Override
 	protected void definirAcoesEspecificas() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean contemRegistrador(String reg) {
+		
+		if (mapaRegistradores.containsKey(reg))
+			return true;
+		
+		return false;
 		
 	}
 

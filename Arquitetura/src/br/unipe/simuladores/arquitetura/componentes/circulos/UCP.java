@@ -278,5 +278,11 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 		timeline.play();
 		
 	}
+	
+	public UCPInterna getUCPInterna() {
+		
+		return ucpInterna;
+		
+	}
 
 }
