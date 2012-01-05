@@ -1,6 +1,7 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,8 @@ public class UCPInterna extends ComponenteInterno{
 	public UCPInterna() {
 		
 		super();
+		
+		mapaRegistradores = new HashMap<String, Integer>();
 		
 		mapaRegistradores.put("R1", 0);
 		mapaRegistradores.put("R2", 0);

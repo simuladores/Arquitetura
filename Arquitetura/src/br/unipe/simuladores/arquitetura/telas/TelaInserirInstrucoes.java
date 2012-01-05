@@ -108,21 +108,33 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 		
 		vBox.getChildren().add(hBox3);
 		
+		VBox vBox2 = new VBox();
+		vBox2.setSpacing(50);
+		
 		HBox hBox4 = new HBox();
 		hBox4.setAlignment(Pos.CENTER);
 		btnInserir.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override
-			public void handle(ActionEvent arg0) {
+			public void handle(ActionEvent e) {
 				
-				
+				try {
+					validarDados();
+				} catch(DadosInvalidosException die) {
+					
+					TelaErro erro = new TelaErro
+							("Erro", Color.rgb(245, 245, 245), die.getMessage());
+					
+					erro.exibir();
+					
+				}
 				
 			}
 			
 		});
-		btnInserir.setTranslateY(50);
+		btnInserir.setTranslateY(40);
 		hBox4.getChildren().add(btnInserir);
-		vBox.getChildren().add(hBox4);
+		vBox2.getChildren().add(hBox4);
 		
 		HBox hBox5 = new HBox();
 		hBox5.setAlignment(Pos.CENTER);
@@ -131,20 +143,22 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 		lstInstrucoes.setMaxWidth(200);
 		lstInstrucoes.setMaxHeight(100);
 		lstInstrucoes.setEditable(false);
-		lstInstrucoes.setTranslateY(70);
+		lstInstrucoes.setTranslateY(10);
 		hBox5.getChildren().add(lstInstrucoes);
-		VBox vBox2 = new VBox();
-		vBox2.setAlignment(Pos.CENTER);
-		btnRemover.setTranslateY(70);
-		vBox2.getChildren().add(btnRemover);
-		hBox5.getChildren().add(vBox2);
-		vBox.getChildren().add(hBox5);
+		VBox vBox3 = new VBox();
+		vBox3.setAlignment(Pos.CENTER);
+		btnRemover.setTranslateY(10);
+		vBox3.getChildren().add(btnRemover);
+		hBox5.getChildren().add(vBox3);
+		vBox2.getChildren().add(hBox5);
 		
 		HBox hBox6 = new HBox();
 		hBox6.setAlignment(Pos.CENTER);
-		btnIniciar.setTranslateY(90);
+		btnIniciar.setTranslateY(10);
 	    hBox6.getChildren().add(btnIniciar);
-	    vBox.getChildren().add(hBox6);
+	    vBox2.getChildren().add(hBox6);
+	    
+	    vBox.getChildren().add(vBox2);
 		
 		root.getChildren().add(vBox);
 		
@@ -241,9 +255,9 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 				try {
 					Float.parseFloat(valor);
 				}catch(NumberFormatException nfe2) {
-					throw new DadosInvalidosException("O valor informado para o operando 1 precisa ser um inteiro ou ponto flutuante");
+					throw new DadosInvalidosException("O valor informado para o operando 2 precisa ser um inteiro ou ponto flutuante");
 				}
-				throw new DadosInvalidosException("O valor informado para o operando 1 precisa ser um inteiro ou ponto flutuante");
+				throw new DadosInvalidosException("O valor informado para o operando 2 precisa ser um inteiro ou ponto flutuante");
 			}
 		}break;
 		case INDIRETO: {
