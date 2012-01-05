@@ -2,7 +2,10 @@ package br.unipe.simuladores.arquitetura.telas;
 
 import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
+import br.unipe.simuladores.arquitetura.enums.Operacao;
 import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -31,6 +34,8 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 	private Button btnIniciar = new Button("Iniciar Simulação");
 	private ModoEnderecamento modo1;
 	private ModoEnderecamento modo2;
+	private Operacao operacao;
+	private ObservableList<String> instrucoes = FXCollections.observableArrayList();
 	
 	public TelaInserirInstrucoes(String titulo, Color cor, double height, double width) {
 		super(titulo, cor, height, width);
@@ -119,7 +124,25 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 			public void handle(ActionEvent e) {
 				
 				try {
+										
 					validarDados();
+					
+					String instrucao = new String();
+					
+					operacao = obterOperacao(cbTipo);
+					
+					switch (operacao) {
+					case MOV: instrucao += "MOV ";break;
+					case ADD: instrucao += "ADD ";break;
+					case SUB: instrucao += "SUB ";break;
+					case MUL: instrucao += "MUL ";break;
+					case DIV: instrucao += "DIV ";break;
+					}
+					
+					instrucao += tfValor1.getText() + ", "+tfValor2.getText();
+					instrucoes.add(instrucao);
+					lstInstrucoes.setItems(instrucoes);
+					
 				} catch(DadosInvalidosException die) {
 					
 					TelaErro erro = new TelaErro
@@ -148,6 +171,22 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 		VBox vBox3 = new VBox();
 		vBox3.setAlignment(Pos.CENTER);
 		btnRemover.setTranslateY(10);
+		btnRemover.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				Integer index = 
+						lstInstrucoes.getSelectionModel().selectedIndexProperty().
+						getValue();
+				
+				instrucoes.remove(index.intValue());
+				
+				lstInstrucoes.setItems(instrucoes);
+				
+			}
+			
+		});
 		vBox3.getChildren().add(btnRemover);
 		hBox5.getChildren().add(vBox3);
 		vBox2.getChildren().add(hBox5);
@@ -260,6 +299,10 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 				throw new DadosInvalidosException("O valor informado para o operando 2 precisa ser um inteiro ou ponto flutuante");
 			}
 		}break;
+		case DIRETO:{ 
+			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))
+				throw new DadosInvalidosException("A variável com o valor informado para o operando 2 não existe");
+		};break;
 		case INDIRETO: {
 			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))
 				throw new DadosInvalidosException("A variável com o valor informado para o operando 2 não existe");
@@ -296,8 +339,21 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 		}
 		
 		return null;
+			
+	}
+	
+	private Operacao obterOperacao (ChoiceBox<String> cb) {
 		
+		switch(cb.getSelectionModel().selectedIndexProperty().intValue()) {
+		case 0: return Operacao.MOV;
+		case 1: return Operacao.ADD;
+		case 2: return Operacao.SUB;
+		case 3: return Operacao.MUL;
+		case 4: return Operacao.DIV;
+		}
 		
+		return null;
+			
 	}
 
 }

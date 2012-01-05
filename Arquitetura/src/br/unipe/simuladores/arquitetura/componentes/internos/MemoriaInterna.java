@@ -54,7 +54,10 @@ public class MemoriaInterna extends ComponenteInterno{
 		tabPane.setSide(Side.TOP);
 		tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         
-        instrucoes = FXCollections.observableArrayList(
+        /*
+         * Isso é um teste
+         * 
+         * instrucoes = FXCollections.observableArrayList(
     			new Instrucao(1, 4, 123, 118),
     			new Instrucao(1, 4, 123, 118),
     			new Instrucao(1, 4, 123, 118),
@@ -79,7 +82,7 @@ public class MemoriaInterna extends ComponenteInterno{
     			new Instrucao(1, 4, 123, 118),
     			new Instrucao(1, 4, 123, 118),
     			new Instrucao(1, 4, 123, 118)
-    	);
+    	);*/
         
         TableColumn<Instrucao, Integer> enderecoColInst = 
         		new TableColumn<Instrucao, Integer>();

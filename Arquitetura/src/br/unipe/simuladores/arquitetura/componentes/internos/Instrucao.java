@@ -18,6 +18,15 @@ public class Instrucao extends CelulaMemoria {
 		
 	}
 	
+	public Instrucao(Integer op, Integer refOp1, Integer refOp2) {
+		
+		super(0);
+		opcode = new SimpleIntegerProperty(op);
+		referenciaOperando1 = new SimpleIntegerProperty(refOp1);
+		referenciaOperando2 = new SimpleIntegerProperty(refOp2);
+		
+	}
+	
 	public IntegerProperty opcodeProperty() {
 		
 		return opcode;
