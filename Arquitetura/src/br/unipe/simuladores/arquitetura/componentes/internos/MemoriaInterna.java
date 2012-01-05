@@ -172,7 +172,7 @@ public class MemoriaInterna extends ComponenteInterno{
 	
 	public void inserirDado(Variavel v, String var) throws VariavelExistenteException {
 		
-		if (contemVar(var))
+		if (contemVar(var, false))
 			throw new VariavelExistenteException("A variável já existe. Informe outro identificador");
 			
 		v.endereco.setValue(nextEnd);
@@ -192,33 +192,61 @@ public class MemoriaInterna extends ComponenteInterno{
 		
 	}
 	
-	public boolean contemVar(String var) {
+	public boolean contemVar(Object valor, boolean endereco) {
 		
-		if (mapaEnderecos.containsKey(var))
+		if(endereco) {
+			
+			if (mapaEnderecos.containsValue((Integer)valor))
+				return true;
+			
+			return false;
+		}
+		
+		if (mapaEnderecos.containsKey((String)valor))
 			return true;
 		
 		return false;
 		
 	}
 	
-	public boolean ehPonteiro(String var) {
+	public boolean ehPonteiro(Object valor, boolean endereco) {
 		
-		if (!contemVar(var))
+		if (!contemVar(valor, endereco))
 			return false;
-		Integer endereco = mapaEnderecos.get(var);
+		
+		Variavel v;
+		
+		if (endereco) 
+			v = procurarVariavelPorEndereco(valor);
+		else
+			v = procurarVariavelPorIdentificador(valor);
+		
+		if (v.getNormal())
+			return false;
+		else 
+			return true;
+		
+		
+	}
+	
+	private Variavel procurarVariavelPorEndereco(Object endereco) {
 		
 		for (Variavel v : variaveis) {
 			
-			if (v.endereco.getValue().equals(endereco)) {
-				if (v.getNormal())
-					return false;
-				else 
-					return true;
-			}
+			if (v.endereco.getValue().equals((Integer)endereco)) 
+				return v;
 			
 		}
 		
-		return false;
+		return null;
+		
+	}
+	
+	private Variavel procurarVariavelPorIdentificador(Object id) {
+		
+		Integer endereco = mapaEnderecos.get((String)id);
+		
+		return procurarVariavelPorEndereco(endereco);
 		
 	}
 

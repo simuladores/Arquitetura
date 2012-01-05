@@ -180,34 +180,94 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 	@Override
 	public void validarDados() throws DadosInvalidosException {
 		
-		modo1 = obterModoEnderecamento(cbModEnd1);
-		modo2 = obterModoEnderecamento(cbModEnd2);
 		String valor1 = tfValor1.getText();
 		String valor2 = tfValor2.getText();
+		
+		if (valor1.isEmpty()) 
+			throw new DadosInvalidosException("Por favor, informe um valor para o operando 1");
+		
+		if (valor2.isEmpty()) 
+			throw new DadosInvalidosException("Por favor, informe um valor para o operando 2");
+		
+		modo1 = obterModoEnderecamento(cbModEnd1);
+		modo2 = obterModoEnderecamento(cbModEnd2);
+		
+		validarEnderecamentoOperando1(valor1);
+		validarEnderecamentoOperando2(valor2);			
+		
+	}
+	
+	private void validarEnderecamentoOperando1 (String valor) throws DadosInvalidosException {
 		
 		switch(modo1) {
 		case IMEDIATO: throw new DadosInvalidosException
 			("O modo de enderçamento do operando 1 não pode ser imediato");
-		case DIRETO: 
-			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor1))
+		case DIRETO:{ 
+			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))
 				throw new DadosInvalidosException("A variável com o valor informado para o operando 1 não existe");
+		};break;
 		case INDIRETO: {
-			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor1))
+			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))
 				throw new DadosInvalidosException("A variável com o valor informado para o operando 1 não existe");
 			else {
-				if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().ehPonteiro(valor1))
+				if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().ehPonteiro(valor, false))
 					throw new DadosInvalidosException("A variável com o valor informado para o operando 1 não é um ponteiro");
 			};
-		}
-		case REGISTRADOR:
-			if(!TelaPrincipal.getComputador().getUCP().getUCPInterna().contemRegistrador(valor1))
+		}break;
+		case REGISTRADOR: {
+			if(!TelaPrincipal.getComputador().getUCP().getUCPInterna().contemRegistrador(valor))
 				throw new DadosInvalidosException("O registrador com o valor informado para o operando 1 não existe");
-		case INDIRETO_REGISTRADOR:
-			if(!TelaPrincipal.getComputador().getUCP().getUCPInterna().contemRegistrador(valor1))
+		}break;
+		case INDIRETO_REGISTRADOR: {
+			if(!TelaPrincipal.getComputador().getUCP().getUCPInterna().contemRegistrador(valor))
 				throw new DadosInvalidosException("O registrador com o valor informado para o operando 1 não existe");
+			else {
+				Integer endereco = TelaPrincipal.getComputador().getUCP().getUCPInterna().obterEnderecoRegistrador(valor);
+				if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(endereco, true))
+					throw new DadosInvalidosException("O registrador informado não contém um endereço de memória");
+			}
+		}break;
 		}
 		
-			
+	}
+	
+	private void validarEnderecamentoOperando2 (String valor) throws DadosInvalidosException {
+		
+		switch(modo2) {
+		case IMEDIATO: {
+			try {
+				Integer.parseInt(valor);
+			} catch(NumberFormatException nfe) {
+				try {
+					Float.parseFloat(valor);
+				}catch(NumberFormatException nfe2) {
+					throw new DadosInvalidosException("O valor informado para o operando 1 precisa ser um inteiro ou ponto flutuante");
+				}
+				throw new DadosInvalidosException("O valor informado para o operando 1 precisa ser um inteiro ou ponto flutuante");
+			}
+		}break;
+		case INDIRETO: {
+			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))
+				throw new DadosInvalidosException("A variável com o valor informado para o operando 2 não existe");
+			else {
+				if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().ehPonteiro(valor, false))
+					throw new DadosInvalidosException("A variável com o valor informado para o operando 2 não é um ponteiro");
+			};
+		}break;
+		case REGISTRADOR: {
+			if(!TelaPrincipal.getComputador().getUCP().getUCPInterna().contemRegistrador(valor))
+				throw new DadosInvalidosException("O registrador com o valor informado para o operando 2 não existe");
+		}break;
+		case INDIRETO_REGISTRADOR: {
+			if(!TelaPrincipal.getComputador().getUCP().getUCPInterna().contemRegistrador(valor))
+				throw new DadosInvalidosException("O registrador com o valor informado para o operando 2 não existe");
+			else {
+				Integer endereco = TelaPrincipal.getComputador().getUCP().getUCPInterna().obterEnderecoRegistrador(valor);
+				if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(endereco, true))
+					throw new DadosInvalidosException("O registrador informado não contém um endereço de memória");
+			}
+		}break;
+		}
 		
 	}
 	
