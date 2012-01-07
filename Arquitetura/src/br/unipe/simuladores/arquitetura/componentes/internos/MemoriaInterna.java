@@ -34,6 +34,7 @@ public class MemoriaInterna extends ComponenteInterno{
 		
 		super();
 		variaveis = FXCollections.observableArrayList();
+		instrucoes = FXCollections.observableArrayList();
 		mapaEnderecos = new HashMap<String, Integer>();
 		nextEnd = 1;
 		
@@ -53,36 +54,6 @@ public class MemoriaInterna extends ComponenteInterno{
 		tabPane = new TabPane();
 		tabPane.setSide(Side.TOP);
 		tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        
-        /*
-         * Isso é um teste
-         * 
-         * instrucoes = FXCollections.observableArrayList(
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118),
-    			new Instrucao(1, 4, 123, 118)
-    	);*/
         
         TableColumn<Instrucao, Integer> enderecoColInst = 
         		new TableColumn<Instrucao, Integer>();
@@ -104,32 +75,6 @@ public class MemoriaInterna extends ComponenteInterno{
         referenciaOp2Col.setText("Operando 2");
         referenciaOp2Col.setCellValueFactory(
         		new PropertyValueFactory<Instrucao, Integer>("referenciaOp2"));
-        
-        /*
-         *Isso é um teste
-         * 
-         * dados = FXCollections.observableArrayList(
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345),
-    			new Dado(1, 12345)
-    	);*/
         
         TableColumn<Variavel, Integer> enderecoColDado = 
         		new TableColumn<Variavel, Integer>();

@@ -33,6 +33,7 @@ public class Instrucao extends CelulaMemoria {
 			ModoEnderecamento modEndOp1, ModoEnderecamento modEndOp2){
 		
 		super(0);
+		opcode = new SimpleIntegerProperty(0);
 		this.gerarOpcode(operacao, modEndOp1, modEndOp2);
 		referenciaOperando1 = new SimpleIntegerProperty(refOp1);
 		referenciaOperando2 = new SimpleIntegerProperty(refOp2);

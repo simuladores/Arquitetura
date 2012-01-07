@@ -258,11 +258,11 @@ public class UCPInterna extends ComponenteInterno{
 		
 		if (reg.equalsIgnoreCase("R1")) 
 			return 1;
-		else if (reg.equalsIgnoreCase("R1")) 
+		else if (reg.equalsIgnoreCase("R2")) 
 			return 2;
-		else if (reg.equalsIgnoreCase("R1")) 
+		else if (reg.equalsIgnoreCase("R3")) 
 			return 3;
-		else if (reg.equalsIgnoreCase("R1")) 
+		else if (reg.equalsIgnoreCase("R4")) 
 			return 4;
 		
 		return 0;

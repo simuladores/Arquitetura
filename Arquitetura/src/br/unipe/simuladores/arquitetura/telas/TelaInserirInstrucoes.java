@@ -1,5 +1,8 @@
 package br.unipe.simuladores.arquitetura.telas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
 import br.unipe.simuladores.arquitetura.componentes.internos.Instrucao;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
@@ -37,6 +40,7 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 	private ModoEnderecamento modo2;
 	private Operacao operacao;
 	private ObservableList<String> instrucoes = FXCollections.observableArrayList();
+	private List<Instrucao> instrucoesList = new ArrayList<Instrucao>();
 	
 	public TelaInserirInstrucoes(String titulo, Color cor, double height, double width) {
 		super(titulo, cor, height, width);
@@ -130,10 +134,8 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 					
 					inserirInstrucaoNaLista();
 					
-                    Instrucao instrucao = construirInstrucao();
-                    
-                    TelaPrincipal.getComputador().getMemoriaPrincipal().
-                    	getMemoriaInterna().inserirInstrucao(instrucao);
+					Instrucao instrucao = construirInstrucao();
+					instrucoesList.add(instrucao);
 					
 				} catch(DadosInvalidosException die) {
 					
@@ -173,6 +175,7 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 						getValue();
 				
 				instrucoes.remove(index.intValue());
+				instrucoesList.remove(index.intValue());
 				
 				lstInstrucoes.setItems(instrucoes);
 				
@@ -187,6 +190,22 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 		hBox6.setAlignment(Pos.CENTER);
 		btnIniciar.setTranslateY(10);
 	    hBox6.getChildren().add(btnIniciar);
+	    
+	    btnIniciar.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				for (Instrucao instrucao : instrucoesList) 
+					TelaPrincipal.getComputador().getMemoriaPrincipal().
+						getMemoriaInterna().inserirInstrucao(instrucao);
+				
+				fechar();
+				
+			}
+	    	
+	    });
+	    
 	    vBox2.getChildren().add(hBox6);
 	    
 	    vBox.getChildren().add(vBox2);

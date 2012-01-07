@@ -47,11 +47,20 @@ public abstract class Tela {
 		scene = new Scene(root, cor);
 		stage.setScene(scene);
 	}
+	
+	protected void fechar() {
+		
+		stage.close();
+		System.gc();
+		
+	}
 
 	public abstract void criar() ;
 	
 	public void exibir() {
+		
 		stage.show();
+		
 	}
 	
 	public Stage getStage() {
