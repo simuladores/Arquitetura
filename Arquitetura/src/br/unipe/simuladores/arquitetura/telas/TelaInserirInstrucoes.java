@@ -1,6 +1,7 @@
 package br.unipe.simuladores.arquitetura.telas;
 
 import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
+import br.unipe.simuladores.arquitetura.componentes.internos.Instrucao;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
 import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
@@ -127,21 +128,12 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 										
 					validarDados();
 					
-					String instrucao = new String();
+					inserirInstrucaoNaLista();
 					
-					operacao = obterOperacao(cbTipo);
-					
-					switch (operacao) {
-					case MOV: instrucao += "MOV ";break;
-					case ADD: instrucao += "ADD ";break;
-					case SUB: instrucao += "SUB ";break;
-					case MUL: instrucao += "MUL ";break;
-					case DIV: instrucao += "DIV ";break;
-					}
-					
-					instrucao += tfValor1.getText() + ", "+tfValor2.getText();
-					instrucoes.add(instrucao);
-					lstInstrucoes.setItems(instrucoes);
+                    Instrucao instrucao = construirInstrucao();
+                    
+                    TelaPrincipal.getComputador().getMemoriaPrincipal().
+                    	getMemoriaInterna().inserirInstrucao(instrucao);
 					
 				} catch(DadosInvalidosException die) {
 					
@@ -275,7 +267,7 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 			if(!TelaPrincipal.getComputador().getUCP().getUCPInterna().contemRegistrador(valor))
 				throw new DadosInvalidosException("O registrador com o valor informado para o operando 1 não existe");
 			else {
-				Integer endereco = TelaPrincipal.getComputador().getUCP().getUCPInterna().obterEnderecoRegistrador(valor);
+				Integer endereco = TelaPrincipal.getComputador().getUCP().getUCPInterna().obterConteudoRegistrador(valor);
 				if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(endereco, true))
 					throw new DadosInvalidosException("O registrador informado não contém um endereço de memória");
 			}
@@ -319,7 +311,7 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 			if(!TelaPrincipal.getComputador().getUCP().getUCPInterna().contemRegistrador(valor))
 				throw new DadosInvalidosException("O registrador com o valor informado para o operando 2 não existe");
 			else {
-				Integer endereco = TelaPrincipal.getComputador().getUCP().getUCPInterna().obterEnderecoRegistrador(valor);
+				Integer endereco = TelaPrincipal.getComputador().getUCP().getUCPInterna().obterConteudoRegistrador(valor);
 				if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(endereco, true))
 					throw new DadosInvalidosException("O registrador informado não contém um endereço de memória");
 			}
@@ -355,5 +347,54 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 		return null;
 			
 	}
+	
+	private void inserirInstrucaoNaLista() {
+		
+		String instrucao = new String();
+		
+		operacao = obterOperacao(cbTipo);
+		
+		switch (operacao) {
+		case MOV: instrucao += "MOV ";break;
+		case ADD: instrucao += "ADD ";break;
+		case SUB: instrucao += "SUB ";break;
+		case MUL: instrucao += "MUL ";break;
+		case DIV: instrucao += "DIV ";break;
+		}
+		
+		instrucao += tfValor1.getText() + ", "+tfValor2.getText();
+		instrucoes.add(instrucao);
+		lstInstrucoes.setItems(instrucoes);
+		
+	}
+	
+	private Instrucao construirInstrucao() {
+		
+		Integer refOperando1 = 0;
+		Integer refOperando2;
+		
+		if (modo1 == ModoEnderecamento.DIRETO || modo1 == ModoEnderecamento.INDIRETO) 
+			refOperando1 = TelaPrincipal.getComputador().getMemoriaPrincipal().
+			getMemoriaInterna().obterEnderecoVariavel(tfValor1.getText());
+		else if (modo1 == ModoEnderecamento.REGISTRADOR || modo1 == ModoEnderecamento.INDIRETO_REGISTRADOR) 
+			refOperando1 = TelaPrincipal.getComputador().getUCP().getUCPInterna().
+			obterEnderecoRegistrador(tfValor1.getText());
+		
+		if (modo2 == ModoEnderecamento.DIRETO || modo2 == ModoEnderecamento.INDIRETO) 
+			refOperando2 = TelaPrincipal.getComputador().getMemoriaPrincipal().
+			getMemoriaInterna().obterEnderecoVariavel(tfValor2.getText());
+		else if (modo2 == ModoEnderecamento.REGISTRADOR || modo2 == ModoEnderecamento.INDIRETO_REGISTRADOR) 
+			refOperando2 = TelaPrincipal.getComputador().getUCP().getUCPInterna().
+			obterEnderecoRegistrador(tfValor2.getText());
+		else
+			refOperando2 = Integer.parseInt(tfValor2.getText());
+		
+		Instrucao instrucao = 
+				new Instrucao(refOperando1, refOperando2, operacao, modo1, modo2);
+		
+		return instrucao;
+		
+	}
+	
 
 }

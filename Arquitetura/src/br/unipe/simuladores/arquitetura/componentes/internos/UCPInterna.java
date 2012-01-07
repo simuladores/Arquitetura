@@ -245,12 +245,27 @@ public class UCPInterna extends ComponenteInterno{
 		
 	}
 	
-	public Integer obterEnderecoRegistrador(String reg) {
+	public Integer obterConteudoRegistrador(String reg) {
 		
 		if (!contemRegistrador(reg)) 
 			return null;
 		
 		return mapaRegistradores.get(reg);
+		
+	}
+	
+	public Integer obterEnderecoRegistrador(String reg) {
+		
+		if (reg.equalsIgnoreCase("R1")) 
+			return 1;
+		else if (reg.equalsIgnoreCase("R1")) 
+			return 2;
+		else if (reg.equalsIgnoreCase("R1")) 
+			return 3;
+		else if (reg.equalsIgnoreCase("R1")) 
+			return 4;
+		
+		return 0;
 		
 	}
 

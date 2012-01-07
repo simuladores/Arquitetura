@@ -252,6 +252,14 @@ public class MemoriaInterna extends ComponenteInterno{
 		return procurarVariavelPorEndereco(endereco);
 		
 	}
+	
+	public Integer obterEnderecoVariavel(String identificador) {
+		
+		Variavel variavel = procurarVariavelPorIdentificador(identificador);
+		
+		return variavel.endereco.getValue();
+		
+	}
 
 	@Override
 	protected void definirAcoesGerais() {
