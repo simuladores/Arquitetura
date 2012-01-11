@@ -302,7 +302,7 @@ public class UCPInterna extends ComponenteInterno{
 		
 		conteudo.setMbr(valor);
 		atualizarConteudoTela(valor.toString(), 975, 478);
-		
+	
 	}
 	
 	public void atualizarUC(String valor) {
