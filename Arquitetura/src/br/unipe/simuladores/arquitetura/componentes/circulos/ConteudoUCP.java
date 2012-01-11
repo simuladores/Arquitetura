@@ -1,7 +1,7 @@
 package br.unipe.simuladores.arquitetura.componentes.circulos;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConteudoUCP {
 	
@@ -11,8 +11,16 @@ public class ConteudoUCP {
 	private String uc;
 	private String ir;	
 	private ULA ula;
-	private List<Integer> registradores;
+	private Map<String, Integer> mapaRegistradores;
 	
+	public Map<String, Integer> getMapaRegistradores() {
+		return mapaRegistradores;
+	}
+
+	public void setMapaRegistradores(Map<String, Integer> mapaRegistradores) {
+		this.mapaRegistradores = mapaRegistradores;
+	}
+
 	public ConteudoUCP() {
 		pc = 0;
 		mar = 0;
@@ -20,7 +28,14 @@ public class ConteudoUCP {
 		uc = "";
 		ir = "";
 		ula = new ULA();
-		registradores = new ArrayList<Integer>();
+		
+		mapaRegistradores = new HashMap<String, Integer>();
+		
+		mapaRegistradores.put("R1", 0);
+		mapaRegistradores.put("R2", 0);
+		mapaRegistradores.put("R3", 0);
+		mapaRegistradores.put("R4", 0);
+
 	}
 	
 	public Integer getPc() {
@@ -60,12 +75,5 @@ public class ConteudoUCP {
 		this.ula = ula;
 	}
 
-	public List<Integer> getRegistradores() {
-		return registradores;
-	}
-
-	public void setRegistradores(List<Integer> registradores) {
-		this.registradores = registradores;
-	}
 	
 }

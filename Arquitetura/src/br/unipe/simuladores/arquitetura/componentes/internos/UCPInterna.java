@@ -27,8 +27,6 @@ public class UCPInterna extends ComponenteInterno{
 	private Rectangle ioar;
 	private Rectangle iobr;
 	
-	private Map<String, Integer> mapaRegistradores;
-	
 	private ConteudoUCP conteudo;
 	
 	private Group grupoRegistradores; 
@@ -38,17 +36,15 @@ public class UCPInterna extends ComponenteInterno{
 		
 		super();
 		
-		mapaRegistradores = new HashMap<String, Integer>();
-		
-		mapaRegistradores.put("R1", 0);
-		mapaRegistradores.put("R2", 0);
-		mapaRegistradores.put("R3", 0);
-		mapaRegistradores.put("R4", 0);
-		
 		conteudo = new ConteudoUCP();
 		
 		for (int i = 0; i < 4; i++)
-			atualizarConteudoRegistrador("0", i + 1);
+			atualizarRegistrador(0, i + 1);
+		
+		atualizarPC(1);
+		atualizarMAR(0);
+		atualizarMBR(0);
+		atualizarUC("READ");
 		
 	}
 
@@ -247,7 +243,7 @@ public class UCPInterna extends ComponenteInterno{
 	
 	public boolean contemRegistrador(String reg) {
 		
-		if (mapaRegistradores.containsKey(reg))
+		if (conteudo.getMapaRegistradores().containsKey(reg))
 			return true;
 		
 		return false;
@@ -259,7 +255,7 @@ public class UCPInterna extends ComponenteInterno{
 		if (!contemRegistrador(reg)) 
 			return null;
 		
-		return mapaRegistradores.get(reg);
+		return conteudo.getMapaRegistradores().get(reg);
 		
 	}
 	
@@ -278,15 +274,44 @@ public class UCPInterna extends ComponenteInterno{
 		
 	}
 	
-	public void atualizarConteudoRegistrador(String valor, int numero) {
+	public void atualizarRegistrador(Integer valor, int numero) {
 		
 		double yBase = 438;
 		
-		atualizarConteudo(valor, 802, yBase + 25 * (numero - 1));
+		conteudo.getMapaRegistradores().put("R"+numero, valor);
+		atualizarConteudoTela(valor.toString(), 802, yBase + 25 * (numero - 1));
 		
 	}
 	
-	private void atualizarConteudo(String valor, double x, double y) {
+	public void atualizarPC(Integer valor) {
+		
+		conteudo.setPc(valor);
+		atualizarConteudoTela(valor.toString(), 892, 438);
+		
+	}
+	
+	public void atualizarMAR(Integer valor) {
+		
+		conteudo.setMar(valor);
+		atualizarConteudoTela(valor.toString(), 987, 438);
+		
+	}
+	
+	public void atualizarMBR(Integer valor) {
+		
+		conteudo.setMbr(valor);
+		atualizarConteudoTela(valor.toString(), 987, 478);
+		
+	}
+	
+	public void atualizarUC(String valor) {
+		
+		conteudo.setUc(valor);
+		atualizarConteudoTela(valor, 975, 593);
+		
+	}
+	
+	private void atualizarConteudoTela(String valor, double x, double y) {
 		
 		Text txtValor = new Text(valor);
 		txtValor.setX(x);
