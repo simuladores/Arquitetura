@@ -45,6 +45,7 @@ public class UCPInterna extends ComponenteInterno{
 		atualizarMAR(0);
 		atualizarMBR(0);
 		atualizarUC("READ");
+		atualizarIR("");
 		
 	}
 
@@ -300,7 +301,7 @@ public class UCPInterna extends ComponenteInterno{
 	public void atualizarMBR(Integer valor) {
 		
 		conteudo.setMbr(valor);
-		atualizarConteudoTela(valor.toString(), 987, 478);
+		atualizarConteudoTela(valor.toString(), 975, 478);
 		
 	}
 	
@@ -309,6 +310,11 @@ public class UCPInterna extends ComponenteInterno{
 		conteudo.setUc(valor);
 		atualizarConteudoTela(valor, 975, 593);
 		
+	}
+	
+	public void atualizarIR (String valor) {
+		conteudo.setIr(valor);
+		atualizarConteudoTela(valor, 878, 528);
 	}
 	
 	private void atualizarConteudoTela(String valor, double x, double y) {
