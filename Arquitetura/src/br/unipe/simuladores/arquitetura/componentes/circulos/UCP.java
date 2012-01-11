@@ -31,8 +31,7 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 		
 		super();
 		expanded = false;
-		buildContent();
-		
+		buildContent();		
 	}
 
 	@Override
@@ -284,5 +283,7 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 		return ucpInterna;
 		
 	}
+	
+	
 
 }

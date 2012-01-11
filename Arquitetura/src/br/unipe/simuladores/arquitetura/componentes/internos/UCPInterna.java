@@ -11,7 +11,9 @@ import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import br.unipe.simuladores.arquitetura.componentes.circulos.ConteudoUCP;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class UCPInterna extends ComponenteInterno{
 	
@@ -27,6 +29,8 @@ public class UCPInterna extends ComponenteInterno{
 	
 	private Map<String, Integer> mapaRegistradores;
 	
+	private ConteudoUCP conteudo;
+	
 	private Group grupoRegistradores; 
 	
 	
@@ -40,6 +44,11 @@ public class UCPInterna extends ComponenteInterno{
 		mapaRegistradores.put("R2", 0);
 		mapaRegistradores.put("R3", 0);
 		mapaRegistradores.put("R4", 0);
+		
+		conteudo = new ConteudoUCP();
+		
+		for (int i = 0; i < 4; i++)
+			atualizarConteudoRegistrador("0", i + 1);
 		
 	}
 
@@ -266,6 +275,24 @@ public class UCPInterna extends ComponenteInterno{
 			return 4;
 		
 		return 0;
+		
+	}
+	
+	public void atualizarConteudoRegistrador(String valor, int numero) {
+		
+		double yBase = 438;
+		
+		atualizarConteudo(valor, 802, yBase + 25 * (numero - 1));
+		
+	}
+	
+	private void atualizarConteudo(String valor, double x, double y) {
+		
+		Text txtValor = new Text(valor);
+		txtValor.setX(x);
+		txtValor.setY(y);
+		txtValor.toFront();
+		group.getChildren().add(txtValor);
 		
 	}
 
