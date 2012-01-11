@@ -324,7 +324,6 @@ public class UCPInterna extends ComponenteInterno{
 		txtValor.setY(y);
 		txtValor.toFront();
 		group.getChildren().add(txtValor);
-		//
 		
 	}
 
