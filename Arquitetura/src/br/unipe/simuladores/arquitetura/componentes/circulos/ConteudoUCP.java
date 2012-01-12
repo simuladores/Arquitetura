@@ -3,6 +3,8 @@ package br.unipe.simuladores.arquitetura.componentes.circulos;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.ULA;
+
 public class ConteudoUCP {
 	
 	private Integer pc;

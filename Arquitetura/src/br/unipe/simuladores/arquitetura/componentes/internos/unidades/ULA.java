@@ -1,8 +1,12 @@
-package br.unipe.simuladores.arquitetura.componentes.circulos;
+package br.unipe.simuladores.arquitetura.componentes.internos.unidades;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import br.unipe.simuladores.arquitetura.enums.OperacaoAritmetica;
 
-public class ULA {
+public class ULA extends UnidadeUCP{
 	
 	private Integer operando1;
 	private Integer operando2;
@@ -10,6 +14,7 @@ public class ULA {
 	private OperacaoAritmetica operacao;
 	
 	public ULA() {
+		
 		operando1 = 0;
 		operando2 = 0;
 		resultado = 0;
@@ -81,6 +86,58 @@ public class ULA {
 
 	public void setResultado(Integer resultado) {
 		this.resultado = resultado;
+	}
+
+	@Override
+	public void construirForma(double x, double y) {
+		
+		forma = new Polyline(new double[]{
+				x, y,
+				x + 30, y,
+				x + 35, y + 10,
+				x + 40, y,
+				x + 70, y,
+				x + 60, y + 40,
+				x + 10, y + 40,
+				x, y
+		});
+		
+		/*forma = new Polyline(new double[]{
+					850, 550,
+					880, 550,
+					885, 560,
+					890, 550,
+					920, 550,
+					910, 590,
+					860, 590,
+					850, 550
+			});*/
+			
+		forma.setStrokeWidth(0.5);
+			
+		forma.setFill(Color.YELLOW);
+		forma.setTranslateY(20);
+		forma.setTranslateX(10);
+		
+	}
+
+	@Override
+	public void adicionarTexto(double x, double y) {
+		
+		txtNome = new Text("ULA");
+		txtNome.setX(x);
+		txtNome.setY(y);
+		txtNome.setFont(new Font(12));
+		
+	}
+
+	@Override
+	public void atualizarValor(Object valor, double x, double y) {
+		
+		super.valor = valor;
+		
+		atualizarTexto((String)valor, x, y);
+		
 	}
 
 }

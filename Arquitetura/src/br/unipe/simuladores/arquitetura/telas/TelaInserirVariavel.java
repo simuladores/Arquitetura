@@ -3,7 +3,7 @@ package br.unipe.simuladores.arquitetura.telas;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.unipe.simuladores.arquitetura.componentes.internos.Variavel;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Variavel;
 import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
 import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
 import br.unipe.simuladores.arquitetura.excecoes.VariavelExistenteException;

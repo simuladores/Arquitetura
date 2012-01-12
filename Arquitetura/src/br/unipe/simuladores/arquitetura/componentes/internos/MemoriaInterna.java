@@ -12,12 +12,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Variavel;
 import br.unipe.simuladores.arquitetura.excecoes.VariavelExistenteException;
 
 public class MemoriaInterna extends ComponenteInterno{
 	
 	private  ObservableList<Instrucao> instrucoes;
-	
+
 	private  ObservableList<Variavel> variaveis;
 	
 	private TableView<Instrucao> tabelaInstrucoes;
@@ -216,6 +218,27 @@ public class MemoriaInterna extends ComponenteInterno{
 	protected void definirAcoesEspecificas() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Instrucao obterInstrucao(Integer endereco) {
+		
+		
+		for (Instrucao instr : instrucoes) {
+			
+			if (instr.endereco.getValue().equals(endereco))
+				return instr;
+			
+		}
+		
+		return null;
+	}
+	
+	public ObservableList<Instrucao> getInstrucoes() {
+		return instrucoes;
+	}
+
+	public void setInstrucoes(ObservableList<Instrucao> instrucoes) {
+		this.instrucoes = instrucoes;
 	}
 
 }

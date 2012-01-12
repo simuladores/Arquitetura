@@ -1,5 +1,6 @@
-package br.unipe.simuladores.arquitetura.componentes.internos;
+package br.unipe.simuladores.arquitetura.componentes.internos.unidades;
 
+import br.unipe.simuladores.arquitetura.componentes.internos.CelulaMemoria;
 import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

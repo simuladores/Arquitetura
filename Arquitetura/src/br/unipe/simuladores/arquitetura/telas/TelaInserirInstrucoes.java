@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
-import br.unipe.simuladores.arquitetura.componentes.internos.Instrucao;
+import br.unipe.simuladores.arquitetura.componentes.internos.Movimentador;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
 import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
@@ -41,6 +42,8 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 	private Operacao operacao;
 	private ObservableList<String> instrucoes = FXCollections.observableArrayList();
 	private List<Instrucao> instrucoesList = new ArrayList<Instrucao>();
+	
+	Movimentador movimentador;
 	
 	public TelaInserirInstrucoes(String titulo, Color cor, double height, double width) {
 		super(titulo, cor, height, width);
@@ -201,6 +204,9 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 						getMemoriaInterna().inserirInstrucao(instrucao);
 				
 				fechar();
+				
+				movimentador = new Movimentador();
+				movimentador.operar();
 				
 			}
 	    	

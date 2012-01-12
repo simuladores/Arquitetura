@@ -1,5 +1,6 @@
-package br.unipe.simuladores.arquitetura.componentes.internos;
+package br.unipe.simuladores.arquitetura.componentes.internos.unidades;
 
+import br.unipe.simuladores.arquitetura.componentes.internos.CelulaMemoria;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
 import javafx.beans.property.IntegerProperty;
