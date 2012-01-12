@@ -1,14 +1,18 @@
-package br.unipe.simuladores.arquitetura.componentes.internos;
+package br.unipe.simuladores.simulacao.execucao.instrucoes;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
+import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
@@ -20,6 +24,8 @@ public class Movimentador {
 	private Instrucao instrucaoAtual;
 	private Text valorTxt;
 	
+	private boolean continuar = false;
+	
 	public Movimentador() {
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
@@ -29,11 +35,6 @@ public class Movimentador {
 		
 	}
 	
-	public void buscarInstrucao() {
-		
-		moverEnderecoPCParaMAR();
-		
-	}
 	
 	public void operar() {
 		
@@ -42,18 +43,37 @@ public class Movimentador {
 		for (Instrucao instr : instrucoes) {
 			
 			PC pc = ucpInterna.getPc();
-			
-			pc.atualizarValor(instr.endereco.getValue(), 880, 438);
+	
+			System.out.println("a");
+			pc.atualizarValor(instr.enderecoProperty().getValue(), 880, 438);
 			ucpInterna.atualizarValorUnidadeTela(pc);
 			instrucaoAtual = instr;
 			
-			buscarInstrucao();
+			TableViewSelectionModel <Instrucao> selectionModel =  
+					memoriaInterna.getTabelaInstrucoes().getSelectionModel();
+			selectionModel.select(instrucaoAtual);
+			memoriaInterna.getTabelaInstrucoes().selectionModelProperty().setValue(selectionModel);
+			
+			Animador animador = new Animador(ucpInterna, valorTxt);
+			Task task = animador.createTask();
+			task.run();
+			
+			while(task.runningProperty().getValue().booleanValue() == true);
+			
 			
 		}
 		
 	}
 	
+	public void buscarInstrucao() {
+		
+		moverEnderecoPCParaMAR();
+		
+	}
+	
 	private void moverEnderecoPCParaMAR() {
+		
+		System.out.println("b");
 		
 		double xDe = ucpInterna.getPc().getTxtValor().getX();
 		double yDe = ucpInterna.getPc().getTxtValor().getY();
@@ -93,12 +113,15 @@ public class Movimentador {
 				ucpInterna.getMar().atualizarValor(valor, xPara, yPara);
 				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());
 				
+				continuar = true;
 			}
 			
 		});
 			
 		timeline.play();
-				
+			
 	}
+	
+	
 
 }

@@ -241,4 +241,54 @@ public class MemoriaInterna extends ComponenteInterno{
 		this.instrucoes = instrucoes;
 	}
 
+	public ObservableList<Variavel> getVariaveis() {
+		return variaveis;
+	}
+
+	public void setVariaveis(ObservableList<Variavel> variaveis) {
+		this.variaveis = variaveis;
+	}
+
+	public TableView<Instrucao> getTabelaInstrucoes() {
+		return tabelaInstrucoes;
+	}
+
+	public void setTabelaInstrucoes(TableView<Instrucao> tabelaInstrucoes) {
+		this.tabelaInstrucoes = tabelaInstrucoes;
+	}
+
+	public TableView<Variavel> getTabelaVariaveis() {
+		return tabelaVariaveis;
+	}
+
+	public void setTabelaVariaveis(TableView<Variavel> tabelaVariaveis) {
+		this.tabelaVariaveis = tabelaVariaveis;
+	}
+
+	public Map<String, Integer> getMapaEnderecos() {
+		return mapaEnderecos;
+	}
+
+	public void setMapaEnderecos(Map<String, Integer> mapaEnderecos) {
+		this.mapaEnderecos = mapaEnderecos;
+	}
+
+	public TabPane getTabPane() {
+		return tabPane;
+	}
+
+	public void setTabPane(TabPane tabPane) {
+		this.tabPane = tabPane;
+	}
+
+	public Integer getNextEnd() {
+		return nextEnd;
+	}
+
+	public void setNextEnd(Integer nextEnd) {
+		this.nextEnd = nextEnd;
+	}
+	
+	
+
 }
