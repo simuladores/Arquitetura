@@ -7,6 +7,12 @@ import javafx.scene.text.Text;
 
 public class MBR extends UnidadeUCP{
 
+	public MBR() {
+		
+		super();
+		
+	}
+	
 	@Override
 	public void construirForma(double x, double y) {
 		

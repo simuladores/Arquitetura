@@ -11,6 +11,7 @@ public class Registrador extends UnidadeUCP{
 
 	public Registrador(String nome) {
 		
+		super();
 		this.nome = nome;
 		
 	}

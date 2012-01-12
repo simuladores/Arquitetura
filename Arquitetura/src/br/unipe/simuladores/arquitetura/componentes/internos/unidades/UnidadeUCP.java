@@ -10,6 +10,11 @@ public abstract class UnidadeUCP {
 	protected Text txtValor;
 	protected Object valor;
 	
+	public UnidadeUCP() {
+		
+		txtValor = new Text();
+		
+	}
 	
 	public abstract void construirForma(double x, double y);
 	
@@ -19,7 +24,7 @@ public abstract class UnidadeUCP {
 	
 	protected void atualizarTexto(String valor, double x, double y) {
 		
-		txtValor = new Text(valor);
+		txtValor.setText(valor);
 		txtValor.setX(x);
 		txtValor.setY(y);
 		txtValor.toFront();

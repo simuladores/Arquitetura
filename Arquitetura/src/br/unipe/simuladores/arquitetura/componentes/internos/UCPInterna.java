@@ -96,7 +96,7 @@ public class UCPInterna extends ComponenteInterno{
 		mar = new MAR();
 		mar.construirForma(965, 420);
 		mar.adicionarTexto(932, 438);
-		mar.atualizarValor(0, 987, 438);
+		mar.atualizarValor(0, 975, 438);
 		atualizarUnidadeTela(mar);
 		
 		mbr = new MBR();
@@ -108,7 +108,7 @@ public class UCPInterna extends ComponenteInterno{
 		pc = new PC();
 		pc.construirForma(870, 420);
 		pc.adicionarTexto(848, 438);
-		pc.atualizarValor(1, 892, 438);
+		pc.atualizarValor(1, 880, 438);
 		atualizarUnidadeTela(pc);
 		
 		uc = new UC();

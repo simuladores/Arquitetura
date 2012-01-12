@@ -15,10 +15,13 @@ public class ULA extends UnidadeUCP{
 	
 	public ULA() {
 		
+		super();
+		
 		operando1 = 0;
 		operando2 = 0;
 		resultado = 0;
 		operacao = OperacaoAritmetica.SOMA;
+		
 	}
 	
 	public void operar() {

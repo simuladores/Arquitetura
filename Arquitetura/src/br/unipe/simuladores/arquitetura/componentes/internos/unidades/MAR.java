@@ -7,6 +7,12 @@ import javafx.scene.text.Text;
 
 public class MAR extends UnidadeUCP{
 
+	public MAR() {
+		
+		super();
+		
+	}
+	
 	@Override
 	public void construirForma(double x, double y) {
 		

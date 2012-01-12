@@ -8,6 +8,12 @@ import javafx.scene.text.Text;
 public class IR extends UnidadeUCP{
 	
 
+	public IR() {
+		
+		super();
+		
+	}
+	
 	@Override
 	public void construirForma(double x, double y) {
 		

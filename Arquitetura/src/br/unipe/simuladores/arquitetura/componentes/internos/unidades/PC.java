@@ -7,6 +7,12 @@ import javafx.scene.text.Text;
 
 public class PC extends UnidadeUCP{
 
+	public PC() {
+		
+		super();
+		
+	}
+	
 	@Override
 	public void construirForma(double x, double y) {
 		
