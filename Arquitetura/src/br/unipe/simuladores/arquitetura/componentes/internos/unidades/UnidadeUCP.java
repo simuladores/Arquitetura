@@ -27,7 +27,6 @@ public abstract class UnidadeUCP {
 		txtValor.setText(valor);
 		txtValor.setX(x);
 		txtValor.setY(y);
-		txtValor.toFront();
 		
 	}
 	

@@ -1,5 +1,12 @@
 package br.unipe.simuladores.simulacao.execucao.instrucoes;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -24,7 +31,7 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
-public class Movimentador{
+public class Movimentador extends ThreadPoolExecutor {
 	
 	private MemoriaInterna memoriaInterna;
 	private UCPInterna ucpInterna;
@@ -35,19 +42,28 @@ public class Movimentador{
 	
 	private boolean continua;
 	
+	private Executor executor;
+	
 	public Movimentador() {
+		
+		super(2, 2, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2));		
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
 		
 		valorTxt = new Text();
 		
-		lock = new ReentrantLock();
-		condition = lock.newCondition();
+		//lock = new ReentrantLock();
+		//condition = lock.newCondition();
+		
+		//executor = exe;
+		
 		
 	}
 	
 	public Movimentador(String valor) {
+		
+		super(2, 2, 0, TimeUnit.SECONDS, null);
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
@@ -57,7 +73,7 @@ public class Movimentador{
 	}
 	
 	
-	public void operar() {
+	public synchronized void operar(Controladora c) {
 			
 			
 				ObservableList<Instrucao> instrucoes = memoriaInterna.getInstrucoes();
@@ -65,12 +81,13 @@ public class Movimentador{
 				for (Instrucao instr : instrucoes) {
 					
 					try{
-					lock.lock();
+					//lock.lock();
 					
 					PC pc = ucpInterna.getPc();
 			
 					System.out.println("a");
-					pc.atualizarValor(instr.enderecoProperty().getValue(), 880, 438);
+					Integer x = instr.enderecoProperty().getValue();
+					pc.atualizarValor(x, 880, 438);
 					ucpInterna.atualizarValorUnidadeTela(pc);
 					instrucaoAtual = instr;
 					
@@ -79,24 +96,29 @@ public class Movimentador{
 					selectionModel.select(instrucaoAtual);
 					memoriaInterna.getTabelaInstrucoes().selectionModelProperty().setValue(selectionModel);
 					
-					
 					Animadora animadora = new Animadora(this);
-					Task<Void> task = animadora.createTask();
-					task.run();
 					
-					lock.unlock();
+					//task.run();
 					
-					//continua = false;
-					//while(!continua)
-						condition.await();
+					animadora.executorProperty().getValue().execute(animadora.getTask());
+					((ThreadPoolExecutor)animadora.executorProperty().getValue()).shutdown();
+					
+					//lock.unlock();
+					
+					
+					
+					continua = false;
+					while(!continua);
+						c.wait();
+						//condition.await();
 						
 					System.out.println("acordou!");
 					
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+						 //TODO Auto-generated catch block
 						e.printStackTrace();
 					}finally{
-						lock.unlock();
+						//lock.unlock();
 					}
 				}
 			
@@ -104,13 +126,13 @@ public class Movimentador{
 		
 	}
 	
-	public void buscarInstrucao() {
+	public synchronized void buscarInstrucao(Animadora a) {
 		
-		moverEnderecoPCParaMAR();
+		moverEnderecoPCParaMAR(a);
 		
 	}
 	
-	private void moverEnderecoPCParaMAR() {
+	private synchronized void moverEnderecoPCParaMAR(final Animadora a) {
 		
 		//lock.lock();
 		
@@ -180,18 +202,18 @@ public class Movimentador{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				lock.lock();
+				//lock.lock();
 				TelaPrincipal.removerDoPalco(valorTxt);
 				ucpInterna.getMar().atualizarValor(valor, xPara, yPara);
 				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());				
 				
 				
 				
-				condition.signal();
+				//condition.signal();
 				
 				continua = true;
 				
-				
+				a.notify();
 				
 				System.out.println("pode continuar!");
 				
@@ -203,9 +225,17 @@ public class Movimentador{
 		
 		translate.play();
 		
-		lock.unlock();
+		//lock.unlock();
 		
 			
+	}
+
+	public Executor getExecutor() {
+		return executor;
+	}
+
+	public void setExecutor(Executor executor) {
+		this.executor = executor;
 	}	
 
 }

@@ -2,6 +2,10 @@ package br.unipe.simuladores.arquitetura.telas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
@@ -207,10 +211,13 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 				
 				fechar();
 				
-				movimentador = new Movimentador();				
+				
+				movimentador = new Movimentador();	
 				Controladora controladora = new Controladora(movimentador);
-				Task<Void> task = controladora.createTask();
-				task.run();
+				//task.run();
+								
+				//controladora.setExecutor(executor);
+				controladora.executorProperty().getValue().execute(controladora.getTask());
 				
 			}
 	    	

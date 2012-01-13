@@ -3,6 +3,8 @@ package br.unipe.simuladores.arquitetura.componentes.internos;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -200,8 +202,12 @@ public class UCPInterna extends ComponenteInterno{
 	
 	public void atualizarValorUnidadeTela(UnidadeUCP unidade) {
 		
-		group.getChildren().remove(unidade.getTxtValor());
-		group.getChildren().add(unidade.getTxtValor());
+		ObservableList<Node> childrens = group.getChildren();
+		Text txt = unidade.getTxtValor();
+		childrens.remove(txt);
+		//group.getChildren().remove(unidade.getTxtValor());
+		//group.getChildren().add(unidade.getTxtValor());
+		childrens.add(txt);
 		
 	}
 

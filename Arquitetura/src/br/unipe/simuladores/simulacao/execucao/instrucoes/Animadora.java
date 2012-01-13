@@ -1,5 +1,8 @@
 package br.unipe.simuladores.simulacao.execucao.instrucoes;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -17,20 +20,29 @@ import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 public class Animadora extends Service<Void>{
 	
 	private Movimentador movimentador;
+	private Task<Void> task;
 	
 	public Animadora(Movimentador m) {
+		
 		this.movimentador = m;
+		
+		setExecutor(m);
+		
+		setExecutor(Executors.newCachedThreadPool());
+		
 	}
 
 	@Override
 	protected Task<Void> createTask() {
+		
+		final Animadora este = this;
 		
 		return new Task<Void>() {
 
 			@Override
 			protected Void call() throws Exception {
 				
-				movimentador.buscarInstrucao();
+				movimentador.buscarInstrucao(este);
 				
 				return null;
 				
@@ -40,5 +52,14 @@ public class Animadora extends Service<Void>{
 		
 
 	}
+
+	public Task<Void> getTask() {
+		return task;
+	}
+
+	public void setTask(Task<Void> task) {
+		this.task = task;
+	}
+
 
 }
