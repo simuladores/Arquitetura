@@ -1,9 +1,16 @@
 package br.unipe.simuladores.simulacao.execucao.instrucoes;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,14 +24,16 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
-public class Movimentador {
+public class Movimentador{
 	
 	private MemoriaInterna memoriaInterna;
 	private UCPInterna ucpInterna;
 	private Instrucao instrucaoAtual;
 	private Text valorTxt;
+	private Lock lock;
+	private Condition condition;
 	
-	private boolean continuar = false;
+	private boolean continua;
 	
 	public Movimentador() {
 		
@@ -33,35 +42,65 @@ public class Movimentador {
 		
 		valorTxt = new Text();
 		
+		lock = new ReentrantLock();
+		condition = lock.newCondition();
+		
+	}
+	
+	public Movimentador(String valor) {
+		
+		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
+		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
+		
+		this.valorTxt = new Text(valor);
+		
 	}
 	
 	
 	public void operar() {
-		
-		ObservableList<Instrucao> instrucoes = memoriaInterna.getInstrucoes();
-		
-		for (Instrucao instr : instrucoes) {
-			
-			PC pc = ucpInterna.getPc();
-	
-			System.out.println("a");
-			pc.atualizarValor(instr.enderecoProperty().getValue(), 880, 438);
-			ucpInterna.atualizarValorUnidadeTela(pc);
-			instrucaoAtual = instr;
-			
-			TableViewSelectionModel <Instrucao> selectionModel =  
-					memoriaInterna.getTabelaInstrucoes().getSelectionModel();
-			selectionModel.select(instrucaoAtual);
-			memoriaInterna.getTabelaInstrucoes().selectionModelProperty().setValue(selectionModel);
-			
-			Animador animador = new Animador(ucpInterna, valorTxt);
-			Task task = animador.createTask();
-			task.run();
-			
-			while(task.runningProperty().getValue().booleanValue() == true);
 			
 			
-		}
+				ObservableList<Instrucao> instrucoes = memoriaInterna.getInstrucoes();
+				
+				for (Instrucao instr : instrucoes) {
+					
+					try{
+					lock.lock();
+					
+					PC pc = ucpInterna.getPc();
+			
+					System.out.println("a");
+					pc.atualizarValor(instr.enderecoProperty().getValue(), 880, 438);
+					ucpInterna.atualizarValorUnidadeTela(pc);
+					instrucaoAtual = instr;
+					
+					TableViewSelectionModel <Instrucao> selectionModel =  
+							memoriaInterna.getTabelaInstrucoes().getSelectionModel();
+					selectionModel.select(instrucaoAtual);
+					memoriaInterna.getTabelaInstrucoes().selectionModelProperty().setValue(selectionModel);
+					
+					
+					Animadora animadora = new Animadora(this);
+					Task<Void> task = animadora.createTask();
+					task.run();
+					
+					lock.unlock();
+					
+					//continua = false;
+					//while(!continua)
+						condition.await();
+						
+					System.out.println("acordou!");
+					
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}finally{
+						lock.unlock();
+					}
+				}
+			
+			
 		
 	}
 	
@@ -72,6 +111,8 @@ public class Movimentador {
 	}
 	
 	private void moverEnderecoPCParaMAR() {
+		
+		//lock.lock();
 		
 		System.out.println("b");
 		
@@ -91,7 +132,7 @@ public class Movimentador {
 		TelaPrincipal.removerDoPalco(valorTxt);
 		TelaPrincipal.adicionarAoPalco(valorTxt);
 		
-		Timeline timeline = new Timeline();
+		/*Timeline timeline = new Timeline();
 			
 		timeline.getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
@@ -111,17 +152,60 @@ public class Movimentador {
 				
 				TelaPrincipal.removerDoPalco(valorTxt);
 				ucpInterna.getMar().atualizarValor(valor, xPara, yPara);
-				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());
+				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());				
 				
-				continuar = true;
+				continua = true;
+				
+				System.out.println("pode continuar!");
+				
 			}
 			
 		});
-			
+		
+		System.out.println("iniciando animação");
 		timeline.play();
+		timeline.
+		System.out.println(timeline.getStatus());*/
+		
+		//lock.unlock();
+		
+		TranslateTransition translate = new 
+				TranslateTransition(Duration.millis(3000), valorTxt);
+		translate.setFromX(xDe);
+		translate.setFromY(yDe);
+		translate.setToX(xPara);
+		translate.setToY(yPara);
+		translate.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				lock.lock();
+				TelaPrincipal.removerDoPalco(valorTxt);
+				ucpInterna.getMar().atualizarValor(valor, xPara, yPara);
+				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());				
+				
+				
+				
+				condition.signal();
+				
+				continua = true;
+				
+				
+				
+				System.out.println("pode continuar!");
+				
+			}
 			
-	}
-	
-	
+		});
+		
+		
+		
+		translate.play();
+		
+		lock.unlock();
+		
+			
+	}	
 
 }

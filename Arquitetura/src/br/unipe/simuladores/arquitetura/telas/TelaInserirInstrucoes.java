@@ -8,9 +8,11 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
 import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
+import br.unipe.simuladores.simulacao.execucao.instrucoes.Controladora;
 import br.unipe.simuladores.simulacao.execucao.instrucoes.Movimentador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -205,8 +207,10 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 				
 				fechar();
 				
-				movimentador = new Movimentador();
-				movimentador.operar();
+				movimentador = new Movimentador();				
+				Controladora controladora = new Controladora(movimentador);
+				Task<Void> task = controladora.createTask();
+				task.run();
 				
 			}
 	    	
