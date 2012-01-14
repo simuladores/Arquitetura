@@ -26,9 +26,10 @@ public class Animadora extends Service<Void>{
 		
 		this.movimentador = m;
 		
-		setExecutor(m);
+		setTask(createTask());
+		//setExecutor(m);
 		
-		setExecutor(Executors.newCachedThreadPool());
+		//setExecutor(Executors.newCachedThreadPool());
 		
 	}
 
@@ -42,7 +43,7 @@ public class Animadora extends Service<Void>{
 			@Override
 			protected Void call() throws Exception {
 				
-				movimentador.buscarInstrucao(este);
+				movimentador.mostrarAnimacoes();
 				
 				return null;
 				

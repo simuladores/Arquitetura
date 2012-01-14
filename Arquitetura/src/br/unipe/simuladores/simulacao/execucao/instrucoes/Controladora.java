@@ -16,7 +16,7 @@ public class Controladora extends Service<Void>{
 		
 		this.movimentador = m;
 		
-		setExecutor(m);
+		//setExecutor(m);
 		
 		setTask(createTask());
 		
@@ -32,7 +32,7 @@ public class Controladora extends Service<Void>{
 			@Override
 			protected Void call() throws Exception {
 				
-				movimentador.operar(este);
+				movimentador.operar();
 				
 				return null;
 			}

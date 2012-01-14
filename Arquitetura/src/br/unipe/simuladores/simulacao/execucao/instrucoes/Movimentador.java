@@ -31,7 +31,7 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
-public class Movimentador extends ThreadPoolExecutor {
+public class Movimentador{
 	
 	private MemoriaInterna memoriaInterna;
 	private UCPInterna ucpInterna;
@@ -40,13 +40,18 @@ public class Movimentador extends ThreadPoolExecutor {
 	private Lock lock;
 	private Condition condition;
 	
-	private boolean continua;
+	private boolean continua1;
+	private boolean continua2;
+	private int qtdInstrucoes;
+	
+	private Service<Void> controladora;
+	private Service<Void> animadora;
 	
 	private Executor executor;
 	
 	public Movimentador() {
 		
-		super(2, 2, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2));		
+		//super(2, 2, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2));		
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
@@ -58,12 +63,16 @@ public class Movimentador extends ThreadPoolExecutor {
 		
 		//executor = exe;
 		
+		continua1 = true;
+		continua2 = false;
+		qtdInstrucoes = 1;
+		
 		
 	}
 	
 	public Movimentador(String valor) {
 		
-		super(2, 2, 0, TimeUnit.SECONDS, null);
+		//super(2, 2, 0, TimeUnit.SECONDS, null);
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
@@ -73,13 +82,16 @@ public class Movimentador extends ThreadPoolExecutor {
 	}
 	
 	
-	public synchronized void operar(Controladora c) {
+	public synchronized void operar() {
 			
 			
 				ObservableList<Instrucao> instrucoes = memoriaInterna.getInstrucoes();
 				
 				for (Instrucao instr : instrucoes) {
 					
+					qtdInstrucoes = instrucoes.size();
+					
+					//if (continua) {
 					try{
 					//lock.lock();
 					
@@ -96,43 +108,78 @@ public class Movimentador extends ThreadPoolExecutor {
 					selectionModel.select(instrucaoAtual);
 					memoriaInterna.getTabelaInstrucoes().selectionModelProperty().setValue(selectionModel);
 					
-					Animadora animadora = new Animadora(this);
+					//Animadora animadora = new Animadora(this);
+					//animadora.getTask().run();
 					
 					//task.run();
 					
-					animadora.executorProperty().getValue().execute(animadora.getTask());
-					((ThreadPoolExecutor)animadora.executorProperty().getValue()).shutdown();
+					//animadora.executorProperty().getValue().execute(animadora.getTask());
+					//((ThreadPoolExecutor)animadora.executorProperty().getValue()).shutdown();
 					
 					//lock.unlock();
 					
+					//System.out.println(animadora.getState());
+					//System.out.println(animadora.isRunning());
 					
+					continua1 = false;
+					continua2 = true;
+
+					//controladora.notify();
+					while(!continua1)
+						controladora.wait();
+						//condition.await();*/
 					
-					continua = false;
-					while(!continua);
-						c.wait();
-						//condition.await();
+					//this.buscarInstrucao(animadora);
 						
 					System.out.println("acordou!");
 					
 					} catch (InterruptedException e) {
 						 //TODO Auto-generated catch block
 						e.printStackTrace();
-					}finally{
-						//lock.unlock();
-					}
+					}/*finally{
+						lock.unlock();
+					}*/
+					
+					//}
 				}
 			
 			
 		
 	}
 	
-	public synchronized void buscarInstrucao(Animadora a) {
+	public synchronized void mostrarAnimacoes() {
 		
-		moverEnderecoPCParaMAR(a);
+		do {
+			
+			while (!continua2) {
+				try {
+					animadora.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (continua2) {
+				buscarInstrucao();
+				qtdInstrucoes--;
+			}
+			
+			continua2 = false;
+			
+		}while(qtdInstrucoes > 0);
 		
 	}
 	
-	private synchronized void moverEnderecoPCParaMAR(final Animadora a) {
+	public synchronized void buscarInstrucao() {
+		
+		moverEnderecoPCParaMAR();
+		
+	}
+	
+	private synchronized void moverEnderecoPCParaMAR() {
+		
+		
 		
 		//lock.lock();
 		
@@ -197,10 +244,13 @@ public class Movimentador extends ThreadPoolExecutor {
 		translate.setFromY(yDe);
 		translate.setToX(xPara);
 		translate.setToY(yPara);
+		
+		final Movimentador este = this;
+		
 		translate.setOnFinished(new EventHandler<ActionEvent>(){
-
+		
 			@Override
-			public void handle(ActionEvent arg0) {
+			public synchronized void handle(ActionEvent arg0) {
 				
 				//lock.lock();
 				TelaPrincipal.removerDoPalco(valorTxt);
@@ -211,10 +261,23 @@ public class Movimentador extends ThreadPoolExecutor {
 				
 				//condition.signal();
 				
-				continua = true;
+				continua1 = true;
 				
-				a.notify();
+				//System.out.println(controladora.getState());
 				
+				synchronized (este) {
+					
+					System.out.println(controladora.getState());
+					System.out.println(controladora.isRunning());
+					
+					System.out.println(animadora.getState());
+					System.out.println(animadora.isRunning());
+					
+					controladora.start();
+					
+					
+				}
+							
 				System.out.println("pode continuar!");
 				
 			}
@@ -227,6 +290,7 @@ public class Movimentador extends ThreadPoolExecutor {
 		
 		//lock.unlock();
 		
+		
 			
 	}
 
@@ -236,6 +300,22 @@ public class Movimentador extends ThreadPoolExecutor {
 
 	public void setExecutor(Executor executor) {
 		this.executor = executor;
+	}
+
+	public Service<Void> getControladora() {
+		return controladora;
+	}
+
+	public void setControladora(Service<Void> controladora) {
+		this.controladora = controladora;
+	}
+
+	public Service<Void> getAnimadora() {
+		return animadora;
+	}
+
+	public void setAnimadora(Service<Void> animadora) {
+		this.animadora = animadora;
 	}	
 
 }
