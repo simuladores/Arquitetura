@@ -15,6 +15,7 @@ import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
 import br.unipe.simuladores.simulacao.execucao.instrucoes.Animadora;
 import br.unipe.simuladores.simulacao.execucao.instrucoes.Controladora;
 import br.unipe.simuladores.simulacao.execucao.instrucoes.Movimentador;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -213,14 +214,20 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 				fechar();
 				
 				
+				ExecutorService executor = Executors.newCachedThreadPool();
+				
 				movimentador = new Movimentador();	
 				Controladora controladora = new Controladora(movimentador);
 				movimentador.setControladora(controladora);
-				controladora.getTask().run();
+				//Platform.runLater(new Thread(controladora.getTask()));
+				executor.execute(controladora.getTask());
 				
-				Animadora animadora = new Animadora(movimentador);
-				movimentador.setAnimadora(animadora);
-				animadora.getTask().run();
+				//Animadora animadora = new Animadora(movimentador);
+				//movimentador.setAnimadora(animadora);
+				//Platform.runLater(new Thread(animadora.getTask()));
+				//executor.execute(animadora.getTask());
+				
+				executor.shutdown();
 				//task.run();
 								
 				//controladora.setExecutor(executor);

@@ -1,5 +1,8 @@
 package br.unipe.simuladores.simulacao.execucao.instrucoes;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -16,6 +19,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -49,6 +53,9 @@ public class Movimentador{
 	
 	private Executor executor;
 	
+	private ObservableList<Instrucao> instrucoes;
+	private Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
+	
 	public Movimentador() {
 		
 		//super(2, 2, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2));		
@@ -66,6 +73,13 @@ public class Movimentador{
 		continua1 = true;
 		continua2 = false;
 		qtdInstrucoes = 1;
+		
+		instrucoes = memoriaInterna.getInstrucoes();
+		instrucoesQueue = new LinkedList<Instrucao>();
+		
+		for (Instrucao instr : instrucoes)
+			instrucoesQueue.add(instr);
+
 		
 		
 	}
@@ -85,22 +99,34 @@ public class Movimentador{
 	public synchronized void operar() {
 			
 			
-				ObservableList<Instrucao> instrucoes = memoriaInterna.getInstrucoes();
+			     
 				
-				for (Instrucao instr : instrucoes) {
+				if (instrucoesQueue.size() > 0) {
 					
-					qtdInstrucoes = instrucoes.size();
+					qtdInstrucoes = instrucoesQueue.size();
 					
 					//if (continua) {
-					try{
+					//try{
 					//lock.lock();
 					
-					PC pc = ucpInterna.getPc();
+					Instrucao instr = instrucoesQueue.poll();
+					
+					final PC pc = ucpInterna.getPc();
 			
 					System.out.println("a");
 					Integer x = instr.enderecoProperty().getValue();
 					pc.atualizarValor(x, 880, 438);
-					ucpInterna.atualizarValorUnidadeTela(pc);
+					
+					Platform.runLater(new Task<Void>(){
+
+						@Override
+						protected Void call() throws Exception {
+							ucpInterna.atualizarValorUnidadeTela(pc);
+							return null;
+						}
+						
+					});
+
 					instrucaoAtual = instr;
 					
 					TableViewSelectionModel <Instrucao> selectionModel =  
@@ -124,50 +150,67 @@ public class Movimentador{
 					continua1 = false;
 					continua2 = true;
 
+					Platform.runLater(new Task<Void>(){
+
+						@Override
+						protected Void call() throws Exception {
+							mostrarAnimacoes();
+							return null;
+						}
+						
+					});
+					
+				    animadora = new Animadora(this);
+					animadora.start();
+					
+					//controladora.cancel();
+					
 					//controladora.notify();
-					while(!continua1)
-						controladora.wait();
+					//animadora.start();
+					//while(!continua1)
+						//Thread.sleep(3000);
 						//condition.await();*/
 					
 					//this.buscarInstrucao(animadora);
 						
 					System.out.println("acordou!");
 					
-					} catch (InterruptedException e) {
-						 //TODO Auto-generated catch block
-						e.printStackTrace();
-					}/*finally{
-						lock.unlock();
-					}*/
+					//} catch (InterruptedException e) {
+						// //TODO Auto-generated catch block
+						//e.printStackTrace();
+					//}/*finally{
+						//lock.unlock();
+					//}*/
 					
-					//}
+					
 				}
-			
 			
 		
 	}
 	
 	public synchronized void mostrarAnimacoes() {
 		
-		do {
+		//do {
 			
-			while (!continua2) {
+			/*while (!continua2) {
 				try {
 					animadora.wait();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+			}*/
 			
-			if (continua2) {
+			//if (continua2) {
 				buscarInstrucao();
-				qtdInstrucoes--;
-			}
+				//qtdInstrucoes--;
+			//}
 			
-			continua2 = false;
+			//continua2 = false;
 			
-		}while(qtdInstrucoes > 0);
+		//}while(qtdInstrucoes > 0);
+				
+				
 		
 	}
 	
@@ -197,9 +240,20 @@ public class Movimentador{
 		valorTxt.setX(xDe);
 		valorTxt.setY(yDe);
 		valorTxt.setFont(new Font(12));
-		
-		TelaPrincipal.removerDoPalco(valorTxt);
-		TelaPrincipal.adicionarAoPalco(valorTxt);
+				
+		Platform.runLater(new Task<Void>(){
+
+			@Override
+			protected Void call() throws Exception {
+				
+				TelaPrincipal.removerDoPalco(valorTxt);
+				TelaPrincipal.adicionarAoPalco(valorTxt);
+				
+				return null;
+			}
+			
+		});
+
 		
 		/*Timeline timeline = new Timeline();
 			
@@ -257,28 +311,36 @@ public class Movimentador{
 				ucpInterna.getMar().atualizarValor(valor, xPara, yPara);
 				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());				
 				
-				
-				
+				controladora = new Controladora(este);
+				controladora.start();
 				//condition.signal();
 				
-				continua1 = true;
+				//continua1 = true;
 				
 				//System.out.println(controladora.getState());
 				
-				synchronized (este) {
+				/*synchronized (controladora) {
 					
-					System.out.println(controladora.getState());
+					/*System.out.println(controladora.getState());
 					System.out.println(controladora.isRunning());
 					
 					System.out.println(animadora.getState());
 					System.out.println(animadora.isRunning());
 					
+					instrucoes.remove(instrucaoAtual);
+					
+					try {
+						controladora.wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					controladora.start();
 					
 					
 				}
 							
-				System.out.println("pode continuar!");
+				System.out.println("pode continuar!");*/
 				
 			}
 			
