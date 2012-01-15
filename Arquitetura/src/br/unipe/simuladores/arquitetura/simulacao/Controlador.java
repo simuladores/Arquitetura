@@ -1,4 +1,4 @@
-package br.unipe.simuladores.simulacao.execucao.instrucoes;
+package br.unipe.simuladores.arquitetura.simulacao;
 
 import java.util.LinkedList;
 import java.util.Queue;

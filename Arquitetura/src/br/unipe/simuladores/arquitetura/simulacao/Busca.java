@@ -1,4 +1,4 @@
-package br.unipe.simuladores.simulacao.execucao.instrucoes;
+package br.unipe.simuladores.arquitetura.simulacao;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
