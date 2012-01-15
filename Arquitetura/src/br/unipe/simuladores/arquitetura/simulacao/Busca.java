@@ -181,7 +181,7 @@ public class Busca extends Ciclo{
 		
 		double xDeRead = read.getX();
 		double yDeRead = read.getY();
-		double yParaRead = 100;
+		double yPara = 40;
 		
 		double xDeMar = valorMar.getX();
 		double yDeMar = valorMar.getY();
@@ -191,11 +191,15 @@ public class Busca extends Ciclo{
 		timeline.getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
 	                   new KeyValue(read.xProperty(), xDeRead),
-	                   new KeyValue(read.yProperty(), yDeRead)
+	                   new KeyValue(read.yProperty(), yDeRead),
+	               	   new KeyValue(valorMar.xProperty(), xDeMar),
+                       new KeyValue(valorMar.yProperty(), yDeMar)
 	               ),
 	               new KeyFrame(new Duration(3000), 
 	                	new KeyValue(read.xProperty(), xDeRead),
-		                new KeyValue(valorMar.yProperty(), yParaRead)
+		                new KeyValue(read.yProperty(), yPara),
+		                new KeyValue(valorMar.xProperty(), xDeMar),
+		                new KeyValue(valorMar.yProperty(), yPara)
 	               )
 	     );
 		
@@ -204,6 +208,14 @@ public class Busca extends Ciclo{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
+				try {
+					Thread.sleep(2000);
+					TelaPrincipal.removerDoPalco(read);
+					TelaPrincipal.removerDoPalco(valorMar);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				controlador.operar();
 				
 			}
