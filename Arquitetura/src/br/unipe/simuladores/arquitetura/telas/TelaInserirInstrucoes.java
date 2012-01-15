@@ -2,23 +2,15 @@ package br.unipe.simuladores.arquitetura.telas;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import br.unipe.simuladores.arquitetura.componentes.circulos.CaixaFormulario;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
 import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
-import br.unipe.simuladores.simulacao.execucao.instrucoes.Animadora;
-import br.unipe.simuladores.simulacao.execucao.instrucoes.Controladora;
-import br.unipe.simuladores.simulacao.execucao.instrucoes.Movimentador;
-import javafx.application.Platform;
+import br.unipe.simuladores.simulacao.execucao.instrucoes.Controlador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -51,7 +43,7 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 	private ObservableList<String> instrucoes = FXCollections.observableArrayList();
 	private List<Instrucao> instrucoesList = new ArrayList<Instrucao>();
 	
-	Movimentador movimentador;
+	Controlador movimentador;
 	
 	public TelaInserirInstrucoes(String titulo, Color cor, double height, double width) {
 		super(titulo, cor, height, width);
@@ -213,27 +205,8 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 				
 				fechar();
 				
-				
-				//ExecutorService executor = Executors.newCachedThreadPool();
-				
-				movimentador = new Movimentador();
-				movimentador.operar();
-				//Controladora controladora = new Controladora(movimentador);
-				//movimentador.setControladora(controladora);
-				//Platform.runLater(new Thread(controladora.getTask()));
-				//executor.execute(controladora.getTask());
-				
-				//Animadora animadora = new Animadora(movimentador);
-				//movimentador.setAnimadora(animadora);
-				//Platform.runLater(new Thread(animadora.getTask()));
-				//executor.execute(animadora.getTask());
-				
-				//executor.shutdown();
-				//task.run();
-								
-				//controladora.setExecutor(executor);
-				//controladora.executorProperty().getValue().execute(controladora.getTask());
-				//movimentador.operar();
+				Controlador controlador = new Controlador();
+				controlador.iniciarSimulacao();
 				
 			}
 	    	
