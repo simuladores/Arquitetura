@@ -214,20 +214,21 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 				fechar();
 				
 				
-				ExecutorService executor = Executors.newCachedThreadPool();
+				//ExecutorService executor = Executors.newCachedThreadPool();
 				
-				movimentador = new Movimentador();	
-				Controladora controladora = new Controladora(movimentador);
-				movimentador.setControladora(controladora);
+				movimentador = new Movimentador();
+				movimentador.operar();
+				//Controladora controladora = new Controladora(movimentador);
+				//movimentador.setControladora(controladora);
 				//Platform.runLater(new Thread(controladora.getTask()));
-				executor.execute(controladora.getTask());
+				//executor.execute(controladora.getTask());
 				
 				//Animadora animadora = new Animadora(movimentador);
 				//movimentador.setAnimadora(animadora);
 				//Platform.runLater(new Thread(animadora.getTask()));
 				//executor.execute(animadora.getTask());
 				
-				executor.shutdown();
+				//executor.shutdown();
 				//task.run();
 								
 				//controladora.setExecutor(executor);

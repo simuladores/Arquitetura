@@ -40,7 +40,6 @@ public class Movimentador{
 	private MemoriaInterna memoriaInterna;
 	private UCPInterna ucpInterna;
 	private Instrucao instrucaoAtual;
-	private Text valorTxt;
 	private Lock lock;
 	private Condition condition;
 	
@@ -62,8 +61,6 @@ public class Movimentador{
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
-		
-		valorTxt = new Text();
 		
 		//lock = new ReentrantLock();
 		//condition = lock.newCondition();
@@ -91,12 +88,11 @@ public class Movimentador{
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
 		
-		this.valorTxt = new Text(valor);
 		
 	}
 	
 	
-	public synchronized void operar() {
+	public void operar() {
 			
 			
 			     
@@ -117,15 +113,15 @@ public class Movimentador{
 					Integer x = instr.enderecoProperty().getValue();
 					pc.atualizarValor(x, 880, 438);
 					
-					Platform.runLater(new Task<Void>(){
+					//Platform.runLater(new Task<Void>(){
 
-						@Override
-						protected Void call() throws Exception {
+						//@Override
+						//protected Void call() throws Exception {
 							ucpInterna.atualizarValorUnidadeTela(pc);
-							return null;
-						}
+							//return null;
+						//}
 						
-					});
+					//});
 
 					instrucaoAtual = instr;
 					
@@ -150,18 +146,18 @@ public class Movimentador{
 					continua1 = false;
 					continua2 = true;
 
-					Platform.runLater(new Task<Void>(){
+					//Platform.runLater(new Task<Void>(){
 
-						@Override
-						protected Void call() throws Exception {
+						//@Override
+						//protected Void call() throws Exception {
 							mostrarAnimacoes();
-							return null;
-						}
+							//return null;
+						//}
 						
-					});
+					//});
 					
-				    animadora = new Animadora(this);
-					animadora.start();
+				    //animadora = new Animadora(this);
+					//animadora.start();
 					
 					//controladora.cancel();
 					
@@ -173,7 +169,7 @@ public class Movimentador{
 					
 					//this.buscarInstrucao(animadora);
 						
-					System.out.println("acordou!");
+					//System.out.println("acordou!");
 					
 					//} catch (InterruptedException e) {
 						// //TODO Auto-generated catch block
@@ -188,7 +184,7 @@ public class Movimentador{
 		
 	}
 	
-	public synchronized void mostrarAnimacoes() {
+	public void mostrarAnimacoes() {
 		
 		//do {
 			
@@ -214,13 +210,13 @@ public class Movimentador{
 		
 	}
 	
-	public synchronized void buscarInstrucao() {
+	public void buscarInstrucao() {
 		
 		moverEnderecoPCParaMAR();
 		
 	}
 	
-	private synchronized void moverEnderecoPCParaMAR() {
+	private void moverEnderecoPCParaMAR() {
 		
 		
 		
@@ -236,26 +232,27 @@ public class Movimentador{
 		
 		final Integer valor = (Integer)ucpInterna.getPc().getValor();
 		
+		final Text valorTxt = new Text();
 		valorTxt.setText(valor.toString());
 		valorTxt.setX(xDe);
 		valorTxt.setY(yDe);
 		valorTxt.setFont(new Font(12));
 				
-		Platform.runLater(new Task<Void>(){
+		//Platform.runLater(new Task<Void>(){
 
-			@Override
-			protected Void call() throws Exception {
+			//@Override
+			//protected Void call() throws Exception {
 				
 				TelaPrincipal.removerDoPalco(valorTxt);
 				TelaPrincipal.adicionarAoPalco(valorTxt);
 				
-				return null;
-			}
+				//return null;
+			//}
 			
-		});
+		//});
 
 		
-		/*Timeline timeline = new Timeline();
+		Timeline timeline = new Timeline();
 			
 		timeline.getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
@@ -275,24 +272,24 @@ public class Movimentador{
 				
 				TelaPrincipal.removerDoPalco(valorTxt);
 				ucpInterna.getMar().atualizarValor(valor, xPara, yPara);
-				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());				
+				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());	
 				
-				continua = true;
+				operar();
 				
-				System.out.println("pode continuar!");
+				//continua = true;
+				
+				//System.out.println("pode continuar!");
 				
 			}
 			
 		});
 		
-		System.out.println("iniciando animação");
+		//System.out.println("iniciando animação");
 		timeline.play();
-		timeline.
-		System.out.println(timeline.getStatus());*/
 		
 		//lock.unlock();
 		
-		TranslateTransition translate = new 
+		/*TranslateTransition translate = new 
 				TranslateTransition(Duration.millis(3000), valorTxt);
 		translate.setFromX(xDe);
 		translate.setFromY(yDe);
@@ -304,15 +301,15 @@ public class Movimentador{
 		translate.setOnFinished(new EventHandler<ActionEvent>(){
 		
 			@Override
-			public synchronized void handle(ActionEvent arg0) {
+			public void handle(ActionEvent arg0) {
 				
 				//lock.lock();
 				TelaPrincipal.removerDoPalco(valorTxt);
 				ucpInterna.getMar().atualizarValor(valor, xPara, yPara);
 				ucpInterna.atualizarValorUnidadeTela(ucpInterna.getMar());				
 				
-				controladora = new Controladora(este);
-				controladora.start();
+				//controladora = new Controladora(este);
+				//controladora.start();
 				//condition.signal();
 				
 				//continua1 = true;
@@ -342,13 +339,15 @@ public class Movimentador{
 							
 				System.out.println("pode continuar!");*/
 				
-			}
+				//operar();
+				
+			//}
 			
-		});
+		//});*/
 		
 		
 		
-		translate.play();
+		//translate.play();
 		
 		//lock.unlock();
 		
