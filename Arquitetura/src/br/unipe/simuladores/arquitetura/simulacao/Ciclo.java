@@ -1,8 +1,11 @@
 package br.unipe.simuladores.arquitetura.simulacao;
 
+import javafx.animation.Timeline;
+
 public abstract class Ciclo {
 	
 	protected Controlador controlador;
+	protected Timeline timeline;
 	
 	public Ciclo(Controlador c) {
 		
@@ -18,6 +21,14 @@ public abstract class Ciclo {
 
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
+	}
+
+	public Timeline getTimeline() {
+		return timeline;
+	}
+
+	public void setTimeline(Timeline timeline) {
+		this.timeline = timeline;
 	}
 
 }

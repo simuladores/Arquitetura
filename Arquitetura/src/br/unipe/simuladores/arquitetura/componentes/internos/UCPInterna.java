@@ -110,13 +110,11 @@ public class UCPInterna extends ComponenteInterno{
 		pc = new PC();
 		pc.construirForma(870, 420);
 		pc.adicionarTexto(848, 438);
-		pc.atualizarValor(1, 880, 438);
 		atualizarUnidadeTela(pc);
 		
 		uc = new UC();
 		uc.construirForma(965, 575);
 		uc.adicionarTexto(945, 593);
-		uc.atualizarValor("READ", 975, 593);
 		atualizarUnidadeTela(uc);
 		
 		ula = new ULA();
@@ -202,12 +200,8 @@ public class UCPInterna extends ComponenteInterno{
 	
 	public void atualizarValorUnidadeTela(UnidadeUCP unidade) {
 		
-		ObservableList<Node> childrens = group.getChildren();
-		Text txt = unidade.getTxtValor();
-		childrens.remove(txt);
-		//group.getChildren().remove(unidade.getTxtValor());
-		//group.getChildren().add(unidade.getTxtValor());
-		childrens.add(txt);
+		group.getChildren().remove(unidade.getTxtValor());
+		group.getChildren().add(unidade.getTxtValor());
 		
 	}
 

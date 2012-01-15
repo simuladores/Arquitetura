@@ -13,9 +13,9 @@ import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class Controlador{
 	
-	protected MemoriaInterna memoriaInterna;
-	protected UCPInterna ucpInterna;
-	protected Instrucao instrucaoAtual;
+	private MemoriaInterna memoriaInterna;
+	private UCPInterna ucpInterna;
+	private Instrucao instrucaoAtual;
 	
 	protected ObservableList<Instrucao> instrucoes;
 	protected Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
@@ -46,16 +46,7 @@ public class Controlador{
 				
 		if (instrucoesQueue.size() > 0) {
 					
-			Instrucao instr = instrucoesQueue.poll();
-					
-			final PC pc = ucpInterna.getPc();
-			
-			Integer x = instr.enderecoProperty().getValue();
-			pc.atualizarValor(x, 880, 438);
-					
-			ucpInterna.atualizarValorUnidadeTela(pc);
-
-			instrucaoAtual = instr;
+			instrucaoAtual = instrucoesQueue.poll();
 					
 			TableViewSelectionModel <Instrucao> selectionModel =  
 			memoriaInterna.getTabelaInstrucoes().getSelectionModel();
