@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -216,7 +217,42 @@ public class EntradaSaida extends ComponenteCirculo{
 
 	@Override
 	protected void definirAcoesEspecificas() {
-		// TODO Auto-generated method stub
+		
+		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+					
+				TelaPrincipal.getMensagem().setExpanded(true);
+				TelaPrincipal.getMensagem().setContent(textoExplicativo);
+					
+				
+			}
+			
+		});
+		
+		group.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+					
+				TelaPrincipal.getMensagem().setExpanded(false);
+				TelaPrincipal.colocarTextoPadraoMensagem();
+					
+				
+			}
+			
+		});
+		
+		
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+		
+		return "Isso é um dispositivo de E/S";
 		
 	}
 

@@ -233,9 +233,22 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 			public void handle(MouseEvent event) {
 								
 				group.setCursor(Cursor.HAND);
+				TelaPrincipal.getMensagem().setExpanded(true);
+				TelaPrincipal.getMensagem().setContent(textoExplicativo);
 				
 			}
 			
+		});
+		
+		group.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+				TelaPrincipal.getMensagem().setExpanded(false);
+				TelaPrincipal.colocarTextoPadraoMensagem();
+				
+			}
 		});
 		
 		group.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -281,6 +294,13 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 	public UCPInterna getUCPInterna() {
 		
 		return ucpInterna;
+		
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+
+		return "Isso é uma CPU";
 		
 	}
 	

@@ -20,7 +20,7 @@ public abstract class ComponenteCirculo extends Componente{
 		circulo = new Circle();
 		definirAcoesGerais();
 		buildContent();
-		setTextoExplicativo(new Text("Este é um computador"));
+		setTextoExplicativo(new Text());
 
 	}
 	
@@ -72,6 +72,9 @@ public abstract class ComponenteCirculo extends Componente{
 
 	public void setTextoExplicativo(Text textoExplicativo) {
 		this.textoExplicativo = textoExplicativo;
+		this.textoExplicativo.setText(this.obterTextoExplicativo());
 	}
+	
+	public abstract String obterTextoExplicativo();
 
 }

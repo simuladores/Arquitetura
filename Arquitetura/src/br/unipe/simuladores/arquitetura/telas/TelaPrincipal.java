@@ -151,26 +151,6 @@ public class TelaPrincipal extends Tela{
 		
 	}
 	
-	private Accordion criarAccordion() {
-		
-		Accordion accordion = new Accordion();
-		
-		mensagem = new TitledPane();
-		mensagem.setText("Mensagem");
-		colocarTextoPadraoMensagem();
-		
-		variaveis = new TitledPane();
-		variaveis.setText("Variáveis");
-		colocarTextoPadraoVariaveis();
-		
-		accordion.getPanes().addAll(mensagem, variaveis);
-		
-		accordion.setTranslateY(500);
-		
-		return accordion;
-		
-	}
-	
 	private TitledPane criarTitledPaneMensagem() {
 		
 		TitledPane mensagem = new TitledPane();
@@ -194,13 +174,13 @@ public class TelaPrincipal extends Tela{
 		
 	}
 	
-	private void colocarTextoPadraoMensagem() {
+	public static void colocarTextoPadraoMensagem() {
 		
 		mensagem.setContent(defaultContentMensagem);
 		
 	}
 	
-	private void colocarTextoPadraoVariaveis() {
+	public static void colocarTextoPadraoVariaveis() {
 		
 		variaveis.setContent(defaultContentVariaveis);
 		

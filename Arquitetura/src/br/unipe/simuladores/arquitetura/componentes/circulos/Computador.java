@@ -37,6 +37,7 @@ public class Computador extends ComponenteCirculo {
 		entradaSaida = new EntradaSaida();
 		sistemaInterconexao = new SistemaInterconexao();
 		
+		
 	}
 	
 	@Override
@@ -213,6 +214,38 @@ public class Computador extends ComponenteCirculo {
 
 	public void definirAcoesEspecificas() {
 		
+		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+				if (!expanded) {
+					
+					TelaPrincipal.getMensagem().setExpanded(true);
+					TelaPrincipal.getMensagem().setContent(textoExplicativo);
+					
+				}
+				
+			}
+			
+		});
+		
+		group.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+				if (!expanded) {
+					
+					TelaPrincipal.getMensagem().setExpanded(false);
+					TelaPrincipal.colocarTextoPadraoMensagem();
+					
+				}
+				
+			}
+			
+		});
+		
 		grupoES.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
 			@Override
@@ -270,6 +303,8 @@ public class Computador extends ComponenteCirculo {
 			public void handle(MouseEvent event) {
 								
 				grupoUCP.setCursor(Cursor.HAND);
+				TelaPrincipal.getMensagem().setExpanded(true);
+				TelaPrincipal.getMensagem().setContent(textoExplicativo);
 				
 			}
 			
@@ -340,6 +375,14 @@ public class Computador extends ComponenteCirculo {
 	public UCP getUCP() {
 		
 		return ucp;
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+		
+		return "Isso é um computador";
+		
+		
 	}
 
 
