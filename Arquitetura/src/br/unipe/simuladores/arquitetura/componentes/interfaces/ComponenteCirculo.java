@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 public abstract class ComponenteCirculo extends Componente{
 	
@@ -11,12 +12,15 @@ public abstract class ComponenteCirculo extends Componente{
 	
 	protected boolean expanded;
 	
+	protected Text textoExplicativo;
+	
 	public ComponenteCirculo() {
 		
 		super();
 		circulo = new Circle();
 		definirAcoesGerais();
 		buildContent();
+		setTextoExplicativo(new Text("Este é um computador"));
 
 	}
 	
@@ -60,6 +64,14 @@ public abstract class ComponenteCirculo extends Componente{
 
 	public void setExpanded(boolean expanded) {
 		this.expanded = expanded;
+	}
+
+	public Text getTextoExplicativo() {
+		return textoExplicativo;
+	}
+
+	public void setTextoExplicativo(Text textoExplicativo) {
+		this.textoExplicativo = textoExplicativo;
 	}
 
 }

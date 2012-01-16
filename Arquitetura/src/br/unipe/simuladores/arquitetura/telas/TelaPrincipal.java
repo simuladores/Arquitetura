@@ -6,9 +6,11 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -21,6 +23,13 @@ public class TelaPrincipal extends Tela{
 	private static final Computador computador = new Computador();
 	private static MenuBar menuSuperior;
 	private boolean started = false;
+	//private static Accordion accordion;
+	private static TitledPane mensagem;
+	private static TitledPane variaveis;
+	
+	private static final Text defaultContentMensagem = new Text("Não há mensagens");
+	private static final Text defaultContentVariaveis = new Text("Não há variáveis");
+	
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
 		super(stage, titulo, cor, height, width);
@@ -35,11 +44,6 @@ public class TelaPrincipal extends Tela{
         
 		group.getChildren().add(computador.getContent());
 		
-	    /*Tooltip tooltip = new Tooltip();
-		tooltip.setText("Clique para expandir");
-		Tooltip.install(group, tooltip);
-		tooltip.show(stage);*/
-		
 		final Text textClique = new Text("Clique para expandir");
 		textClique.setX(550);
 		textClique.setY(300);
@@ -50,6 +54,15 @@ public class TelaPrincipal extends Tela{
 		
 		menuSuperior = criarMenu(scene);
 		root.getChildren().add(menuSuperior);
+		
+		/*accordion = criarAccordion();
+		root.getChildren().add(accordion);*/
+		
+		mensagem = criarTitledPaneMensagem();
+		root.getChildren().add(mensagem);
+		
+		variaveis = criarTitledPaneVariaveis();
+		root.getChildren().add(variaveis);
 		
 		group.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
@@ -137,6 +150,61 @@ public class TelaPrincipal extends Tela{
 		
 		
 	}
+	
+	private Accordion criarAccordion() {
+		
+		Accordion accordion = new Accordion();
+		
+		mensagem = new TitledPane();
+		mensagem.setText("Mensagem");
+		colocarTextoPadraoMensagem();
+		
+		variaveis = new TitledPane();
+		variaveis.setText("Variáveis");
+		colocarTextoPadraoVariaveis();
+		
+		accordion.getPanes().addAll(mensagem, variaveis);
+		
+		accordion.setTranslateY(500);
+		
+		return accordion;
+		
+	}
+	
+	private TitledPane criarTitledPaneMensagem() {
+		
+		TitledPane mensagem = new TitledPane();
+		mensagem.setText("Mensagem");
+		mensagem.setContent(defaultContentMensagem);
+		mensagem.setTranslateY(500);
+		mensagem.setTranslateX(90);
+		
+		return mensagem;
+		
+	}
+	
+	private TitledPane criarTitledPaneVariaveis() {
+		
+		TitledPane variaveis = new TitledPane();
+		variaveis.setText("Variáveis");
+		variaveis.setContent(defaultContentVariaveis);
+		variaveis.setTranslateY(500);
+		
+		return variaveis;
+		
+	}
+	
+	private void colocarTextoPadraoMensagem() {
+		
+		mensagem.setContent(defaultContentMensagem);
+		
+	}
+	
+	private void colocarTextoPadraoVariaveis() {
+		
+		variaveis.setContent(defaultContentVariaveis);
+		
+	}
 
 	public static void adicionarAoPalco(Node node) {
 		
@@ -156,6 +224,35 @@ public class TelaPrincipal extends Tela{
 	
 	public static MenuBar getMenuSuperior() {
 		return menuSuperior;
+	}
+
+	/*public static Accordion getAccordion() {
+		return accordion;
+	}
+
+
+	public static void setAccordion(Accordion accordion) {
+		TelaPrincipal.accordion = accordion;
+	}*/
+
+
+	public static TitledPane getMensagem() {
+		return mensagem;
+	}
+
+
+	public static void setMensagem(TitledPane mensagem) {
+		TelaPrincipal.mensagem = mensagem;
+	}
+
+
+	public static TitledPane getVariaveis() {
+		return variaveis;
+	}
+
+
+	public static void setVariaveis(TitledPane variaveis) {
+		TelaPrincipal.variaveis = variaveis;
 	}
 
 }
