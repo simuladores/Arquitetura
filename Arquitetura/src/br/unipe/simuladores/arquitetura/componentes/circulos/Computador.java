@@ -233,7 +233,6 @@ public class Computador extends ComponenteCirculo {
 
 	public void definirAcoesEspecificas() {
 		
-		
 		group.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
@@ -248,6 +247,31 @@ public class Computador extends ComponenteCirculo {
 				
 			}
 			
+		});
+		
+		/*Define as ações que ocorrem com os componentes*/
+		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if (!encolhido) {
+					if (expanded)
+						group.setCursor(Cursor.DEFAULT);
+					else
+						group.setCursor(Cursor.HAND);
+						
+						TelaPrincipal.getMensagem().setExpanded(true);
+						TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+				} else {
+					
+					TelaPrincipal.getMensagem().setExpanded(false);
+					TelaPrincipal.colocarTextoPadraoMensagem();
+					
+				}
+					
+			}
+				
 		});
 		
 	}
@@ -311,8 +335,6 @@ public class Computador extends ComponenteCirculo {
 			public void handle(MouseEvent event) {
 								
 				grupoUCP.setCursor(Cursor.HAND);
-				TelaPrincipal.getMensagem().setExpanded(true);
-				TelaPrincipal.getMensagem().setContent(textoExplicativo);
 				
 			}
 			
@@ -387,7 +409,13 @@ public class Computador extends ComponenteCirculo {
 	@Override
 	public String obterTextoExplicativo() {
 		
-		return "Isso é um computador";
+		if (!expanded)
+			return "Isso é um computador";
+		else
+			return "Essa figura representa um computador com seus\n componentes " +
+					"principais representados por círculos.\n Para ver datalhes de cada" +
+					" um deles e iniciar a simulação\n com eles envolvidos, clique no " +
+					"círculo que os representam. ";
 		
 		
 	}

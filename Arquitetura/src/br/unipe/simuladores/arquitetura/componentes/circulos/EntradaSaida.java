@@ -211,6 +211,8 @@ public class EntradaSaida extends ComponenteCirculo{
 		group.getChildren().addAll(circulo, grupoLegiveisSerHumano, 
 				grupoLegiveisMaquina, grupoComunicacaoDispositivosRemotos);
 		
+		definirAcoesEspecificas();
+		
 		adicionarTexto();
 		
 	}
@@ -225,21 +227,7 @@ public class EntradaSaida extends ComponenteCirculo{
 				
 					
 				TelaPrincipal.getMensagem().setExpanded(true);
-				TelaPrincipal.getMensagem().setContent(textoExplicativo);
-					
-				
-			}
-			
-		});
-		
-		group.setOnMouseExited(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				
-					
-				TelaPrincipal.getMensagem().setExpanded(false);
-				TelaPrincipal.colocarTextoPadraoMensagem();
+				TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
 					
 				
 			}

@@ -159,28 +159,17 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 	@Override
 	protected void definirAcoesEspecificas() {
 		
-		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
+		 group.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
-			@Override
-			public void handle(MouseEvent event) {
-								
-				TelaPrincipal.getMensagem().setExpanded(true);
-				TelaPrincipal.getMensagem().setContent(textoExplicativo);
-				
-			}
-			
-		});
-		
-		group.setOnMouseExited(new EventHandler<MouseEvent>() {
+			   @Override
+			   public void handle(MouseEvent e) {
 
-			@Override
-			public void handle(MouseEvent arg0) {
+				   TelaPrincipal.getMensagem().setExpanded(true);
+				   TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
 				
-				TelaPrincipal.getMensagem().setExpanded(false);
-				TelaPrincipal.colocarTextoPadraoMensagem();
-				
-			}
-		});
+			   }
+			   
+		   });
 		
 		grupoBarramento.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
@@ -258,7 +247,9 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 	@Override
 	public String obterTextoExplicativo() {
 		
-		return "Isso é um Sistema de interconexão";
+		return "Esse componente faz parte do sistema de\n interconexão. " +
+				"Para ver mais detalhes sobre\n algum desses componentes" +
+				" clique no círculo\n \"Barramento\" ou \"Módulo de E/S\"";
 		
 	}
 

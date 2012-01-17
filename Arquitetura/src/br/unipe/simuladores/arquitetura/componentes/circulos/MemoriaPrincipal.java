@@ -199,30 +199,19 @@ public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 
 	@Override
 	protected void definirAcoesEspecificas() {
-		
-		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
+				
+		 group.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
-			@Override
-			public void handle(MouseEvent event) {
-								
-				group.setCursor(Cursor.HAND);
-				TelaPrincipal.getMensagem().setExpanded(true);
-				TelaPrincipal.getMensagem().setContent(textoExplicativo);
+			   @Override
+			   public void handle(MouseEvent e) {
+				 
+				   group.setCursor(Cursor.HAND);
+				   TelaPrincipal.getMensagem().setExpanded(true);
+				   TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
 				
-			}
-			
-		});
-		
-		group.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				
-				TelaPrincipal.getMensagem().setExpanded(false);
-				TelaPrincipal.colocarTextoPadraoMensagem();
-				
-			}
-		});
+			   }
+			   
+		   });
 		
 		group.setOnMouseClicked(new EventHandler<MouseEvent>(){
 

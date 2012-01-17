@@ -8,7 +8,6 @@ import javafx.scene.control.TableView.TableViewSelectionModel;
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
-import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class Controlador{
