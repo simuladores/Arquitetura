@@ -1,5 +1,6 @@
 package br.unipe.simuladores.arquitetura.componentes.interfaces;
 
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +41,13 @@ public abstract class ComponenteCirculo extends Componente{
 					group.setCursor(Cursor.DEFAULT);
 				else
 					group.setCursor(Cursor.HAND);
+				
+				if (!expanded) {
+					
+					TelaPrincipal.getMensagem().setExpanded(true);
+					TelaPrincipal.getMensagem().setContent(textoExplicativo);
+					
+				}
 					
 			}
 				
@@ -51,6 +59,13 @@ public abstract class ComponenteCirculo extends Componente{
 			public void handle(MouseEvent event) {
 					
 				group.setCursor(Cursor.DEFAULT);
+				
+				if (!expanded) {
+					
+					TelaPrincipal.getMensagem().setExpanded(false);
+					TelaPrincipal.colocarTextoPadraoMensagem();
+					
+				}
 					
 			}
 				

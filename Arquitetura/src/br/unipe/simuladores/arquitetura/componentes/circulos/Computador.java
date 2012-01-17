@@ -28,6 +28,8 @@ public class Computador extends ComponenteCirculo {
 	private EntradaSaida entradaSaida;
 	private SistemaInterconexao sistemaInterconexao;
 	
+	private Text textClique;
+	
 	public Computador() {
 		
 		super();
@@ -36,6 +38,7 @@ public class Computador extends ComponenteCirculo {
 		memoriaPrincipal = new MemoriaPrincipal();
 		entradaSaida = new EntradaSaida();
 		sistemaInterconexao = new SistemaInterconexao();
+		
 		
 		
 	}
@@ -194,7 +197,6 @@ public class Computador extends ComponenteCirculo {
 			group.getChildren().addAll(circulo, grupoES, grupoMemoriaPrincipal, grupoSistemaInterconexao,
 					grupoUCP);
 			
-			definirAcoesEspecificas();
 		
 		} else {
 			
@@ -202,9 +204,15 @@ public class Computador extends ComponenteCirculo {
 			circulo.setCenterX(600);
 			circulo.setCenterY(400);
 			
-			group.getChildren().addAll(circulo);
+			textClique = new Text("Clique para expandir");
+			textClique.setX(550);
+			textClique.setY(300);
+			
+			group.getChildren().addAll(circulo, textClique);
 			
 		}
+		
+		definirAcoesEspecificas();
 		
 		adicionarTexto();	
 
@@ -214,37 +222,29 @@ public class Computador extends ComponenteCirculo {
 
 	public void definirAcoesEspecificas() {
 		
-		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				
-				if (!expanded) {
-					
-					TelaPrincipal.getMensagem().setExpanded(true);
-					TelaPrincipal.getMensagem().setContent(textoExplicativo);
-					
-				}
-				
-			}
-			
-		});
 		
-		group.setOnMouseExited(new EventHandler<MouseEvent>(){
+		group.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
-			public void handle(MouseEvent arg0) {
+			public void handle(MouseEvent event) {
 				
+				//expande o computador
 				if (!expanded) {
-					
-					TelaPrincipal.getMensagem().setExpanded(false);
-					TelaPrincipal.colocarTextoPadraoMensagem();
-					
+					textClique.setVisible(false);
+					expandir(0.2, 1, 3000);
+					expanded = true;
 				}
 				
 			}
 			
 		});
+
+		if (expanded)
+			definirAcoesEspecificasExpandido();
+		
+	}
+	
+	public void definirAcoesEspecificasExpandido() {
 		
 		grupoES.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
@@ -363,7 +363,6 @@ public class Computador extends ComponenteCirculo {
 			}
 			
 		});
-		
 		
 	}
 	

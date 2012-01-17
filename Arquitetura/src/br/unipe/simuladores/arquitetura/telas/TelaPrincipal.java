@@ -42,15 +42,15 @@ public class TelaPrincipal extends Tela{
 		
 		group = new Group();
         
-		group.getChildren().add(computador.getContent());
+		//group.getChildren().add(computador.getContent());
 		
-		final Text textClique = new Text("Clique para expandir");
+		/*final Text textClique = new Text("Clique para expandir");
 		textClique.setX(550);
-		textClique.setY(300);
+		textClique.setY(300);*/
 				
-		root.getChildren().add(group);
+		root.getChildren().add(computador.getContent());
 		
-		root.getChildren().add(textClique);
+		//root.getChildren().add(textClique);
 		
 		menuSuperior = criarMenu(scene);
 		root.getChildren().add(menuSuperior);
@@ -64,7 +64,7 @@ public class TelaPrincipal extends Tela{
 		variaveis = criarTitledPaneVariaveis();
 		root.getChildren().add(variaveis);
 		
-		group.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		/*group.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -78,7 +78,7 @@ public class TelaPrincipal extends Tela{
 				
 			}
 			
-		});
+		});*/
 		
 	}
 	
