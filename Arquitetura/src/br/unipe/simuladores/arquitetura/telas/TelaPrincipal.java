@@ -40,7 +40,7 @@ public class TelaPrincipal extends Tela{
 	@Override
 	public void criar() {
 		
-		group = new Group();
+		//group = new Group();
         
 		//group.getChildren().add(computador.getContent());
 		
@@ -188,13 +188,13 @@ public class TelaPrincipal extends Tela{
 
 	public static void adicionarAoPalco(Node node) {
 		
-		group.getChildren().add(node);
+		root.getChildren().add(node);
 		
 	}
 	
 	public static void removerDoPalco(Node node) {
 		
-		group.getChildren().remove(node);
+		root.getChildren().remove(node);
 		
 	}
 	

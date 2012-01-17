@@ -29,6 +29,9 @@ public class Computador extends ComponenteCirculo {
 	private SistemaInterconexao sistemaInterconexao;
 	
 	private Text textClique;
+	private Text txtComputador;
+	
+	private boolean encolhido = false;
 	
 	public Computador() {
 		
@@ -75,7 +78,7 @@ public class Computador extends ComponenteCirculo {
 	@Override
 	public void encolher(double fromScale, double toScale, double time) {
 		
-		if(expanded) {
+		if(!encolhido) {
 			
 			//cria a animação
 		    timeline = new Timeline();
@@ -96,18 +99,20 @@ public class Computador extends ComponenteCirculo {
 			
 		}
 		
-		expanded = false;
+		encolhido = true;
 		
 	}
 	
 	@Override
 	protected void adicionarTexto() {
 		
-		Text txtComputador = new Text("COMPUTADOR");
+		group.getChildren().remove(txtComputador);
+		
+        txtComputador = new Text("COMPUTADOR");
 		
 		//se for expandir adiciona outros elementos ao círculo do computador
 		if (expanded) {
-						
+				
 			txtComputador.setX(560);
 			txtComputador.setY(240);
 			
@@ -136,10 +141,14 @@ public class Computador extends ComponenteCirculo {
 			
 		} else {
 			
+			textClique = new Text("Clique para expandir");
+			textClique.setX(550);
+			textClique.setY(300);
+			
 			txtComputador.setFont(new Font(11));
 			txtComputador.setX(562);
 			txtComputador.setY(402);
-			group.getChildren().add(txtComputador);
+			group.getChildren().addAll(txtComputador, textClique);
 			
 		}
 		
@@ -152,8 +161,11 @@ public class Computador extends ComponenteCirculo {
 		group.getChildren().removeAll(circulo, grupoES, grupoMemoriaPrincipal, 
 				grupoSistemaInterconexao, grupoUCP);
 		
+		
 		//se for expandir adiciona outros textos ao círculo do computador
 		if (expanded) {
+			
+			//group = new Group();
 			
 			Circle es = new Circle();
 			Circle memoriaPrincipal = new Circle();
@@ -204,15 +216,14 @@ public class Computador extends ComponenteCirculo {
 			circulo.setCenterX(600);
 			circulo.setCenterY(400);
 			
-			textClique = new Text("Clique para expandir");
-			textClique.setX(550);
-			textClique.setY(300);
-			
 			group.getChildren().addAll(circulo, textClique);
 			
 		}
 		
-		definirAcoesEspecificas();
+		if (expanded)
+			definirAcoesEspecificasExpandido();
+		else
+			definirAcoesEspecificas();
 		
 		adicionarTexto();	
 
@@ -238,9 +249,6 @@ public class Computador extends ComponenteCirculo {
 			}
 			
 		});
-
-		if (expanded)
-			definirAcoesEspecificasExpandido();
 		
 	}
 	

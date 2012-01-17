@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public abstract class Tela {
 	
 	protected Stage stage;
-	protected Group root;
+	protected static Group root;
 	protected Scene scene;
 	protected Color cor;
 	
