@@ -1,8 +1,11 @@
 package br.unipe.simuladores.arquitetura.componentes.interfaces;
 
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -35,6 +38,35 @@ public abstract class ComponenteInterno extends Componente{
 	       );
 			
 	      timeline.play();
+		
+	}
+	
+	@Override
+	protected void definirAcoesGerais() {
+		
+		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				
+				TelaPrincipal.getMensagem().setExpanded(true);
+				TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+				
+			}
+			
+		});
+		
+		group.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				
+				TelaPrincipal.getMensagem().setExpanded(false);
+				TelaPrincipal.colocarTextoPadraoMensagem();
+				
+			}
+			
+		});
 		
 	}
 

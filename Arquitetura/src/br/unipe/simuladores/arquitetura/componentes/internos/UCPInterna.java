@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -142,14 +144,9 @@ public class UCPInterna extends ComponenteInterno{
 	}
 
 	@Override
-	protected void definirAcoesGerais() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	protected void definirAcoesEspecificas() {
-		// TODO Auto-generated method stub
+		
+		//TODO
 		
 	}
 	
@@ -259,6 +256,13 @@ public class UCPInterna extends ComponenteInterno{
 
 	public void setMapaRegistradores(Map<String, Registrador> mapaRegistradores) {
 		this.mapaRegistradores = mapaRegistradores;
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+
+		return "Isso é uma UCP Interna";
+		
 	}
 
 }

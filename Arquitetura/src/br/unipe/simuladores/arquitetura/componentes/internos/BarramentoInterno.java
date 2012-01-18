@@ -1,10 +1,13 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class BarramentoInterno extends ComponenteInterno {
 	
@@ -76,14 +79,16 @@ public class BarramentoInterno extends ComponenteInterno {
 	}
 
 	@Override
-	protected void definirAcoesGerais() {
-		// TODO Auto-generated method stub
+	protected void definirAcoesEspecificas() {
+		
+		// TODO 
 		
 	}
 
 	@Override
-	protected void definirAcoesEspecificas() {
-		// TODO Auto-generated method stub
+	public String obterTextoExplicativo() {
+		
+		return "Isso é um barramento interno";
 		
 	}
 

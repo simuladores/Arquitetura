@@ -13,6 +13,8 @@ public abstract class ComponenteCirculo extends Componente{
 	
 	protected boolean expanded;
 	
+	protected boolean broken = false;
+	
 	public ComponenteCirculo() {
 		
 		super();
@@ -53,10 +55,12 @@ public abstract class ComponenteCirculo extends Componente{
 		this.expanded = expanded;
 	}
 
-	public Text getTextoExplicativo() {
-		return new Text(obterTextoExplicativo());
+	public boolean isBroken() {
+		return broken;
 	}
-	
-	public abstract String obterTextoExplicativo();
+
+	public void setBroken(boolean broken) {
+		this.broken = broken;
+	}
 
 }

@@ -163,9 +163,20 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 
 			   @Override
 			   public void handle(MouseEvent e) {
-
-				   TelaPrincipal.getMensagem().setExpanded(true);
-				   TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+				   
+				   if (!broken) {
+					   
+					   TelaPrincipal.getMensagem().setExpanded(true);
+					   TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+					   
+				   } else {
+					   
+					   group.setCursor(Cursor.DEFAULT);
+					   
+					   TelaPrincipal.getMensagem().setExpanded(false);
+					   TelaPrincipal.colocarTextoPadraoMensagem();
+				   }
+				   
 				
 			   }
 			   
@@ -241,6 +252,8 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
          );
 		
 		timeline.play();
+		
+		broken = true;
 		
 	}
 

@@ -232,10 +232,22 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 			   @Override
 			   public void handle(MouseEvent e) {
 				 
-				   group.setCursor(Cursor.HAND);
-				   TelaPrincipal.getMensagem().setExpanded(true);
-				   TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
-				
+				   if (!broken) {
+					   
+					   group.setCursor(Cursor.HAND);
+					   TelaPrincipal.getMensagem().setExpanded(true);
+					   TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+					
+					   
+				   } else {
+					   
+					   group.setCursor(Cursor.DEFAULT);
+						
+						TelaPrincipal.getMensagem().setExpanded(false);
+						TelaPrincipal.colocarTextoPadraoMensagem();
+					   
+				   }
+				  
 			   }
 			   
 		   });
@@ -277,6 +289,8 @@ public class UCP extends ComponenteCirculo implements Quebravel{
          );
 		
 		timeline.play();
+		
+		broken = true;
 		
 	}
 	
