@@ -9,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -17,11 +19,8 @@ import javafx.stage.Stage;
 
 public class TelaPrincipal extends Tela{
 
-	private static Group group;
 	private static final Computador computador = new Computador();
 	private static MenuBar menuSuperior;
-	private boolean started = false;
-	//private static Accordion accordion;
 	private static TitledPane mensagem;
 	private static TitledPane variaveis;
 	
@@ -38,23 +37,11 @@ public class TelaPrincipal extends Tela{
 	@Override
 	public void criar() {
 		
-		//group = new Group();
-        
-		//group.getChildren().add(computador.getContent());
-		
-		/*final Text textClique = new Text("Clique para expandir");
-		textClique.setX(550);
-		textClique.setY(300);*/
 				
 		root.getChildren().add(computador.getContent());
 		
-		//root.getChildren().add(textClique);
-		
 		menuSuperior = criarMenu(scene);
 		root.getChildren().add(menuSuperior);
-		
-		/*accordion = criarAccordion();
-		root.getChildren().add(accordion);*/
 		
 		mensagem = criarTitledPaneMensagem();
 		root.getChildren().add(mensagem);
@@ -62,21 +49,6 @@ public class TelaPrincipal extends Tela{
 		variaveis = criarTitledPaneVariaveis();
 		root.getChildren().add(variaveis);
 		
-		/*group.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent event) {
-				
-				//expande o computador
-				if (!started) {
-					textClique.setVisible(false);
-					computador.expandir(0.2, 1, 3000);
-					started = true;
-				}
-				
-			}
-			
-		});*/
 		
 	}
 	
@@ -133,12 +105,46 @@ public class TelaPrincipal extends Tela{
 		});
 		outros.getItems().add(sin);
 		
+		ToggleGroup tgGroupMensagem = new ToggleGroup();
+		Menu janela = new Menu("Janela");
+		Menu mensagens = new Menu("Mensagens");
+		RadioMenuItem exibir = new RadioMenuItem("Exibir");
+		exibir.setToggleGroup(tgGroupMensagem);
+		mensagens.getItems().add(exibir);
+		
+		RadioMenuItem esconder = new RadioMenuItem("Esconder");
+		esconder.setToggleGroup(tgGroupMensagem);
+		mensagens.getItems().add(esconder);
+		
+		RadioMenuItem naoExibir = new RadioMenuItem("Não Exibir");
+		naoExibir.setToggleGroup(tgGroupMensagem);
+		mensagens.getItems().add(naoExibir);
+		
+		tgGroupMensagem.selectToggle(esconder);
+			
+		janela.getItems().add(mensagens);
+		
+		ToggleGroup tgGroupVariaveis = new ToggleGroup();
+		Menu variaveis = new Menu("Variáveis");
+		RadioMenuItem exibirVar = new RadioMenuItem("Exibir");
+		exibirVar.setToggleGroup(tgGroupVariaveis);
+		variaveis.getItems().add(exibirVar);
+		
+		RadioMenuItem naoExibirVar = new RadioMenuItem("Não Exibir");
+		naoExibirVar.setToggleGroup(tgGroupVariaveis);
+		variaveis.getItems().add(naoExibirVar);
+		
+		tgGroupVariaveis.selectToggle(exibirVar);
+		
+		janela.getItems().add(variaveis);
+		
 		Menu ajuda = new Menu("Ajuda");
 		MenuItem sobre = new MenuItem("Sobre");
 		ajuda.getItems().add(sobre);
 		
 		menuBar.getMenus().add(inserir);
 		menuBar.getMenus().add(outros);
+		menuBar.getMenus().add(janela);
 		menuBar.getMenus().add(ajuda);
 		
 		menuBar.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
