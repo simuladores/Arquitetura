@@ -34,6 +34,7 @@ public class Busca extends Ciclo{
 	public void mostrarAnimacoes() {
 		
 	    atualizarPC();
+		moverEnderecoPCParaMAR();
 		
 		
 	}
@@ -45,10 +46,7 @@ public class Busca extends Ciclo{
 		
 			pc.atualizarValor(controlador.getInstrucaoAtual().enderecoProperty().getValue(), 880, 438);
 				
-			controlador.getUcpInterna().atualizarValorUnidadeTela(pc);
-		
-			
-			moverEnderecoPCParaMAR();
+			controlador.getUcpInterna().atualizarValorUnidadeTela(pc);		
 			
 		
 	}
@@ -80,7 +78,7 @@ public class Busca extends Ciclo{
 							new KeyValue(valorTxt.yProperty(), yDe)
 				    ),
 	                new KeyFrame(new Duration(3000), 
-	                		new KeyValue(valorTxt.xProperty(), xPara),
+	                		new KeyValue(valorTxt.xProperty(), yPara),
 	                		new KeyValue(valorTxt.yProperty(), yPara)
 	                )
 			);
@@ -94,7 +92,7 @@ public class Busca extends Ciclo{
 					controlador.getUcpInterna().getMar().atualizarValor(valor, xPara, yPara);
 					controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getMar());	
 				
-					copiarREADParaBarramento();
+					//copiarREADParaBarramento();
 				
 				}
 			
