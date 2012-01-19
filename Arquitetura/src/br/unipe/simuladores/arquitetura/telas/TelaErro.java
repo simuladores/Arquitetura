@@ -10,27 +10,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class TelaErro extends Tela{
-	
-	private String mensagem;
+public class TelaErro extends TelaSimplesMensagem{
 
 	public TelaErro(String titulo, Color cor, String mensagem) {
-		super(titulo, Color.rgb(245, 245, 245));
-		this.mensagem = mensagem;
-		criar();
+		
+		super(titulo, cor, mensagem);
+		
 	}
 	
 	@Override
 	public void criar() {
 		
-		VBox vBox = new VBox();
-		vBox.setPadding(new Insets(5, 5, 5, 5));
-		vBox.setSpacing(20);
-		Text txtErro = new Text(mensagem);
-		vBox.getChildren().add(txtErro);
+		adicionarComponentesComuns();
 		
-		HBox hBox = new HBox();
-		hBox.setAlignment(Pos.CENTER);
 		Button btn = new Button("OK");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -44,9 +36,6 @@ public class TelaErro extends Tela{
 		});
 		hBox.getChildren().add(btn);
 		
-		vBox.getChildren().add(hBox);
-		
-		root.getChildren().add(vBox);
 		
 	}
 

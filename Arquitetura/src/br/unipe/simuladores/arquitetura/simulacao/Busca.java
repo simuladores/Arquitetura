@@ -5,16 +5,20 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
+import br.unipe.simuladores.arquitetura.enums.EstadoCicloBusca;
+import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class Busca extends Ciclo{
 	
 	private Text read;
 	private Text valorMar;
+	private Busca este;
 
 	public Busca(Controlador c) {
 		
@@ -22,11 +26,20 @@ public class Busca extends Ciclo{
 		
 	}
 	
+	
 	@Override
 	public void mostrarAnimacoes() {
 		
-		atualizarPC();
-		moverEnderecoPCParaMAR();
+		if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+			mensagemSimulacao = new TelaMensagemCicloBusca("Mensagem", 
+					Color.rgb(245, 245, 245), "Blá blá", 
+					this, EstadoCicloBusca.INICIAL);
+			mensagemSimulacao.exibir();
+		} else 
+			atualizarPC();
+		
+		
+		este = this;
 		
 	}
 	
@@ -38,9 +51,17 @@ public class Busca extends Ciclo{
 				
 		controlador.getUcpInterna().atualizarValorUnidadeTela(pc);
 		
+		if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+			mensagemSimulacao = new TelaMensagemCicloBusca("Mensagem", 
+					Color.rgb(245, 245, 245), "Blá blá", 
+					this, EstadoCicloBusca.ATUALIZAR_PC);
+			mensagemSimulacao.exibir();
+		} else 
+			moverEnderecoPCParaMAR();
+		
 	}
 	
-	private void moverEnderecoPCParaMAR() {
+	public void moverEnderecoPCParaMAR() {
 		
 		double xDe = controlador.getUcpInterna().getPc().getTxtValor().getX();
 		double yDe = controlador.getUcpInterna().getPc().getTxtValor().getY();
@@ -81,13 +102,21 @@ public class Busca extends Ciclo{
 				controlador.getUcpInterna().getMar().atualizarValor(valor, xPara, yPara);
 				controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getMar());	
 				
-				copiarREADParaBarramento();
+				if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+					mensagemSimulacao = new TelaMensagemCicloBusca("Mensagem", 
+							Color.rgb(245, 245, 245), "Blá blá", 
+							este, EstadoCicloBusca.MOVER_MAR);
+					mensagemSimulacao.exibir();
+				} else
+					copiarREADParaBarramento();
 				
 			}
 			
 		});
 		
-		timeline.play();
+		
+		if (!mensagemSimulacao.getStage().isShowing())
+			timeline.play();
 			
 	}
 	
@@ -124,13 +153,20 @@ public class Busca extends Ciclo{
 				@Override
 				public void handle(ActionEvent arg0) {
 					
-					copiarValorMARParaBarramento();
+					if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+						mensagemSimulacao = new TelaMensagemCicloBusca("Mensagem", 
+								Color.rgb(245, 245, 245), "Blá blá", 
+								este, EstadoCicloBusca.COPIAR_READ_BARRAMENTO);
+						mensagemSimulacao.exibir();
+					} else
+						copiarValorMARParaBarramento();
 					
 				}
 				
 			});
-			
-			timeline.play();
+						
+			if (!mensagemSimulacao.getStage().isShowing())
+				timeline.play();
 		
 	}
 	
@@ -167,13 +203,20 @@ public class Busca extends Ciclo{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				moverDadosBarramentoParaMemoria();
+				if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+					mensagemSimulacao = new TelaMensagemCicloBusca("Mensagem", 
+							Color.rgb(245, 245, 245), "Blá blá", 
+							este, EstadoCicloBusca.COPIAR_VALOR_MAR_BARRAMENTO);
+					mensagemSimulacao.exibir();
+				} else
+					moverDadosBarramentoParaMemoria();
 				
 			}
 			
 		});
 		
-		timeline.play();
+		if (!mensagemSimulacao.getStage().isShowing())
+			timeline.play();
 		
 	}
 	

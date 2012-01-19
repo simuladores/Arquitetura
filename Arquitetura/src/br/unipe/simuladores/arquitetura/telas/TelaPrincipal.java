@@ -10,6 +10,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
@@ -27,6 +28,7 @@ public class TelaPrincipal extends Tela{
 	private static final Text defaultContentMensagem = new Text("Não há mensagens");
 	private static final Text defaultContentVariaveis = new Text("Não há variáveis");
 	private static OpcaoJanelaMensagem opcaoJanelaMensagem;
+	private static boolean exibirMensagensDeSimulacao = true;
 	
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
@@ -158,22 +160,63 @@ public class TelaPrincipal extends Tela{
 		});
 		
 		tgGroupMensagem.selectToggle(esconder);
+		
+		final RadioMenuItem opExibirMensSimulacao = new RadioMenuItem("Exibir Mensagens da Simulacão");
+		opExibirMensSimulacao.setSelected(true);
+		
+		exibirMensagensDeSimulacao = true;
+		
+		opExibirMensSimulacao.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				exibirMensagensDeSimulacao = opExibirMensSimulacao.isSelected();
+				
+			}
+			
+		});
+		
+		mensagens.getItems().addAll(new SeparatorMenuItem(), opExibirMensSimulacao);
+		
 			
 		janela.getItems().add(mensagens);
 		
 		ToggleGroup tgGroupVariaveis = new ToggleGroup();
-		Menu variaveis = new Menu("Variáveis");
+	    Menu var = new Menu("Variáveis");
 		RadioMenuItem exibirVar = new RadioMenuItem("Exibir");
 		exibirVar.setToggleGroup(tgGroupVariaveis);
-		variaveis.getItems().add(exibirVar);
+		var.getItems().add(exibirVar);
+		
+		exibirVar.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				variaveis.setVisible(true);
+				
+			}
+			
+		});
 		
 		RadioMenuItem naoExibirVar = new RadioMenuItem("Não Exibir");
 		naoExibirVar.setToggleGroup(tgGroupVariaveis);
-		variaveis.getItems().add(naoExibirVar);
+		var.getItems().add(naoExibirVar);
+		
+		naoExibirVar.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				variaveis.setVisible(false);
+				
+			}
+			
+		});
 		
 		tgGroupVariaveis.selectToggle(exibirVar);
 		
-		janela.getItems().add(variaveis);
+		janela.getItems().add(var);
 		
 		Menu ajuda = new Menu("Ajuda");
 		MenuItem sobre = new MenuItem("Sobre");
@@ -288,6 +331,17 @@ public class TelaPrincipal extends Tela{
 	public static void setOpcaoJanelaMensagem(
 			OpcaoJanelaMensagem opcaoJanelaMensagem) {
 		TelaPrincipal.opcaoJanelaMensagem = opcaoJanelaMensagem;
+	}
+
+
+	public static boolean isExibirMensagensDeSimulacao() {
+		return exibirMensagensDeSimulacao;
+	}
+
+
+	public static void setExibirMensagensDeSimulacao(
+			boolean exibirMensagensDeSimulacao) {
+		TelaPrincipal.exibirMensagensDeSimulacao = exibirMensagensDeSimulacao;
 	}
 
 }
