@@ -55,8 +55,6 @@ public class Busca extends Ciclo{
 	
 	public void moverEnderecoPCParaMAR() {
 		
-		
-		
 			double xDe = controlador.getUcpInterna().getPc().getTxtValor().getX();
 			double yDe = controlador.getUcpInterna().getPc().getTxtValor().getY();
 			
