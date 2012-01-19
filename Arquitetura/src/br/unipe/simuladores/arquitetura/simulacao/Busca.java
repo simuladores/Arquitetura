@@ -248,18 +248,4 @@ public class Busca extends Ciclo{
 		
 	}
 	
-	private void verificarContinuacao(Busca b, EstadoCicloBusca e) {
-		
-		if (!continuar) {
-			if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
-				mensagemSimulacao = new TelaMensagemCicloBusca("Mensagem", 
-						Color.rgb(245, 245, 245), "Blá blá", 
-						b, e);
-				mensagemSimulacao.exibir();
-			} else
-				continuar = true;
-		} 
-		
-	}
-
 }
