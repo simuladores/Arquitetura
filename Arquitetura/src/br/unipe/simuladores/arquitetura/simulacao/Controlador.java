@@ -5,6 +5,7 @@ import java.util.Queue;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.text.Text;
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
@@ -45,7 +46,7 @@ public class Controlador{
 				
 		if (instrucoesQueue.size() > 0) {
 					
-			instrucaoAtual = instrucoesQueue.poll();
+			/*instrucaoAtual = instrucoesQueue.poll();
 					
 			TableViewSelectionModel <Instrucao> selectionModel =  
 			memoriaInterna.getTabelaInstrucoes().getSelectionModel();
@@ -53,7 +54,8 @@ public class Controlador{
 			memoriaInterna.getTabelaInstrucoes().selectionModelProperty().setValue(selectionModel);
 					
 			Busca busca = new Busca(this);
-			busca.mostrarAnimacoes();
+			busca.mostrarAnimacoes();*/
+			
 										
 		}
 				
