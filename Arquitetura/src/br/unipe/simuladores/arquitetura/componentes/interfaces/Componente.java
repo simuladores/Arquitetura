@@ -1,5 +1,7 @@
 package br.unipe.simuladores.arquitetura.componentes.interfaces;
 
+import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -38,6 +40,39 @@ public abstract class Componente {
 	}
 	
 	public abstract String obterTextoExplicativo();
+	
+	protected void exibirMensagemExplicativa() {
+		
+		if (TelaPrincipal.getOpcaoJanelaMensagem() 
+				== OpcaoJanelaMensagem.EXIBIR 
+				|| TelaPrincipal.getOpcaoJanelaMensagem() 
+				== OpcaoJanelaMensagem.ESCONDER) {
+		
+			TelaPrincipal.getMensagem().setExpanded(true);
+			TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+		}
+		
+		if (TelaPrincipal.getOpcaoJanelaMensagem() == OpcaoJanelaMensagem.ESCONDER)
+			TelaPrincipal.getMensagem().setVisible(true);
+		
+		if (TelaPrincipal.getOpcaoJanelaMensagem() == OpcaoJanelaMensagem.NAO_EXIBIR)
+			TelaPrincipal.getMensagem().setVisible(false);
+		
+	}
+	
+	protected void esconderMensagemExplicativa() {
+		
+		if (!(TelaPrincipal.getOpcaoJanelaMensagem() 
+				== OpcaoJanelaMensagem.NAO_EXIBIR)){
+			TelaPrincipal.getMensagem().setExpanded(false);
+			TelaPrincipal.colocarTextoPadraoMensagem();
+		
+			if (TelaPrincipal.getOpcaoJanelaMensagem() 
+					== OpcaoJanelaMensagem.ESCONDER)
+				TelaPrincipal.getMensagem().setVisible(false);
+		}
+		
+	}
 	
 	
 

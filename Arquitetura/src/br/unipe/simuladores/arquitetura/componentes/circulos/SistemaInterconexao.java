@@ -166,15 +166,14 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 				   
 				   if (!broken) {
 					   
-					   TelaPrincipal.getMensagem().setExpanded(true);
-					   TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+					   exibirMensagemExplicativa();
 					   
 				   } else {
 					   
 					   group.setCursor(Cursor.DEFAULT);
 					   
-					   TelaPrincipal.getMensagem().setExpanded(false);
-					   TelaPrincipal.colocarTextoPadraoMensagem();
+					   esconderMensagemExplicativa();
+					   
 				   }
 				   
 				

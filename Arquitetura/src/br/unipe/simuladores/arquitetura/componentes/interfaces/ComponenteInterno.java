@@ -49,8 +49,7 @@ public abstract class ComponenteInterno extends Componente{
 			@Override
 			public void handle(MouseEvent e) {
 				
-				TelaPrincipal.getMensagem().setExpanded(true);
-				TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+				exibirMensagemExplicativa();
 				
 			}
 			
@@ -61,8 +60,7 @@ public abstract class ComponenteInterno extends Componente{
 			@Override
 			public void handle(MouseEvent e) {
 				
-				TelaPrincipal.getMensagem().setExpanded(false);
-				TelaPrincipal.colocarTextoPadraoMensagem();
+				esconderMensagemExplicativa();
 				
 			}
 			

@@ -235,16 +235,14 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 				   if (!broken) {
 					   
 					   group.setCursor(Cursor.HAND);
-					   TelaPrincipal.getMensagem().setExpanded(true);
-					   TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+					   exibirMensagemExplicativa();
 					
 					   
 				   } else {
 					   
 					   group.setCursor(Cursor.DEFAULT);
 						
-						TelaPrincipal.getMensagem().setExpanded(false);
-						TelaPrincipal.colocarTextoPadraoMensagem();
+					   esconderMensagemExplicativa();
 					   
 				   }
 				  

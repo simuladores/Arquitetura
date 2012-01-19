@@ -1,9 +1,9 @@
 package br.unipe.simuladores.arquitetura.telas;
 
 import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
+import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -26,6 +26,7 @@ public class TelaPrincipal extends Tela{
 	
 	private static final Text defaultContentMensagem = new Text("Não há mensagens");
 	private static final Text defaultContentVariaveis = new Text("Não há variáveis");
+	private static OpcaoJanelaMensagem opcaoJanelaMensagem;
 	
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
@@ -112,13 +113,49 @@ public class TelaPrincipal extends Tela{
 		exibir.setToggleGroup(tgGroupMensagem);
 		mensagens.getItems().add(exibir);
 		
+		exibir.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				setOpcaoJanelaMensagem(OpcaoJanelaMensagem.EXIBIR);
+				mensagem.setVisible(true);
+				
+			}
+			
+		});
+		
 		RadioMenuItem esconder = new RadioMenuItem("Esconder");
 		esconder.setToggleGroup(tgGroupMensagem);
 		mensagens.getItems().add(esconder);
 		
+		esconder.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				setOpcaoJanelaMensagem(OpcaoJanelaMensagem.ESCONDER);
+				mensagem.setVisible(false);
+				
+			}
+			
+		});
+		
 		RadioMenuItem naoExibir = new RadioMenuItem("Não Exibir");
 		naoExibir.setToggleGroup(tgGroupMensagem);
 		mensagens.getItems().add(naoExibir);
+		
+		naoExibir.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				setOpcaoJanelaMensagem(OpcaoJanelaMensagem.NAO_EXIBIR);
+				mensagem.setVisible(false);
+				
+			}
+			
+		});
 		
 		tgGroupMensagem.selectToggle(esconder);
 			
@@ -143,11 +180,12 @@ public class TelaPrincipal extends Tela{
 		ajuda.getItems().add(sobre);
 		
 		menuBar.getMenus().add(inserir);
-		menuBar.getMenus().add(outros);
 		menuBar.getMenus().add(janela);
+		menuBar.getMenus().add(outros);
 		menuBar.getMenus().add(ajuda);
 		
 		menuBar.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
+		
 		
 		return menuBar;
 		
@@ -162,6 +200,8 @@ public class TelaPrincipal extends Tela{
 		mensagem.setContent(defaultContentMensagem);
 		mensagem.setTranslateY(500);
 		mensagem.setTranslateX(90);
+		mensagem.setVisible(false);
+		setOpcaoJanelaMensagem(OpcaoJanelaMensagem.ESCONDER);
 		
 		return mensagem;
 		
@@ -237,6 +277,17 @@ public class TelaPrincipal extends Tela{
 
 	public static void setVariaveis(TitledPane variaveis) {
 		TelaPrincipal.variaveis = variaveis;
+	}
+
+
+	public static OpcaoJanelaMensagem getOpcaoJanelaMensagem() {
+		return opcaoJanelaMensagem;
+	}
+
+
+	public static void setOpcaoJanelaMensagem(
+			OpcaoJanelaMensagem opcaoJanelaMensagem) {
+		TelaPrincipal.opcaoJanelaMensagem = opcaoJanelaMensagem;
 	}
 
 }

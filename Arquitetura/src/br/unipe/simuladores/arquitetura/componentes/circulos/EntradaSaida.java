@@ -223,12 +223,9 @@ public class EntradaSaida extends ComponenteCirculo{
 		group.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
 			@Override
-			public void handle(MouseEvent arg0) {
-				
-					
-				TelaPrincipal.getMensagem().setExpanded(true);
-				TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
-					
+			public void handle(MouseEvent e) {
+									
+				exibirMensagemExplicativa();					
 				
 			}
 			

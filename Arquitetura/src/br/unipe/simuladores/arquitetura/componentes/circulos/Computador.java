@@ -1,6 +1,7 @@
 package br.unipe.simuladores.arquitetura.componentes.circulos;
 
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
+import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -258,15 +259,16 @@ public class Computador extends ComponenteCirculo {
 				if (!encolhido) {
 					if (expanded)
 						group.setCursor(Cursor.DEFAULT);
-					else
+					else{
+						
 						group.setCursor(Cursor.HAND);
 						
-						TelaPrincipal.getMensagem().setExpanded(true);
-						TelaPrincipal.getMensagem().setContent(getTextoExplicativo());
+						exibirMensagemExplicativa();
+						
+					}
 				} else {
 					
-					TelaPrincipal.getMensagem().setExpanded(false);
-					TelaPrincipal.colocarTextoPadraoMensagem();
+					esconderMensagemExplicativa();
 					
 				}
 					

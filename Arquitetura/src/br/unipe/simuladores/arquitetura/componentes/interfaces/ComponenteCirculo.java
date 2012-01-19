@@ -1,5 +1,6 @@
 package br.unipe.simuladores.arquitetura.componentes.interfaces;
 
+import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -37,9 +38,7 @@ public abstract class ComponenteCirculo extends Componente{
 					
 				group.setCursor(Cursor.DEFAULT);
 									
-				TelaPrincipal.getMensagem().setExpanded(false);
-				TelaPrincipal.colocarTextoPadraoMensagem();
-					
+				esconderMensagemExplicativa();				
 					
 			}
 				
