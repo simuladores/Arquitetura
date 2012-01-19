@@ -29,16 +29,28 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 			public void handle(ActionEvent event) {
 				
 				switch(estado) {
-				case INICIAL: busca.atualizarPC(); break;
-				case ATUALIZAR_PC: busca.moverEnderecoPCParaMAR();break;
-				case MOVER_MAR: busca.copiarREADParaBarramento(); break;
-				case COPIAR_READ_BARRAMENTO: busca.copiarValorMARParaBarramento(); break;
-				case COPIAR_VALOR_MAR_BARRAMENTO: busca.moverDadosBarramentoParaMemoria(); break;
+				case INICIAL: {
+					continuar();
+					busca.atualizarPC();
+				}; break;
+				case ATUALIZAR_PC: {
+					continuar();
+					busca.moverEnderecoPCParaMAR();
+				}; break;
+				case MOVER_MAR: {
+					continuar();
+					busca.copiarREADParaBarramento();
+				}; break;
+				case COPIAR_READ_BARRAMENTO: {
+					continuar();
+					busca.copiarValorMARParaBarramento(); 
+				}; break;
+				case COPIAR_VALOR_MAR_BARRAMENTO: {
+					continuar();
+					busca.moverDadosBarramentoParaMemoria();
+				}; break;
 				}
-				
-				stage.close();
-				
-				
+								
 			}
 			
 		});
@@ -55,6 +67,15 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 			}
 			
 		});
+		
+		
+		
+	}
+	
+	private void continuar() {
+		
+		busca.setContinuar(true);
+		stage.close();
 		
 	}
 
