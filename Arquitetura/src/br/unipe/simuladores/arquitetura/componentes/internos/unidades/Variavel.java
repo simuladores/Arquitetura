@@ -7,11 +7,11 @@ import javafx.beans.property.StringProperty;
 
 public class Variavel extends CelulaMemoria {
 	
-	private StringProperty data;
+	protected StringProperty data;
 	
-	private TipoVariavel tipo;
+	protected TipoVariavel tipo;
 	
-	private Boolean normal;
+	protected Boolean normal;
 	
 	public Variavel(Integer end, String dado, TipoVariavel tipo, Boolean normal) {
 		
