@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Variavel;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelIdentificador;
 import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
 import br.unipe.simuladores.arquitetura.excecoes.DadosInvalidosException;
 import br.unipe.simuladores.arquitetura.excecoes.VariavelExistenteException;
@@ -14,6 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;

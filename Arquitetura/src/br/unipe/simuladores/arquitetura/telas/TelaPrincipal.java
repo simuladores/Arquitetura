@@ -1,19 +1,31 @@
 package br.unipe.simuladores.arquitetura.telas;
 
 import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelIdentificador;
 import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -30,6 +42,8 @@ public class TelaPrincipal extends Tela{
 	private static final Text defaultContentVariaveis = new Text("Não há variáveis");
 	private static OpcaoJanelaMensagem opcaoJanelaMensagem;
 	private static boolean exibirMensagensDeSimulacao = true;
+	private static TableView<VariavelIdentificador> tabVariaveis;
+	private Accordion accordion;
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
 		super(stage, titulo, cor, height, width);
@@ -50,6 +64,13 @@ public class TelaPrincipal extends Tela{
 		
 		variaveis = criarTitledPaneVariaveis();
 		root.getChildren().add(variaveis);
+		
+		criarTabelaVariaveis();
+		
+		accordion = new Accordion();
+		accordion.getPanes().addAll(mensagem, variaveis);
+		accordion.setTranslateY(420);
+		root.getChildren().add(accordion);
 		
 	}
 	
@@ -239,10 +260,8 @@ public class TelaPrincipal extends Tela{
 		TitledPane mensagem = new TitledPane();
 		mensagem.setText("Mensagem");
 		mensagem.setContent(defaultContentMensagem);
-		mensagem.setTranslateY(500);
-		mensagem.setTranslateX(90);
-		mensagem.setVisible(false);
-		setOpcaoJanelaMensagem(OpcaoJanelaMensagem.ESCONDER);
+		mensagem.setVisible(true);
+		setOpcaoJanelaMensagem(OpcaoJanelaMensagem.EXIBIR);
 		
 		return mensagem;
 		
@@ -253,9 +272,51 @@ public class TelaPrincipal extends Tela{
 		TitledPane variaveis = new TitledPane();
 		variaveis.setText("Variáveis");
 		variaveis.setContent(defaultContentVariaveis);
-		variaveis.setTranslateY(500);
 		
 		return variaveis;
+		
+	}
+	
+	private void criarTabelaVariaveis() {
+		
+		tabVariaveis = new TableView<VariavelIdentificador>();
+		TableColumn<VariavelIdentificador, String> idCol = 
+        		new TableColumn<VariavelIdentificador, String>();
+		idCol.setText("ID");
+		idCol.setCellValueFactory(
+        		new PropertyValueFactory<VariavelIdentificador, String>("id"));
+		idCol.setMinWidth(20);
+		
+		TableColumn<VariavelIdentificador, String> dataCol = 
+        		new TableColumn<VariavelIdentificador, String>();
+		dataCol.setText("Dado");
+		dataCol.setCellValueFactory(
+        		new PropertyValueFactory<VariavelIdentificador, String>("data"));
+		
+		/*tabVariaveis.getItems().add(new VariavelIdentificador("a", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("b", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("c", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("d", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("e", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
+		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));*/
+		
+		tabVariaveis.getColumns().addAll(idCol, dataCol);
+		
+		ScrollPane scroll = new ScrollPane();
+		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scroll.setVbarPolicy(ScrollBarPolicy.NEVER);
+		tabVariaveis.setPrefSize(170, 253);
+		scroll.setContent(tabVariaveis);
+		scroll.setPrefSize(170, 253);
+		variaveis.setContent(scroll);
 		
 	}
 	
@@ -340,6 +401,16 @@ public class TelaPrincipal extends Tela{
 	public static void setExibirMensagensDeSimulacao(
 			boolean exibirMensagensDeSimulacao) {
 		TelaPrincipal.exibirMensagensDeSimulacao = exibirMensagensDeSimulacao;
+	}
+
+
+	public static TableView<VariavelIdentificador> getTabVariaveis() {
+		return tabVariaveis;
+	}
+
+
+	public static void setTabVariaveis(TableView<VariavelIdentificador> tabVariaveis) {
+		TelaPrincipal.tabVariaveis = tabVariaveis;
 	}
 	
 
