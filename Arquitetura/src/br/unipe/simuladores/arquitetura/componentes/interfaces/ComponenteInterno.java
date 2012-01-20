@@ -1,6 +1,5 @@
 package br.unipe.simuladores.arquitetura.componentes.interfaces;
 
-import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

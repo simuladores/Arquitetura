@@ -7,13 +7,10 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
-import br.unipe.simuladores.arquitetura.enums.EstadoCicloBusca;
-import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class Busca extends Ciclo{
@@ -67,8 +64,9 @@ public class Busca extends Ciclo{
 			valorTxt.setY(yDe);
 			valorTxt.setFont(new Font(12));
 				
-			TelaPrincipal.removerDoPalco(valorTxt);
-			TelaPrincipal.adicionarAoPalco(valorTxt);
+			controlador.getUcpInterna().remover(valorTxt);
+			controlador.getUcpInterna().adicionar(valorTxt);
+			valorTxt.toFront();
 					
 			timeline = new Timeline();
 			
@@ -78,7 +76,7 @@ public class Busca extends Ciclo{
 							new KeyValue(valorTxt.yProperty(), yDe)
 				    ),
 	                new KeyFrame(new Duration(3000), 
-	                		new KeyValue(valorTxt.xProperty(), yPara),
+	                		new KeyValue(valorTxt.xProperty(), xPara),
 	                		new KeyValue(valorTxt.yProperty(), yPara)
 	                )
 			);
@@ -88,11 +86,11 @@ public class Busca extends Ciclo{
 				@Override
 				public void handle(ActionEvent arg0) {
 				
-					TelaPrincipal.removerDoPalco(valorTxt);
+					controlador.getUcpInterna().remover(valorTxt);
 					controlador.getUcpInterna().getMar().atualizarValor(valor, xPara, yPara);
 					controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getMar());	
 				
-					//copiarREADParaBarramento();
+					copiarREADParaBarramento();
 				
 				}
 			
@@ -126,7 +124,8 @@ public class Busca extends Ciclo{
 			read.setY(yDe);
 			read.setFont(new Font(12));
 		
-			TelaPrincipal.adicionarAoPalco(read);
+			controlador.getBarramentoInterno().adicionar(read);
+			read.toFront();
 		
 			timeline = new Timeline();
 			
@@ -169,7 +168,8 @@ public class Busca extends Ciclo{
 			valorMar.setY(yDe);
 			valorMar.setFont(new Font(12));
 		
-			TelaPrincipal.adicionarAoPalco(valorMar);
+			controlador.getBarramentoInterno().adicionar(valorMar);
+			valorMar.toFront();
 		
 			timeline = new Timeline();
 		
@@ -232,8 +232,8 @@ public class Busca extends Ciclo{
 				
 				try {
 					Thread.sleep(2000);
-					TelaPrincipal.removerDoPalco(read);
-					TelaPrincipal.removerDoPalco(valorMar);
+					controlador.getBarramentoInterno().remover(read);
+					controlador.getBarramentoInterno().remover(valorMar);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

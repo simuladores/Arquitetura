@@ -265,4 +265,12 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 		
 	}
 
+	public BarramentoInterno getBarramentoInterno() {
+		return barramentoInterno;
+	}
+
+	public void setBarramentoInterno(BarramentoInterno barramentoInterno) {
+		this.barramentoInterno = barramentoInterno;
+	}
+
 }

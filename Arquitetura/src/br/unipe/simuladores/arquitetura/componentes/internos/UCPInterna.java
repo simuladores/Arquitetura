@@ -20,6 +20,7 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Registrado
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UC;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.ULA;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UnidadeUCP;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class UCPInterna extends ComponenteInterno{
 	
@@ -199,6 +200,18 @@ public class UCPInterna extends ComponenteInterno{
 		
 		group.getChildren().remove(unidade.getTxtValor());
 		group.getChildren().add(unidade.getTxtValor());
+		
+	}
+	
+	public void adicionar(Node node) {
+		
+		group.getChildren().add(node);
+		
+	}
+	
+	public void remover(Node node) {
+		
+		group.getChildren().remove(node);
 		
 	}
 

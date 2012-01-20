@@ -1,6 +1,7 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -89,6 +90,18 @@ public class BarramentoInterno extends ComponenteInterno {
 	public String obterTextoExplicativo() {
 		
 		return "Isso é um barramento interno";
+		
+	}
+	
+	public void adicionar(Node node) {
+		
+		group.getChildren().add(node);
+		
+	}
+	
+	public void remover(Node node) {
+		
+		group.getChildren().remove(node);
 		
 	}
 

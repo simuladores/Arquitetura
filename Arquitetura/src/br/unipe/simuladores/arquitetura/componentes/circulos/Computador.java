@@ -1,7 +1,6 @@
 package br.unipe.simuladores.arquitetura.componentes.circulos;
 
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
-import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -420,6 +419,14 @@ public class Computador extends ComponenteCirculo {
 					"círculo que os representam. ";
 		
 		
+	}
+
+	public SistemaInterconexao getSistemaInterconexao() {
+		return sistemaInterconexao;
+	}
+
+	public void setSistemaInterconexao(SistemaInterconexao sistemaInterconexao) {
+		this.sistemaInterconexao = sistemaInterconexao;
 	}
 
 

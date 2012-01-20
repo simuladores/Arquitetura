@@ -1,12 +1,9 @@
 package br.unipe.simuladores.arquitetura.componentes.interfaces;
 
-import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
-import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 
 public abstract class ComponenteCirculo extends Componente{
 	

@@ -39,8 +39,7 @@ public class TelaPrincipal extends Tela{
 	
 	@Override
 	public void criar() {
-		
-				
+						
 		root.getChildren().add(computador.getContent());
 		
 		menuSuperior = criarMenu(scene);
@@ -51,7 +50,6 @@ public class TelaPrincipal extends Tela{
 		
 		variaveis = criarTitledPaneVariaveis();
 		root.getChildren().add(variaveis);
-		
 		
 	}
 	

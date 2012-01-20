@@ -6,6 +6,7 @@ import java.util.Queue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.text.Text;
+import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
@@ -16,6 +17,7 @@ public class Controlador{
 	private MemoriaInterna memoriaInterna;
 	private UCPInterna ucpInterna;
 	private Instrucao instrucaoAtual;
+	private BarramentoInterno barramentoInterno;
 	
 	protected ObservableList<Instrucao> instrucoes;
 	protected Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
@@ -25,6 +27,7 @@ public class Controlador{
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
+		barramentoInterno = TelaPrincipal.getComputador().getSistemaInterconexao().getBarramentoInterno();
 
 		instrucoes = memoriaInterna.getInstrucoes();
 		instrucoesQueue = new LinkedList<Instrucao>();
@@ -46,7 +49,7 @@ public class Controlador{
 				
 		if (instrucoesQueue.size() > 0) {
 					
-			/*instrucaoAtual = instrucoesQueue.poll();
+			instrucaoAtual = instrucoesQueue.poll();
 					
 			TableViewSelectionModel <Instrucao> selectionModel =  
 			memoriaInterna.getTabelaInstrucoes().getSelectionModel();
@@ -54,7 +57,7 @@ public class Controlador{
 			memoriaInterna.getTabelaInstrucoes().selectionModelProperty().setValue(selectionModel);
 					
 			Busca busca = new Busca(this);
-			busca.mostrarAnimacoes();*/
+			busca.mostrarAnimacoes();
 			
 										
 		}
@@ -83,6 +86,14 @@ public class Controlador{
 
 	public void setInstrucaoAtual(Instrucao instrucaoAtual) {
 		this.instrucaoAtual = instrucaoAtual;
+	}
+
+	public BarramentoInterno getBarramentoInterno() {
+		return barramentoInterno;
+	}
+
+	public void setBarramentoInterno(BarramentoInterno barramentoInterno) {
+		this.barramentoInterno = barramentoInterno;
 	}
 	
 
