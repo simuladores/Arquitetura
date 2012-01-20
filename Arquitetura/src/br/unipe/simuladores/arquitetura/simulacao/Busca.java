@@ -89,9 +89,13 @@ public class Busca extends Ciclo{
 						(EstadoCicloBusca.ATUALIZAR_PC);
 				telaMensagem.exibir();
 				controlador.setTimelineAtual(timeline);
+				controlador.getBtnPlay().setPaused(true);
 			}
-			else
-				timeline.play();
+			else{
+				controlador.setTimelineAtual(timeline);
+				controlador.getBtnPlay().setPaused(false);
+				timeline.play();				
+			}
 		
 	}
 	
@@ -148,9 +152,13 @@ public class Busca extends Ciclo{
 						(EstadoCicloBusca.MOVER_MAR);
 				telaMensagem.exibir();
 				controlador.setTimelineAtual(timeline);
+				controlador.getBtnPlay().setPaused(true);
 			}
-			else
+			else {
+				controlador.setTimelineAtual(timeline);
+				controlador.getBtnPlay().setPaused(false);
 				timeline.play();
+			}
 			
 			/* translate = 
 					new TranslateTransition(Duration.seconds(3), valorTxt);
@@ -210,9 +218,13 @@ public class Busca extends Ciclo{
 							(EstadoCicloBusca.COPIAR_READ_BARRAMENTO);
 					telaMensagem.exibir();
 					controlador.setTimelineAtual(timeline);
+					controlador.getBtnPlay().setPaused(true);
 				}
-				else
+				else {
+					controlador.setTimelineAtual(timeline);
+					controlador.getBtnPlay().setPaused(false);
 					timeline.play();
+				}
 		
 	}
 	
@@ -261,9 +273,13 @@ public class Busca extends Ciclo{
 						(EstadoCicloBusca.COPIAR_VALOR_MAR_BARRAMENTO);
 				telaMensagem.exibir();
 				controlador.setTimelineAtual(timeline);
+				controlador.getBtnPlay().setPaused(true);
 			}
-			else
+			else {
+				controlador.setTimelineAtual(timeline);
+				controlador.getBtnPlay().setPaused(false);
 				timeline.play();
+			}
 		
 	}
 	
@@ -317,9 +333,13 @@ public class Busca extends Ciclo{
 					(EstadoCicloBusca.MOVER_DADOS_BARRAMENTO_MEMORIA);
 			telaMensagem.exibir();
 			controlador.setTimelineAtual(timeline);
+			controlador.getBtnPlay().setPaused(true);
 		}
-		else
+		else {
+			controlador.setTimelineAtual(timeline);
+			controlador.getBtnPlay().setPaused(false);
 			timeline.play();
+		}
 		
 	}
 	

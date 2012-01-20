@@ -1,5 +1,6 @@
 package br.unipe.simuladores.arquitetura.telas;
 
+import br.unipe.simuladores.arquitetura.botoes.BotaoPlay;
 import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelIdentificador;
@@ -43,6 +44,9 @@ public class TelaPrincipal extends Tela{
 	private static OpcaoJanelaMensagem opcaoJanelaMensagem;
 	private static boolean exibirMensagensDeSimulacao = true;
 	private static TableView<VariavelIdentificador> tabVariaveis;
+	
+	private static BotaoPlay botaoPlay;
+	
 	private Accordion accordion;
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
@@ -53,7 +57,14 @@ public class TelaPrincipal extends Tela{
 	
 	@Override
 	public void criar() {
-						
+		
+		botaoPlay = new BotaoPlay();
+		botaoPlay.setTranslateX(550);
+		botaoPlay.setTranslateY(660);
+		botaoPlay.setVisible(false);
+		
+		TelaPrincipal.adicionarAoPalco(botaoPlay);
+		
 		root.getChildren().add(computador.getContent());
 		
 		menuSuperior = criarMenu(scene);
@@ -71,6 +82,8 @@ public class TelaPrincipal extends Tela{
 		accordion.getPanes().addAll(mensagem, variaveis);
 		accordion.setTranslateY(420);
 		root.getChildren().add(accordion);
+		
+		
 		
 	}
 	
@@ -411,6 +424,16 @@ public class TelaPrincipal extends Tela{
 
 	public static void setTabVariaveis(TableView<VariavelIdentificador> tabVariaveis) {
 		TelaPrincipal.tabVariaveis = tabVariaveis;
+	}
+
+
+	public static BotaoPlay getBotaoPlay() {
+		return botaoPlay;
+	}
+
+
+	public static void setBotaoPlay(BotaoPlay botaoPlay) {
+		TelaPrincipal.botaoPlay = botaoPlay;
 	}
 	
 

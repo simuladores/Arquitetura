@@ -9,7 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import br.unipe.simuladores.arquitetura.botoes.BotaoPlay;
 import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
@@ -22,20 +26,19 @@ public class Controlador{
 	private UCPInterna ucpInterna;
 	private Instrucao instrucaoAtual;
 	private BarramentoInterno barramentoInterno;
+	private BotaoPlay btnPlay;
 	
 	protected ObservableList<Instrucao> instrucoes;
 	protected Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
 	
 	private Timeline timelineAtual;
-	private Button btnIniciar;
-	
-
-	
+		
 	public Controlador() {
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
 		barramentoInterno = TelaPrincipal.getComputador().getSistemaInterconexao().getBarramentoInterno();
+		btnPlay = TelaPrincipal.getBotaoPlay();
 
 		instrucoes = memoriaInterna.getInstrucoes();
 		instrucoesQueue = new LinkedList<Instrucao>();
@@ -48,11 +51,7 @@ public class Controlador{
 	
 	public void iniciarSimulacao() {
 		
-		btnIniciar = new Button("Iniciar");
-		btnIniciar.setTranslateX(50);
-		btnIniciar.setTranslateY(60);
-		acoesUsuario();
-		ucpInterna.adicionar(btnIniciar);
+		btnPlay.setVisible(true);
 
 		operar();
 		
@@ -110,21 +109,6 @@ public class Controlador{
 	public void setBarramentoInterno(BarramentoInterno barramentoInterno) {
 		this.barramentoInterno = barramentoInterno;
 	}
-	
-	public void acoesUsuario() {
-		
-		btnIniciar.setOnAction(new EventHandler<ActionEvent>(){
-
-			@Override
-			public void handle(ActionEvent e) {
-				
-				timelineAtual.play();
-				
-			}
-			
-		});
-		
-	}
 
 	public Timeline getTimelineAtual() {
 		return timelineAtual;
@@ -132,6 +116,15 @@ public class Controlador{
 
 	public void setTimelineAtual(Timeline timelineAtual) {
 		this.timelineAtual = timelineAtual;
+		btnPlay.setTimeline(this.timelineAtual);
+	}
+
+	public BotaoPlay getBtnPlay() {
+		return btnPlay;
+	}
+
+	public void setBtnPlay(BotaoPlay btnPlay) {
+		this.btnPlay = btnPlay;
 	}
 
 }

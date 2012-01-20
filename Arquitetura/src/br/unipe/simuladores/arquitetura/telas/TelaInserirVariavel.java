@@ -132,6 +132,10 @@ public class TelaInserirVariavel extends Tela implements Formulario{
 		TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().
 			inserirDado(variavel, tfIdentificador.getText());
 		
+		TelaPrincipal.getTabVariaveis().getItems().add(
+				new VariavelIdentificador(tfIdentificador.getText(), 
+						tfValor.getText()));
+		
 	}
 	
 	public void validarDados() throws DadosInvalidosException{
