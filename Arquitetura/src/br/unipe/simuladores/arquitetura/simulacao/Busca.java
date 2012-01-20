@@ -11,6 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
+import br.unipe.simuladores.arquitetura.enums.EstadoCicloBusca;
+import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class Busca extends Ciclo{
@@ -31,7 +33,19 @@ public class Busca extends Ciclo{
 	public void mostrarAnimacoes() {
 		
 	    atualizarPC();
-		moverEnderecoPCParaMAR();
+	    
+		/*controlador.getUcpInterna().adicionar(button);
+		
+		button.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				timeline.play();
+				
+			}
+			
+		});*/
 		
 		
 	}
@@ -43,8 +57,41 @@ public class Busca extends Ciclo{
 		
 			pc.atualizarValor(controlador.getInstrucaoAtual().enderecoProperty().getValue(), 880, 438);
 				
-			controlador.getUcpInterna().atualizarValorUnidadeTela(pc);		
+			timeline = new Timeline();
+			controlador.getUcpInterna().atualizarValorUnidadeTela(pc);
 			
+			Timeline timeline = new Timeline();
+			
+			timeline.getKeyFrames().addAll(
+					new KeyFrame(Duration.ZERO, 
+							new KeyValue(controlador.getUcpInterna().getPc()
+									.getTxtValor().opacityProperty(), 0.0f)
+				    ),
+	                new KeyFrame(new Duration(3000), 
+	                		new KeyValue(controlador.getUcpInterna().getPc()
+									.getTxtValor().opacityProperty(), 1.0f)
+	                )
+			);
+			
+			timeline.setOnFinished(new EventHandler<ActionEvent>(){
+
+				@Override
+				public void handle(ActionEvent arg0) {
+				
+					moverEnderecoPCParaMAR();
+				
+				}
+			
+			});
+		
+			if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+				telaMensagem = new TelaMensagemCicloBusca
+						(EstadoCicloBusca.ATUALIZAR_PC);
+				telaMensagem.exibir();
+				controlador.setTimelineAtual(timeline);
+			}
+			else
+				timeline.play();
 		
 	}
 	
@@ -96,7 +143,14 @@ public class Busca extends Ciclo{
 			
 			});
 		
-			timeline.play();
+			if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+				telaMensagem = new TelaMensagemCicloBusca
+						(EstadoCicloBusca.MOVER_MAR);
+				telaMensagem.exibir();
+				controlador.setTimelineAtual(timeline);
+			}
+			else
+				timeline.play();
 			
 			/* translate = 
 					new TranslateTransition(Duration.seconds(3), valorTxt);
@@ -151,7 +205,14 @@ public class Busca extends Ciclo{
 				
 			});
 						
-			timeline.play();
+				if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+					telaMensagem = new TelaMensagemCicloBusca
+							(EstadoCicloBusca.COPIAR_READ_BARRAMENTO);
+					telaMensagem.exibir();
+					controlador.setTimelineAtual(timeline);
+				}
+				else
+					timeline.play();
 		
 	}
 	
@@ -195,7 +256,14 @@ public class Busca extends Ciclo{
 			
 			});
 
-			timeline.play();
+			if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+				telaMensagem = new TelaMensagemCicloBusca
+						(EstadoCicloBusca.COPIAR_VALOR_MAR_BARRAMENTO);
+				telaMensagem.exibir();
+				controlador.setTimelineAtual(timeline);
+			}
+			else
+				timeline.play();
 		
 	}
 	
@@ -244,7 +312,14 @@ public class Busca extends Ciclo{
 			
 		});
 		
-		timeline.play();
+		if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+			telaMensagem = new TelaMensagemCicloBusca
+					(EstadoCicloBusca.MOVER_DADOS_BARRAMENTO_MEMORIA);
+			telaMensagem.exibir();
+			controlador.setTimelineAtual(timeline);
+		}
+		else
+			timeline.play();
 		
 	}
 	

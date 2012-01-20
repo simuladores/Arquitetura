@@ -11,9 +11,9 @@ public abstract class TelaMensagemSimulacao extends TelaSimplesMensagem{
 	protected Button continuar;
 	protected Button cancelar;
 	
-	public TelaMensagemSimulacao(String titulo, Color cor, String mensagem, Ciclo ciclo) {
+	public TelaMensagemSimulacao(String titulo, Color cor) {
 		
-		super(titulo, cor, mensagem);
+		super(titulo, cor, "");
 		
 	}
 
@@ -31,6 +31,12 @@ public abstract class TelaMensagemSimulacao extends TelaSimplesMensagem{
 		hBox.getChildren().add(cancelar);
 		
 		definirAcoesBotoes();
+		
+	}
+	
+	protected void modificarMensagem(String msg) {
+		
+		txtMensagem.setText(msg);
 		
 	}
 	

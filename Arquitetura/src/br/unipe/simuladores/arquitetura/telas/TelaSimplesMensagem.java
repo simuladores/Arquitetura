@@ -11,7 +11,7 @@ public abstract class TelaSimplesMensagem extends Tela{
 
 	private String mensagem;
 	protected VBox vBox;
-	protected Text txtErro;
+	protected Text txtMensagem;
 	protected HBox hBox;
 	
 	public TelaSimplesMensagem(String titulo, Color cor, String mensagem) {
@@ -30,8 +30,8 @@ public abstract class TelaSimplesMensagem extends Tela{
 		vBox = new VBox();
 		vBox.setPadding(new Insets(5, 5, 5, 5));
 		vBox.setSpacing(20);
-		txtErro = new Text(mensagem);
-		vBox.getChildren().add(txtErro);
+		txtMensagem = new Text(mensagem);
+		vBox.getChildren().add(txtMensagem);
 		
 		hBox = new HBox();
 		hBox.setAlignment(Pos.CENTER);

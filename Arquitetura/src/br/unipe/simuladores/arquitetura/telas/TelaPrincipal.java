@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -29,7 +30,6 @@ public class TelaPrincipal extends Tela{
 	private static final Text defaultContentVariaveis = new Text("Não há variáveis");
 	private static OpcaoJanelaMensagem opcaoJanelaMensagem;
 	private static boolean exibirMensagensDeSimulacao = true;
-	
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
 		super(stage, titulo, cor, height, width);
@@ -341,5 +341,6 @@ public class TelaPrincipal extends Tela{
 			boolean exibirMensagensDeSimulacao) {
 		TelaPrincipal.exibirMensagensDeSimulacao = exibirMensagensDeSimulacao;
 	}
+	
 
 }

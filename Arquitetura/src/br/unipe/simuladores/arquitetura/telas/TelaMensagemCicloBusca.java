@@ -11,12 +11,27 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 	private EstadoCicloBusca estado;
 	private Busca busca;
 	
-	public TelaMensagemCicloBusca(String titulo, Color cor, String mensagem,
-			Busca busca, EstadoCicloBusca estado) {
-		super(titulo, cor, mensagem, busca);
+	public TelaMensagemCicloBusca(EstadoCicloBusca estado) {
+		super("Mensagem", Color.rgb(245, 245, 245));
 		
-		this.busca = busca;
 		this.estado = estado;
+		
+		modificarMensagem(obterTexto());
+		
+	}
+	
+	public String obterTexto() {
+		
+		switch(estado) {
+		case INICIAL: return "Inicial";
+		case ATUALIZAR_PC: return "Atualizar PC";
+		case MOVER_MAR: return "Mover Mar";
+		case COPIAR_READ_BARRAMENTO: return "Copiar read para barramento";
+		case COPIAR_VALOR_MAR_BARRAMENTO: return "Copiar valor para barramento";
+		case MOVER_DADOS_BARRAMENTO_MEMORIA: return "Mover dados do barramento para a memória";
+		}
+		
+		return null;
 		
 	}
 
@@ -28,28 +43,7 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 			@Override
 			public void handle(ActionEvent event) {
 				
-				switch(estado) {
-				case INICIAL: {
-					continuar();
-					busca.atualizarPC();
-				}; break;
-				case ATUALIZAR_PC: {
-					continuar();
-					busca.moverEnderecoPCParaMAR();
-				}; break;
-				case MOVER_MAR: {
-					continuar();
-					busca.copiarREADParaBarramento();
-				}; break;
-				case COPIAR_READ_BARRAMENTO: {
-					continuar();
-					busca.copiarValorMARParaBarramento(); 
-				}; break;
-				case COPIAR_VALOR_MAR_BARRAMENTO: {
-					continuar();
-					busca.moverDadosBarramentoParaMemoria();
-				}; break;
-				}
+				stage.close();
 								
 			}
 			

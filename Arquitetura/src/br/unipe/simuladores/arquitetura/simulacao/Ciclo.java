@@ -1,5 +1,6 @@
 package br.unipe.simuladores.arquitetura.simulacao;
 
+import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 import javafx.animation.Timeline;
 
 public abstract class Ciclo {
@@ -7,6 +8,7 @@ public abstract class Ciclo {
 	protected Controlador controlador;
 	protected Timeline timeline;
 	protected boolean continuar = false;
+	protected TelaSimplesMensagem telaMensagem;
 	
 	public Ciclo(Controlador c) {
 		
