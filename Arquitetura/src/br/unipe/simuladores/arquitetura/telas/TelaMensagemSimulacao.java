@@ -3,7 +3,11 @@ package br.unipe.simuladores.arquitetura.telas;
 import br.unipe.simuladores.arquitetura.simulacao.Ciclo;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public abstract class TelaMensagemSimulacao extends TelaSimplesMensagem{
@@ -21,6 +25,18 @@ public abstract class TelaMensagemSimulacao extends TelaSimplesMensagem{
 	public void criar() {
 		
 		adicionarComponentesComuns();
+		
+		HBox hBox2 = new HBox();
+		hBox2.setAlignment(Pos.CENTER);
+		hBox2.getChildren().add(txtMensagem);
+		vBox.getChildren().add(hBox2);
+		
+		hBox = new HBox();
+		hBox.setAlignment(Pos.CENTER);
+		hBox.setSpacing(10);
+		vBox.getChildren().add(hBox);
+		
+		root.getChildren().add(vBox);
 		
 		continuar = new Button("Continuar");
 	

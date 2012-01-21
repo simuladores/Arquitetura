@@ -31,14 +31,7 @@ public abstract class TelaSimplesMensagem extends Tela{
 		vBox.setPadding(new Insets(5, 5, 5, 5));
 		vBox.setSpacing(20);
 		txtMensagem = new Text(mensagem);
-		vBox.getChildren().add(txtMensagem);
 		
-		hBox = new HBox();
-		hBox.setAlignment(Pos.CENTER);
-		
-		vBox.getChildren().add(hBox);
-		
-		root.getChildren().add(vBox);
 		
 	}
 

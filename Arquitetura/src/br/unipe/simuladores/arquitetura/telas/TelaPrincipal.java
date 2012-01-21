@@ -44,6 +44,7 @@ public class TelaPrincipal extends Tela{
 	private static OpcaoJanelaMensagem opcaoJanelaMensagem;
 	private static boolean exibirMensagensDeSimulacao = true;
 	private static TableView<VariavelIdentificador> tabVariaveis;
+	private static RadioMenuItem opExibirMensSimulacao;
 	
 	private static BotaoPlay botaoPlay;
 	
@@ -193,7 +194,7 @@ public class TelaPrincipal extends Tela{
 		
 		tgGroupMensagem.selectToggle(esconder);
 		
-		final RadioMenuItem opExibirMensSimulacao = new RadioMenuItem("Exibir Mensagens da Simulacão");
+		opExibirMensSimulacao = new RadioMenuItem("Exibir Mensagens da Simulacão");
 		opExibirMensSimulacao.setSelected(true);
 		
 		exibirMensagensDeSimulacao = true;
@@ -333,6 +334,7 @@ public class TelaPrincipal extends Tela{
 		
 	}
 	
+	
 	public static void colocarTextoPadraoMensagem() {
 		
 		mensagem.setContent(defaultContentMensagem);
@@ -414,6 +416,7 @@ public class TelaPrincipal extends Tela{
 	public static void setExibirMensagensDeSimulacao(
 			boolean exibirMensagensDeSimulacao) {
 		TelaPrincipal.exibirMensagensDeSimulacao = exibirMensagensDeSimulacao;
+		opExibirMensSimulacao.setSelected(exibirMensagensDeSimulacao);
 	}
 
 
@@ -434,6 +437,16 @@ public class TelaPrincipal extends Tela{
 
 	public static void setBotaoPlay(BotaoPlay botaoPlay) {
 		TelaPrincipal.botaoPlay = botaoPlay;
+	}
+
+
+	public static RadioMenuItem getOpExibirMensSimulacao() {
+		return opExibirMensSimulacao;
+	}
+
+
+	public static void setOpExibirMensSimulacao(RadioMenuItem opExibirMensSimulacao) {
+		TelaPrincipal.opExibirMensSimulacao = opExibirMensSimulacao;
 	}
 	
 

@@ -23,6 +23,15 @@ public class TelaErro extends TelaSimplesMensagem{
 		
 		adicionarComponentesComuns();
 		
+		vBox.getChildren().add(txtMensagem);
+		
+		hBox = new HBox();
+		hBox.setAlignment(Pos.CENTER);
+		
+		vBox.getChildren().add(hBox);
+		
+		root.getChildren().add(vBox);
+		
 		Button btn = new Button("OK");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
