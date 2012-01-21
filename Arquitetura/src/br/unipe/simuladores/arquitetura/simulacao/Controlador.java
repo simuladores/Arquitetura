@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import br.unipe.simuladores.arquitetura.botoes.BotaoPlay;
+import br.unipe.simuladores.arquitetura.botoes.BotaoStop;
 import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
@@ -27,6 +28,7 @@ public class Controlador{
 	private Instrucao instrucaoAtual;
 	private BarramentoInterno barramentoInterno;
 	private BotaoPlay btnPlay;
+	private BotaoStop btnStop;
 	
 	protected ObservableList<Instrucao> instrucoes;
 	protected Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
@@ -39,6 +41,7 @@ public class Controlador{
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
 		barramentoInterno = TelaPrincipal.getComputador().getSistemaInterconexao().getBarramentoInterno();
 		btnPlay = TelaPrincipal.getBotaoPlay();
+		btnStop = TelaPrincipal.getBotaoStop();
 
 		instrucoes = memoriaInterna.getInstrucoes();
 		instrucoesQueue = new LinkedList<Instrucao>();
@@ -52,7 +55,14 @@ public class Controlador{
 	public void iniciarSimulacao() {
 		
 		btnPlay.setVisible(true);
+		btnPlay.setControlador(this);
+		
+		btnStop.setVisible(true);
+		btnStop.setBtnPlay(btnPlay);
+		btnStop.setControlador(this);
 
+		btnPlay.setBtnStop(btnStop);
+		
 		operar();
 		
 	}
@@ -126,5 +136,6 @@ public class Controlador{
 	public void setBtnPlay(BotaoPlay btnPlay) {
 		this.btnPlay = btnPlay;
 	}
+
 
 }

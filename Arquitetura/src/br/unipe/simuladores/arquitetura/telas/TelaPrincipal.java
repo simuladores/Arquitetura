@@ -1,6 +1,7 @@
 package br.unipe.simuladores.arquitetura.telas;
 
 import br.unipe.simuladores.arquitetura.botoes.BotaoPlay;
+import br.unipe.simuladores.arquitetura.botoes.BotaoStop;
 import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelIdentificador;
@@ -47,6 +48,7 @@ public class TelaPrincipal extends Tela{
 	private static RadioMenuItem opExibirMensSimulacao;
 	
 	private static BotaoPlay botaoPlay;
+	private static BotaoStop botaoStop;
 	
 	private Accordion accordion;
 	
@@ -64,7 +66,13 @@ public class TelaPrincipal extends Tela{
 		botaoPlay.setTranslateY(660);
 		botaoPlay.setVisible(false);
 		
+		botaoStop = new BotaoStop();
+		botaoStop.setTranslateX(610);
+		botaoStop.setTranslateY(670);
+		botaoStop.setVisible(false);
+		
 		TelaPrincipal.adicionarAoPalco(botaoPlay);
+		TelaPrincipal.adicionarAoPalco(botaoStop);
 		
 		root.getChildren().add(computador.getContent());
 		
@@ -447,6 +455,16 @@ public class TelaPrincipal extends Tela{
 
 	public static void setOpExibirMensSimulacao(RadioMenuItem opExibirMensSimulacao) {
 		TelaPrincipal.opExibirMensSimulacao = opExibirMensSimulacao;
+	}
+
+
+	public static BotaoStop getBotaoStop() {
+		return botaoStop;
+	}
+
+
+	public static void setBotaoStop(BotaoStop botaoStop) {
+		TelaPrincipal.botaoStop = botaoStop;
 	}
 	
 

@@ -1,5 +1,6 @@
 package br.unipe.simuladores.arquitetura.botoes;
 
+import br.unipe.simuladores.arquitetura.simulacao.Controlador;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -13,6 +14,7 @@ public class BotaoPlay extends Botao {
 	private ImageView imgPause;
 	private ImageView curImg;
 	private boolean paused = true;
+	private BotaoStop btnStop;
 	
 	public BotaoPlay() {
 		
@@ -32,20 +34,31 @@ public class BotaoPlay extends Botao {
 	
 	private void definirAcoesEspecificas() {
 		
+		este = this;
 		setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent e) {
 				
-				if (paused) {
+				if (este.isStopped()) {
 					
-					setPaused(false);
-					timeline.play();
+					controlador = new Controlador();
+					controlador.iniciarSimulacao();
+					btnStop.ativar();
 					
 				} else {
 					
-					setPaused(true);
-					timeline.pause();
+					if (paused) {
+						
+						setPaused(false);
+						timeline.play();
+						
+					} else {
+						
+						setPaused(true);
+						timeline.pause();
+						
+					}
 					
 				}
 				
@@ -86,7 +99,22 @@ public class BotaoPlay extends Botao {
 		}
 	}
 	
-	
-	
+	public void parar() {
+		
+		stopped = true;
+		getChildren().remove(curImg);
+		curImg = image;
+		getChildren().add(image);
+		
+	}
+
+	public BotaoStop getBtnStop() {
+		return btnStop;
+	}
+
+	public void setBtnStop(BotaoStop btnStop) {
+		this.btnStop = btnStop;
+	}
+
 
 }
