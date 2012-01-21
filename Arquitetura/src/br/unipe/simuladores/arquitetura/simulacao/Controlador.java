@@ -1,12 +1,15 @@
 package br.unipe.simuladores.arquitetura.simulacao;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.image.Image;
@@ -29,6 +32,7 @@ public class Controlador{
 	private BarramentoInterno barramentoInterno;
 	private BotaoPlay btnPlay;
 	private BotaoStop btnStop;
+	private List<Node> elementosAdicionados;
 	
 	protected ObservableList<Instrucao> instrucoes;
 	protected Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
@@ -48,6 +52,8 @@ public class Controlador{
 		
 		for (Instrucao instr : instrucoes)
 			instrucoesQueue.add(instr);
+		
+		elementosAdicionados = new ArrayList<Node>();
 		
 		
 	}
@@ -87,6 +93,30 @@ public class Controlador{
 		}
 				
 	}
+    
+    public void adicionarElemento(Node n) {
+    	
+    	elementosAdicionados.add(n);
+    	
+    }
+    
+    public void limpar() {
+    	
+    	for (Node elemento : elementosAdicionados) {
+    		
+    		ucpInterna.remover(elemento);
+    		barramentoInterno.remover(elemento);
+    		
+    	}
+    	
+    	ucpInterna.remover(ucpInterna.getPc().getTxtValor());
+    	ucpInterna.remover(ucpInterna.getMar().getTxtValor());
+    	ucpInterna.remover(ucpInterna.getMbr().getTxtValor());
+    	ucpInterna.remover(ucpInterna.getUc().getTxtValor());
+    	
+    	elementosAdicionados.clear();
+    	
+    }
 
 	public MemoriaInterna getMemoriaInterna() {
 		return memoriaInterna;
@@ -127,6 +157,7 @@ public class Controlador{
 	public void setTimelineAtual(Timeline timelineAtual) {
 		this.timelineAtual = timelineAtual;
 		btnPlay.setTimeline(this.timelineAtual);
+		btnStop.setTimeline(this.timelineAtual);
 	}
 
 	public BotaoPlay getBtnPlay() {
@@ -135,6 +166,14 @@ public class Controlador{
 
 	public void setBtnPlay(BotaoPlay btnPlay) {
 		this.btnPlay = btnPlay;
+	}
+
+	public List<Node> getElementosAdicionados() {
+		return elementosAdicionados;
+	}
+
+	public void setElementosAdicionados(List<Node> elementosAdicionados) {
+		this.elementosAdicionados = elementosAdicionados;
 	}
 
 

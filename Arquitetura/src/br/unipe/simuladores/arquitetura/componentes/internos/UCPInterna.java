@@ -101,13 +101,13 @@ public class UCPInterna extends ComponenteInterno{
 		mar = new MAR();
 		mar.construirForma(965, 420);
 		mar.adicionarTexto(932, 438);
-		mar.atualizarValor(0, 975, 438);
+		//mar.atualizarValor(0, 975, 438);
 		atualizarUnidadeTela(mar);
 		
 		mbr = new MBR();
 		mbr.construirForma(965, 460);
 		mbr.adicionarTexto(932, 478);
-		mbr.atualizarValor(0, 975, 478);
+		//mbr.atualizarValor(0, 975, 478);
 		atualizarUnidadeTela(mbr);
 		
 		pc = new PC();

@@ -103,9 +103,6 @@ public class Busca extends Ciclo{
 		
 			double xDe = controlador.getUcpInterna().getPc().getTxtValor().getX();
 			double yDe = controlador.getUcpInterna().getPc().getTxtValor().getY();
-			
-			final double xPara = controlador.getUcpInterna().getMar().getTxtValor().getX();
-			final double yPara = controlador.getUcpInterna().getMar().getTxtValor().getY();
 		
 			final Integer valor = (Integer)controlador.getUcpInterna().getPc().getValor();
 		
@@ -117,6 +114,7 @@ public class Busca extends Ciclo{
 				
 			controlador.getUcpInterna().remover(valorTxt);
 			controlador.getUcpInterna().adicionar(valorTxt);
+			controlador.adicionarElemento(valorTxt);
 			valorTxt.toFront();
 					
 			timeline = new Timeline();
@@ -127,8 +125,8 @@ public class Busca extends Ciclo{
 							new KeyValue(valorTxt.yProperty(), yDe)
 				    ),
 	                new KeyFrame(new Duration(3000), 
-	                		new KeyValue(valorTxt.xProperty(), xPara),
-	                		new KeyValue(valorTxt.yProperty(), yPara)
+	                		new KeyValue(valorTxt.xProperty(), 975),
+	                		new KeyValue(valorTxt.yProperty(), 438)
 	                )
 			);
 		
@@ -138,7 +136,7 @@ public class Busca extends Ciclo{
 				public void handle(ActionEvent arg0) {
 				
 					controlador.getUcpInterna().remover(valorTxt);
-					controlador.getUcpInterna().getMar().atualizarValor(valor, xPara, yPara);
+					controlador.getUcpInterna().getMar().atualizarValor(valor, 975, 438);
 					controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getMar());	
 				
 					copiarREADParaBarramento();
@@ -187,6 +185,7 @@ public class Busca extends Ciclo{
 			read.setFont(new Font(12));
 		
 			controlador.getBarramentoInterno().adicionar(read);
+			controlador.adicionarElemento(read);
 			read.toFront();
 		
 			timeline = new Timeline();
@@ -242,6 +241,7 @@ public class Busca extends Ciclo{
 			valorMar.setFont(new Font(12));
 		
 			controlador.getBarramentoInterno().adicionar(valorMar);
+			controlador.adicionarElemento(valorMar);
 			valorMar.toFront();
 		
 			timeline = new Timeline();
