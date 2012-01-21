@@ -1,14 +1,11 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
-import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class BarramentoInterno extends ComponenteInterno {
 	

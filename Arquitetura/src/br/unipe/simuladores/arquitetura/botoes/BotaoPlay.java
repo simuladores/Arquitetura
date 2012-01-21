@@ -3,8 +3,6 @@ package br.unipe.simuladores.arquitetura.botoes;
 import br.unipe.simuladores.arquitetura.simulacao.Controlador;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
-import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;

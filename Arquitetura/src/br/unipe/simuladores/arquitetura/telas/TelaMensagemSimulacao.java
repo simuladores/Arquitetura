@@ -1,11 +1,6 @@
 package br.unipe.simuladores.arquitetura.telas;
 
-import br.unipe.simuladores.arquitetura.simulacao.Ciclo;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;

@@ -5,19 +5,16 @@ import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Variavel;
 import br.unipe.simuladores.arquitetura.excecoes.VariavelExistenteException;
-import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class MemoriaInterna extends ComponenteInterno{
 	

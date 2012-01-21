@@ -4,12 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import br.unipe.simuladores.arquitetura.enums.EstadoCicloBusca;
-import br.unipe.simuladores.arquitetura.simulacao.Busca;
 
 public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 
 	private EstadoCicloBusca estado;
-	private Busca busca;
 	
 	private static final String ATUALIZAR_PCTXT = "Será dado início ao ciclo de busca, " +
 			"para buscar a próxima instrução na memória.\n Primeiro, o valor de PC é " +
@@ -82,14 +80,6 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 		
 		
 	}
-	
-	private void continuar() {
-		
-		busca.setContinuar(true);
-		stage.close();
-		
-	}
-	
 	
 
 }

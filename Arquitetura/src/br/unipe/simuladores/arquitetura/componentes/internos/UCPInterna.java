@@ -3,10 +3,7 @@ package br.unipe.simuladores.arquitetura.componentes.internos;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -20,7 +17,6 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Registrado
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UC;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.ULA;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UnidadeUCP;
-import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class UCPInterna extends ComponenteInterno{
 	

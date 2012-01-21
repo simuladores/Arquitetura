@@ -1,6 +1,5 @@
 package br.unipe.simuladores.arquitetura.botoes;
 
-import br.unipe.simuladores.arquitetura.simulacao.Controlador;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

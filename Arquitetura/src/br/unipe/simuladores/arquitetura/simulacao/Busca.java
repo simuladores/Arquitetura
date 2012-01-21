@@ -3,10 +3,8 @@ package br.unipe.simuladores.arquitetura.simulacao;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -19,8 +17,6 @@ public class Busca extends Ciclo{
 	
 	private Text read;
 	private Text valorMar;
-	private TranslateTransition translate;
-	private Button button;
 
 	public Busca(Controlador c) {
 		
