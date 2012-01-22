@@ -6,6 +6,10 @@ import br.unipe.simuladores.arquitetura.componentes.circulos.Computador;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelIdentificador;
 import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
+import javafx.animation.PathTransition;
+import javafx.animation.PathTransition.OrientationType;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -29,9 +33,15 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class TelaPrincipal extends Tela{
 
@@ -51,6 +61,11 @@ public class TelaPrincipal extends Tela{
 	private static BotaoStop botaoStop;
 	
 	private Accordion accordion;
+	
+	//Usado para teste
+	private PathTransition pathTransition;
+	private PathTransition pathTransition2;
+	private RotateTransition rotateTransition;
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
 		super(stage, titulo, cor, height, width);
@@ -74,6 +89,60 @@ public class TelaPrincipal extends Tela{
 		TelaPrincipal.adicionarAoPalco(botaoPlay);
 		TelaPrincipal.adicionarAoPalco(botaoStop);
 		
+		Text text = new Text ("2   1   1   7");
+		//text.setX(967);
+		//text.setY(70);
+		TelaPrincipal.adicionarAoPalco(text);
+		
+		Path path = new Path();
+		path.getElements().add(new MoveTo(967, 70));
+		path.getElements().add(new LineTo(1100, 70));
+		path.getElements().add(new MoveTo(1100, 70));
+		path.getElements().add(new LineTo(1100, 200));
+		path.setStroke(Color.DODGERBLUE);
+		TelaPrincipal.adicionarAoPalco(path);
+		pathTransition = new PathTransition();
+		pathTransition.setDuration(Duration.millis(3000));
+		pathTransition.setPath(path);
+		pathTransition.setNode(text);
+		pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+		pathTransition.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				rotateTransition.play();
+				
+			}
+			
+		});
+		
+		
+		rotateTransition = new RotateTransition(Duration.seconds(0.1));
+		rotateTransition.setFromAngle(0);
+		rotateTransition.setToAngle(0);
+		rotateTransition.setNode(text);
+		rotateTransition.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				pathTransition2.play();
+				
+			}
+			
+		});
+		
+		Path path2 = new Path();
+		path2.getElements().add(new MoveTo(1100, 200));
+		path2.getElements().add(new LineTo(967, 200));
+		path2.setStroke(Color.DODGERBLUE);
+		TelaPrincipal.adicionarAoPalco(path2);
+		pathTransition2 = new PathTransition();
+		pathTransition2.setDuration(Duration.millis(3000));
+		pathTransition2.setPath(path2);
+		pathTransition2.setNode(text);
+
 		root.getChildren().add(computador.getContent());
 		
 		menuSuperior = criarMenu(scene);
@@ -262,6 +331,17 @@ public class TelaPrincipal extends Tela{
 		Menu ajuda = new Menu("Ajuda");
 		MenuItem sobre = new MenuItem("Sobre");
 		ajuda.getItems().add(sobre);
+		
+		sobre.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				pathTransition.play();
+				
+			}
+			
+		});
 		
 		menuBar.getMenus().add(inserir);
 		menuBar.getMenus().add(janela);
