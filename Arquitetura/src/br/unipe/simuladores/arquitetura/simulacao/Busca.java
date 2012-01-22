@@ -9,9 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
-import br.unipe.simuladores.arquitetura.enums.EstadoCicloBusca;
-import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
-import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
+import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 
 public class Busca extends Ciclo{
 	
@@ -29,41 +27,30 @@ public class Busca extends Ciclo{
 	public void mostrarAnimacoes() {
 		
 	    atualizarPC();
-	    
-		/*controlador.getUcpInterna().adicionar(button);
-		
-		button.setOnAction(new EventHandler<ActionEvent>(){
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				
-				timeline.play();
-				
-			}
-			
-		});*/
-		
 		
 	}
 	
 	public void atualizarPC() {
-		
-		
+
 			final PC pc = controlador.getUcpInterna().getPc();
 		
 			pc.atualizarValor(controlador.getInstrucaoAtual().enderecoProperty().getValue(), 880, 438);
-				
-			timeline = new Timeline();
-			controlador.getUcpInterna().atualizarValorUnidadeTela(pc);
+			controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getPc());
 			
-			Timeline timeline = new Timeline();
+			controlador.getUcpInterna().getPc().getTxtValor().setVisible(false);
+			
+			timeline = new Timeline();
 			
 			timeline.getKeyFrames().addAll(
-					new KeyFrame(Duration.ZERO, 
+					new KeyFrame(Duration.ZERO,
+							new KeyValue(controlador.getUcpInterna().getPc()
+									.getTxtValor().visibleProperty(), true),
 							new KeyValue(controlador.getUcpInterna().getPc()
 									.getTxtValor().opacityProperty(), 0.0f)
 				    ),
-	                new KeyFrame(new Duration(3000), 
+	                new KeyFrame(new Duration(3000),
+	                		new KeyValue(controlador.getUcpInterna().getPc()
+									.getTxtValor().visibleProperty(), true),
 	                		new KeyValue(controlador.getUcpInterna().getPc()
 									.getTxtValor().opacityProperty(), 1.0f)
 	                )
@@ -80,23 +67,13 @@ public class Busca extends Ciclo{
 			
 			});
 		
-			if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
-				telaMensagem = new TelaMensagemCicloBusca
-						(EstadoCicloBusca.ATUALIZAR_PC);
-				telaMensagem.exibir();
-				controlador.setTimelineAtual(timeline);
-				controlador.getBtnPlay().setPaused(true);
-			}
-			else{
-				controlador.setTimelineAtual(timeline);
-				controlador.getBtnPlay().setPaused(false);
-				timeline.play();				
-			}
+			nextStep(EstadoCiclo.ATUALIZAR_PC);
+
 		
 	}
 	
 	public void moverEnderecoPCParaMAR() {
-		
+				
 			double xDe = controlador.getUcpInterna().getPc().getTxtValor().getX();
 			double yDe = controlador.getUcpInterna().getPc().getTxtValor().getY();
 		
@@ -141,28 +118,7 @@ public class Busca extends Ciclo{
 			
 			});
 		
-			if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
-				telaMensagem = new TelaMensagemCicloBusca
-						(EstadoCicloBusca.MOVER_MAR);
-				telaMensagem.exibir();
-				controlador.setTimelineAtual(timeline);
-				controlador.getBtnPlay().setPaused(true);
-			}
-			else {
-				controlador.setTimelineAtual(timeline);
-				controlador.getBtnPlay().setPaused(false);
-				timeline.play();
-			}
-			
-			/* translate = 
-					new TranslateTransition(Duration.seconds(3), valorTxt);
-			translate.setFromX(xDe);
-			translate.setFromY(yDe);
-			translate.setToX(xPara);
-			translate.setToY(yPara);
-			
-			translate.play();*/
-			
+			nextStep(EstadoCiclo.MOVER_MAR);
 			
 	}
 	
@@ -208,18 +164,7 @@ public class Busca extends Ciclo{
 				
 			});
 						
-				if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
-					telaMensagem = new TelaMensagemCicloBusca
-							(EstadoCicloBusca.COPIAR_READ_BARRAMENTO);
-					telaMensagem.exibir();
-					controlador.setTimelineAtual(timeline);
-					controlador.getBtnPlay().setPaused(true);
-				}
-				else {
-					controlador.setTimelineAtual(timeline);
-					controlador.getBtnPlay().setPaused(false);
-					timeline.play();
-				}
+			nextStep(EstadoCiclo.COPIAR_READ_BARRAMENTO);
 		
 	}
 	
@@ -264,18 +209,7 @@ public class Busca extends Ciclo{
 			
 			});
 
-			if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
-				telaMensagem = new TelaMensagemCicloBusca
-						(EstadoCicloBusca.COPIAR_VALOR_MAR_BARRAMENTO);
-				telaMensagem.exibir();
-				controlador.setTimelineAtual(timeline);
-				controlador.getBtnPlay().setPaused(true);
-			}
-			else {
-				controlador.setTimelineAtual(timeline);
-				controlador.getBtnPlay().setPaused(false);
-				timeline.play();
-			}
+			nextStep(EstadoCiclo.COPIAR_VALOR_MAR_BARRAMENTO);
 		
 	}
 	
@@ -324,19 +258,9 @@ public class Busca extends Ciclo{
 			
 		});
 		
-		if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
-			telaMensagem = new TelaMensagemCicloBusca
-					(EstadoCicloBusca.MOVER_DADOS_BARRAMENTO_MEMORIA);
-			telaMensagem.exibir();
-			controlador.setTimelineAtual(timeline);
-			controlador.getBtnPlay().setPaused(true);
-		}
-		else {
-			controlador.setTimelineAtual(timeline);
-			controlador.getBtnPlay().setPaused(false);
-			timeline.play();
-		}
+		nextStep(EstadoCiclo.MOVER_DADOS_BARRAMENTO_MEMORIA);
 		
 	}
+	
 	
 }

@@ -1,5 +1,8 @@
 package br.unipe.simuladores.arquitetura.simulacao;
 
+import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
+import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 import javafx.animation.Timeline;
 
@@ -17,6 +20,23 @@ public abstract class Ciclo {
 	}
 	
 	public abstract void mostrarAnimacoes();
+	
+	protected void nextStep(EstadoCiclo estado) {
+		
+		if (TelaPrincipal.isExibirMensagensDeSimulacao()) {
+			telaMensagem = new TelaMensagemCicloBusca
+					(estado);
+			telaMensagem.exibir();
+			controlador.setTimelineAtual(timeline);
+			controlador.getBtnPlay().setPaused(true);
+		}
+		else {
+			controlador.setTimelineAtual(timeline);
+			controlador.getBtnPlay().setPaused(false);
+			timeline.play();
+		}
+		
+	}
 
 	public Controlador getControlador() {
 		return controlador;

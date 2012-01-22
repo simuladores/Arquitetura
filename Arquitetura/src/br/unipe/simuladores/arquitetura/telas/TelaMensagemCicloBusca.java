@@ -3,11 +3,11 @@ package br.unipe.simuladores.arquitetura.telas;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
-import br.unipe.simuladores.arquitetura.enums.EstadoCicloBusca;
+import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 
 public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 
-	private EstadoCicloBusca estado;
+	private EstadoCiclo estado;
 	
 	private static final String ATUALIZAR_PCTXT = "Será dado início ao ciclo de busca, " +
 			"para buscar a próxima instrução na memória.\n Primeiro, o valor de PC é " +
@@ -26,7 +26,7 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 			"serão transferidos para a memória, pelo barramento.\n O valor de MAR " +
 			"no barramento de endereços e o comando \"READ\"\n no barramento de instruções";
 	
-	public TelaMensagemCicloBusca(EstadoCicloBusca estado) {
+	public TelaMensagemCicloBusca(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));
 		
 		this.estado = estado;

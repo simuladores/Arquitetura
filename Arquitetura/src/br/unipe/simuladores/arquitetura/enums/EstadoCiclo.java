@@ -1,7 +1,8 @@
 package br.unipe.simuladores.arquitetura.enums;
 
-public enum EstadoCicloBusca {
+public enum EstadoCiclo {
 	
+	//ciclo de busca
 	INICIAL,
 	ATUALIZAR_PC,
 	MOVER_MAR,
