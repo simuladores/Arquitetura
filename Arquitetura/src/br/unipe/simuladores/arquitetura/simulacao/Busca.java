@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 
@@ -15,6 +16,10 @@ public class Busca extends Ciclo{
 	
 	private Text read;
 	private Text valorMar;
+	private Text endInst;
+	private Text opcodeInst;
+	private Text op1;
+	private Text op2;
 
 	public Busca(Controlador c) {
 		
@@ -135,6 +140,8 @@ public class Busca extends Ciclo{
 			read.setX(xDe);
 			read.setY(yDe);
 			read.setFont(new Font(12));
+			controlador.getUcpInterna().getUc().getTxtValor().setVisible(false);
+			read.setVisible(false);
 		
 			controlador.getBarramentoInterno().adicionar(read);
 			controlador.adicionarElemento(read);
@@ -145,10 +152,16 @@ public class Busca extends Ciclo{
 				timeline.getKeyFrames().addAll(
 		               new KeyFrame(Duration.ZERO, 
 		                   new KeyValue(read.xProperty(), xDe),
+		                   new KeyValue(read.visibleProperty(), true),
+		                   new KeyValue(controlador.getUcpInterna().getUc()
+		                		   .getTxtValor().visibleProperty(), true),
 		                   new KeyValue(read.yProperty(), yDe)
 		               ),
 		               new KeyFrame(new Duration(3000), 
 		                	new KeyValue(read.xProperty(), xPara),
+		                	new KeyValue(read.visibleProperty(), true),
+		                	new KeyValue(controlador.getUcpInterna().getUc()
+		                			.getTxtValor().visibleProperty(), true),
 			                new KeyValue(read.yProperty(), yDe)
 		               )
 				);
@@ -244,10 +257,88 @@ public class Busca extends Ciclo{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
+				fornecerInstrucao();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.MOVER_DADOS_BARRAMENTO_MEMORIA);
+		
+	}
+	
+	public void fornecerInstrucao() {
+		
+		Instrucao instrucao = controlador.getInstrucaoAtual();
+		double xEnd = 1015, y = 70, xOpcode = 995, xOp1 = 975, xOp2 = 955;
+		
+		endInst = new Text(instrucao.enderecoProperty().getValue().toString());
+		endInst.setX(xEnd);
+		endInst.setY(y);
+		controlador.getMemoriaInterna().adicionar(endInst);
+		controlador.adicionarElemento(endInst);
+		endInst.toBack();
+		
+		opcodeInst = new Text(instrucao.opcodeProperty().getValue().toString());
+		opcodeInst.setX(xOpcode);
+		opcodeInst.setY(y);
+		controlador.getMemoriaInterna().adicionar(opcodeInst);
+		controlador.adicionarElemento(opcodeInst);
+		opcodeInst.toBack();
+		
+		op1 = new Text(instrucao.referenciaOp1Property().getValue().toString());
+		op1.setX(xOp1);
+		op1.setY(y);
+		controlador.getMemoriaInterna().adicionar(op1);
+		controlador.adicionarElemento(op1);
+		op1.toBack();
+		
+		op2 = new Text(instrucao.referenciaOp2Property().getValue().toString());
+		op2.setX(xOp2);
+		op2.setY(y);
+		controlador.getMemoriaInterna().adicionar(op2);
+		controlador.adicionarElemento(op2);
+		op2.toBack();
+		
+		timeline = new Timeline();
+		
+		timeline.getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(endInst.xProperty(), xEnd),
+	                   new KeyValue(endInst.yProperty(), y),
+	               	   new KeyValue(opcodeInst.xProperty(), xOpcode),
+	               	   new KeyValue(opcodeInst.yProperty(), y),
+	               	   new KeyValue(op1.xProperty(), xOp1),
+	                   new KeyValue(op1.yProperty(), y),
+	               	   new KeyValue(op2.xProperty(), xOp2),
+	               	   new KeyValue(op2.yProperty(), y)
+	               	   
+	               ),
+	               new KeyFrame(new Duration(3000), 
+	            	   new KeyValue(endInst.xProperty(), 1210),
+		               new KeyValue(endInst.yProperty(), y),
+		               new KeyValue(opcodeInst.xProperty(), 1190),
+		               new KeyValue(opcodeInst.yProperty(), y),
+		               new KeyValue(op1.xProperty(), 1170),
+		               new KeyValue(op1.yProperty(), y),
+		               new KeyValue(op2.xProperty(), 1150),
+		               new KeyValue(op2.yProperty(), y)
+	               )
+	     );
+		
+		timeline.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
 				try {
 					Thread.sleep(2000);
 					controlador.getBarramentoInterno().remover(read);
 					controlador.getBarramentoInterno().remover(valorMar);
+					controlador.getMemoriaInterna().remover(endInst);
+					controlador.getMemoriaInterna().remover(opcodeInst);
+					controlador.getMemoriaInterna().remover(op1);
+					controlador.getMemoriaInterna().remover(op2);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -258,7 +349,7 @@ public class Busca extends Ciclo{
 			
 		});
 		
-		nextStep(EstadoCiclo.MOVER_DADOS_BARRAMENTO_MEMORIA);
+		nextStep(EstadoCiclo.FORNECER_INSTRUCAO);
 		
 	}
 	

@@ -90,16 +90,5 @@ public class BarramentoInterno extends ComponenteInterno {
 		
 	}
 	
-	public void adicionar(Node node) {
-		
-		group.getChildren().add(node);
-		
-	}
-	
-	public void remover(Node node) {
-		
-		group.getChildren().remove(node);
-		
-	}
 
 }

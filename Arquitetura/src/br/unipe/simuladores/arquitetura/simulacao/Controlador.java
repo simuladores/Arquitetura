@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.text.Text;
 import br.unipe.simuladores.arquitetura.botoes.BotaoPlay;
 import br.unipe.simuladores.arquitetura.botoes.BotaoStop;
 import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;
@@ -61,6 +62,12 @@ public class Controlador{
 		btnStop.setControlador(this);
 
 		btnPlay.setBtnStop(btnStop);
+		
+		Text teste = new Text("Teste");
+		teste.setX(1150);
+		teste.setY(85);
+		memoriaInterna.adicionar(teste);
+		//teste.toBack();
 		
 		operar();
 		

@@ -198,18 +198,6 @@ public class UCPInterna extends ComponenteInterno{
 		group.getChildren().add(unidade.getTxtValor());
 		
 	}
-	
-	public void adicionar(Node node) {
-		
-		group.getChildren().add(node);
-		
-	}
-	
-	public void remover(Node node) {
-		
-		group.getChildren().remove(node);
-		
-	}
 
 	public UC getUc() {
 		return uc;

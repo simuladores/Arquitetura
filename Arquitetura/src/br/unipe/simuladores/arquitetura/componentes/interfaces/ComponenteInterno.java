@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -64,6 +65,18 @@ public abstract class ComponenteInterno extends Componente{
 			}
 			
 		});
+		
+	}
+	
+	public void adicionar(Node node) {
+		
+		group.getChildren().add(node);
+		
+	}
+	
+	public void remover(Node node) {
+		
+		group.getChildren().remove(node);
 		
 	}
 
