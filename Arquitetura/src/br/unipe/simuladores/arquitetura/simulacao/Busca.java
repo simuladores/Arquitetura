@@ -25,6 +25,9 @@ public class Busca extends Ciclo{
 	private Text read;
 	private Text valorMar;
 	private Text txtInstrucao;
+	private Path path;
+	private Path path2;
+	private Path path3;
 
 	public Busca(Controlador c) {
 		
@@ -277,7 +280,7 @@ public class Busca extends Ciclo{
 		Point2D p1 = new Point2D(980, 60);
 		Point2D p2 = new Point2D(1215, 60);
 		Point2D p3 = new Point2D(1215, 473);
-		Point2D p4 = new Point2D(967, 473);
+		Point2D p4 = new Point2D(950, 473);
 		
 		Instrucao instrucao = controlador.getInstrucaoAtual();
 		String inst = instrucao.enderecoProperty().getValue().toString() + "   ";
@@ -291,7 +294,7 @@ public class Busca extends Ciclo{
 		txtInstrucao.toBack();
 		controlador.adicionarElemento(txtInstrucao);
 		
-		final Path path = new Path();
+		path = new Path();
 		path.getElements().add(new MoveTo(p1.getX(), p1.getY()));
 		path.getElements().add(new LineTo(p2.getX(), p2.getY()));
 		path.setStroke(Color.TRANSPARENT);
@@ -319,7 +322,7 @@ public class Busca extends Ciclo{
 		rotateTransition.setToAngle(-90);
 		rotateTransition.setNode(txtInstrucao);
 		
-		final Path path2 = new Path();
+		path2 = new Path();
 		path2.getElements().add(new MoveTo(p2.getX(), p2.getY()));
 		path2.getElements().add(new LineTo(p3.getX(), p3.getY()));
 		path2.setStroke(Color.TRANSPARENT);
@@ -336,7 +339,7 @@ public class Busca extends Ciclo{
 		rotateTransition2.setToAngle(0);
 		rotateTransition2.setNode(txtInstrucao);
 		
-		final Path path3 = new Path();
+		path3 = new Path();
 		path3.getElements().add(new MoveTo(p3.getX(), p3.getY()));
 		path3.getElements().add(new LineTo(p4.getX(), p4.getY()));
 		path3.setStroke(Color.TRANSPARENT);
@@ -361,25 +364,157 @@ public class Busca extends Ciclo{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				try {
-					Thread.sleep(2000);
-					controlador.getBarramentoInterno().remover(read);
-					controlador.getBarramentoInterno().remover(valorMar);
-					controlador.getBarramentoInterno().remover(txtInstrucao);
-					controlador.getMemoriaInterna().remover(path);
-					controlador.getBarramentoInterno().remover(path2);
-					controlador.getBarramentoInterno().remover(path3);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				controlador.operar();
+				atualizarPCProximaInstrucao();
 				
 			}
 			
 		});
 		
 		nextStep(EstadoCiclo.TRANSFERIR_INSTRUCAO);
+		
+	}
+	
+	public void atualizarPCProximaInstrucao() {
+		
+		final Text endProxTxt;
+		
+		animation = new Timeline();
+		
+		if (controlador.haProximaInstrucao()) {
+			
+			final double x = controlador.getUcpInterna().getPc().getTxtValor().getX();
+			final double y = controlador.getUcpInterna().getPc().getTxtValor().getY();
+			
+			final Integer endProx = controlador.obterEnderecoProximaInstrucao();
+			endProxTxt = new Text(endProx.toString());
+			endProxTxt.setX(x);
+			endProxTxt.setY(y);
+			
+			controlador.getUcpInterna().adicionar(endProxTxt);
+			endProxTxt.setVisible(false);
+			controlador.adicionarElemento(endProxTxt);
+			
+			((Timeline)animation).getKeyFrames().addAll(
+		               new KeyFrame(Duration.ZERO, 
+		                   new KeyValue(endProxTxt.opacityProperty(), 0.0f),
+		                   new KeyValue(endProxTxt.visibleProperty(), true),
+		                   new KeyValue(controlador.getUcpInterna().getPc()
+		                		   .getTxtValor().opacityProperty(), 1.0f)
+		               ),
+		               new KeyFrame(new Duration(3000), 
+		            		   new KeyValue(endProxTxt.opacityProperty(), 1.0f),
+		            		   new KeyValue(endProxTxt.visibleProperty(), true),
+			                   new KeyValue(controlador.getUcpInterna().getPc()
+			                		   .getTxtValor().opacityProperty(), 0.0f)
+		               )
+		     );
+			
+			animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+				@Override
+				public void handle(ActionEvent e) {
+					
+					controlador.getUcpInterna().remover(endProxTxt);
+					controlador.getUcpInterna().getPc().atualizarValor(endProx, x, y);
+					controlador.getUcpInterna().atualizarValorUnidadeTela(
+							controlador.getUcpInterna().getPc());
+					
+					copiarMBRParaIR();
+					
+				}
+				
+			});
+			
+			nextStep(EstadoCiclo.ATUALIZAR_PC_PROX_INSTRUCAO);
+			
+		} else {
+			
+			nextStep(EstadoCiclo.NAO_HA_PROX_INSTRUCAO);
+			
+			copiarMBRParaIR();
+			
+		}
+		
+		
+		
+	}
+	
+	public void copiarMBRParaIR() {
+			
+		double xMbr = controlador.getUcpInterna().getMbr().getTxtValor().getX();
+		double yMbr = controlador.getUcpInterna().getMbr().getTxtValor().getY();
+		final double xIr = controlador.getUcpInterna().getIr().getTxtValor().getX();
+		final double yIr = controlador.getUcpInterna().getIr().getTxtValor().getY();
+		
+		String txtInst = txtInstrucao.getText();
+		
+		controlador.getUcpInterna().getMbr().atualizarValor(
+				txtInst, xMbr, yMbr);
+		controlador.getUcpInterna().atualizarValorUnidadeTela(
+				controlador.getUcpInterna().getMbr());
+		controlador.adicionarElemento(
+				controlador.getUcpInterna().getMbr().getTxtValor());
+		
+		controlador.getBarramentoInterno().remover(txtInstrucao);
+		txtInstrucao = new Text(txtInst);
+		txtInstrucao.setX(xMbr);
+		txtInstrucao.setY(yMbr);
+		controlador.getUcpInterna().adicionar(txtInstrucao);
+		controlador.adicionarElemento(txtInstrucao);
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(txtInstrucao.xProperty(), xMbr),
+	                   new KeyValue(txtInstrucao.yProperty(), yMbr)
+	               ),
+	               new KeyFrame(new Duration(3000), 
+	            		   new KeyValue(txtInstrucao.xProperty(), xIr),
+		                   new KeyValue(txtInstrucao.yProperty(), yIr)
+
+	               )
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().getIr().atualizarValor(
+						txtInstrucao.getText(), xIr, yIr);
+				controlador.getUcpInterna().atualizarValorUnidadeTela(
+						controlador.getUcpInterna().getIr());
+				controlador.adicionarElemento(
+						controlador.getUcpInterna().getIr().getTxtValor());
+				controlador.getUcpInterna().remover(txtInstrucao);
+				
+				limparElementosTela();
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.COPIAR_MBR_PARA_IR);
+		
+	}
+
+
+	@Override
+	protected void limparElementosTela() {
+		
+		try {
+			Thread.sleep(2000);
+			controlador.getBarramentoInterno().remover(read);
+			controlador.getBarramentoInterno().remover(valorMar);
+			controlador.getBarramentoInterno().remover(txtInstrucao);
+			controlador.getMemoriaInterna().remover(path);
+			controlador.getBarramentoInterno().remover(path2);
+			controlador.getBarramentoInterno().remover(path3);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

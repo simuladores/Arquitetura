@@ -38,6 +38,8 @@ public abstract class Ciclo {
 		}
 		
 	}
+	
+	protected abstract void limparElementosTela();
 
 	public Controlador getControlador() {
 		return controlador;

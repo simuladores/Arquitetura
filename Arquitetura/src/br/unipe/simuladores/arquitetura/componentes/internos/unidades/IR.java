@@ -18,7 +18,7 @@ public class IR extends UnidadeUCP{
 	public void construirForma(double x, double y) {
 		
 		forma = new Rectangle();
-		((Rectangle)forma).setWidth(50);
+		((Rectangle)forma).setWidth(103);
 		((Rectangle)forma).setHeight(25);
 		forma.setFill(Color.TURQUOISE);
 		((Rectangle)forma).setX(x);

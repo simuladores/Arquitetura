@@ -112,6 +112,25 @@ public class Controlador{
     	elementosAdicionados.clear();
     	
     }
+    
+    public boolean haProximaInstrucao() {
+    	
+    	if (instrucoesQueue.isEmpty())
+    		return false;
+    	
+    	return true;
+    	
+    }
+    
+    public Integer obterEnderecoProximaInstrucao() {
+    	
+    	Instrucao inst = instrucoesQueue.peek();
+    	if (inst == null)
+    		return -1;
+    	
+    	return inst.enderecoProperty().getValue();
+    	
+    }
 
 	public MemoriaInterna getMemoriaInterna() {
 		return memoriaInterna;

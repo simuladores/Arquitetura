@@ -17,6 +17,7 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Registrado
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UC;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.ULA;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UnidadeUCP;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class UCPInterna extends ComponenteInterno{
 	
@@ -97,13 +98,12 @@ public class UCPInterna extends ComponenteInterno{
 		mar = new MAR();
 		mar.construirForma(965, 420);
 		mar.adicionarTexto(932, 438);
-		//mar.atualizarValor(0, 975, 438);
 		atualizarUnidadeTela(mar);
 		
 		mbr = new MBR();
-		mbr.construirForma(965, 460);
-		mbr.adicionarTexto(932, 478);
-		//mbr.atualizarValor(0, 975, 478);
+		mbr.construirForma(913, 460);
+		mbr.adicionarTexto(880, 478);
+		mbr.atualizarValor("", 923, 478);
 		atualizarUnidadeTela(mbr);
 		
 		pc = new PC();

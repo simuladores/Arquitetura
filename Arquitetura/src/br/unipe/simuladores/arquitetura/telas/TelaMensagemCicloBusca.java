@@ -10,8 +10,8 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 	private EstadoCiclo estado;
 	
 	private static final String ATUALIZAR_PCTXT = "Será dado início ao ciclo de busca, " +
-			"para buscar a próxima instrução na memória.\n Primeiro, o valor de PC é " +
-			"atualizado com o endereço da instrução que será\n executada em seguida.";
+			"para buscar a próxima instrução na memória.\n O valor de PC está " +
+			"atualizado com o endereço da instrução que será executada\n em seguida.";
 	private static final String MOVER_MARTXT = "O valor de PC é então transferido para" +
 			" MAR, que contém os endereços\n que são tranferidos do barramento para a " +
 			"memória e que chegam\n da memória através do barramento." ;
@@ -29,6 +29,12 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 			"então transferida para a UCP pelo barramento de dados.\n " +
 			"Inicialmente, o registrador que conterá a instrução será o MBR, já que " +
 			"é ele\n que armazena os dados ou instruções logo que chegam da memória.";
+	private static final String ATUALIZAR_PC_PROX_INSTRUCAOTXT = "O valor de PC é atualizado " +
+			"para conter o valor da próxima instrução.";
+	private static final String NAO_HA_PROX_INSTRUCAOTXT = "Como não há próxima instrução a ser executada, " +
+			"o valor de PC não é alterado.";
+	private static final String COPIAR_MBR_PARA_IRTXT = "O endereço da instrução, que está " +
+			"contido em MBR, é copiado para IR, o registrador de instruções";
 	
 	public TelaMensagemCicloBusca(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));
@@ -49,6 +55,9 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 		case COPIAR_VALOR_MAR_BARRAMENTO: return COPIAR_VALOR_MAR_BARRAMENTOTXT;
 		case MOVER_DADOS_BARRAMENTO_MEMORIA: return MOVER_DADOS_BARRAMENTO_MEMORIATXT;
 		case TRANSFERIR_INSTRUCAO: return TRANSFERIR_INSTRUCAOTXT;
+		case ATUALIZAR_PC_PROX_INSTRUCAO: return ATUALIZAR_PC_PROX_INSTRUCAOTXT;
+		case NAO_HA_PROX_INSTRUCAO: return NAO_HA_PROX_INSTRUCAOTXT;
+		case COPIAR_MBR_PARA_IR: return COPIAR_MBR_PARA_IRTXT;
 		}
 		
 		return null;

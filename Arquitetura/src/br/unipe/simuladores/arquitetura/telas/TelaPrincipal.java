@@ -63,9 +63,6 @@ public class TelaPrincipal extends Tela{
 	
 	private Accordion accordion;
 	
-	//Usado para teste
-	private SequentialTransition sequentialTransition;
-	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
 		super(stage, titulo, cor, height, width);
 		criar();
@@ -87,58 +84,6 @@ public class TelaPrincipal extends Tela{
 		
 		TelaPrincipal.adicionarAoPalco(botaoPlay);
 		TelaPrincipal.adicionarAoPalco(botaoStop);
-		
-		/*Text text = new Text ("2   1   1   7");
-		TelaPrincipal.adicionarAoPalco(text);
-		
-		Path path = new Path();
-		path.getElements().add(new MoveTo(980, 60));
-		path.getElements().add(new LineTo(1215, 60));
-		path.setStroke(Color.DODGERBLUE);
-		TelaPrincipal.adicionarAoPalco(path);
-		PathTransition pathTransition = new PathTransition();
-		pathTransition.setDuration(Duration.millis(3000));
-		pathTransition.setPath(path);
-		pathTransition.setNode(text);
-		
-		RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.1));
-		rotateTransition.setFromAngle(0);
-		rotateTransition.setToAngle(-90);
-		rotateTransition.setNode(text);
-		
-		Path path2 = new Path();
-		path2.getElements().add(new MoveTo(1215, 60));
-		path2.getElements().add(new LineTo(1215, 473));
-		path2.setStroke(Color.DODGERBLUE);
-		TelaPrincipal.adicionarAoPalco(path2);
-		PathTransition pathTransition2 = new PathTransition();
-		pathTransition2.setDuration(Duration.millis(3000));
-		pathTransition2.setPath(path2);
-		pathTransition2.setNode(text);
-		
-		RotateTransition rotateTransition2 = new RotateTransition(Duration.seconds(0.1));
-		rotateTransition2.setFromAngle(0);
-		rotateTransition2.setToAngle(0);
-		rotateTransition2.setNode(text);
-		
-		Path path3 = new Path();
-		path3.getElements().add(new MoveTo(1215, 473));
-		path3.getElements().add(new LineTo(967, 473));
-		path3.setStroke(Color.DODGERBLUE);
-		TelaPrincipal.adicionarAoPalco(path3);
-		PathTransition pathTransition3 = new PathTransition();
-		pathTransition3.setDuration(Duration.millis(3000));
-		pathTransition3.setPath(path3);
-		pathTransition3.setNode(text);
-		
-		sequentialTransition = new SequentialTransition();
-		sequentialTransition.getChildren().addAll(
-				pathTransition,
-				rotateTransition,
-				pathTransition2,
-				rotateTransition2,
-				pathTransition3
-				);*/
 
 		root.getChildren().add(computador.getContent());
 		
@@ -334,7 +279,7 @@ public class TelaPrincipal extends Tela{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				//sequentialTransition.play();
+				//TODO 
 				
 			}
 			
