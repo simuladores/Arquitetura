@@ -9,6 +9,7 @@ import br.unipe.simuladores.arquitetura.enums.OpcaoJanelaMensagem;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -63,9 +64,7 @@ public class TelaPrincipal extends Tela{
 	private Accordion accordion;
 	
 	//Usado para teste
-	private PathTransition pathTransition;
-	private PathTransition pathTransition2;
-	private RotateTransition rotateTransition;
+	//private SequentialTransition sequentialTransition;
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
 		super(stage, titulo, cor, height, width);
@@ -89,59 +88,57 @@ public class TelaPrincipal extends Tela{
 		TelaPrincipal.adicionarAoPalco(botaoPlay);
 		TelaPrincipal.adicionarAoPalco(botaoStop);
 		
-		Text text = new Text ("2   1   1   7");
-		//text.setX(967);
-		//text.setY(70);
+		/*Text text = new Text ("2   1   1   7");
 		TelaPrincipal.adicionarAoPalco(text);
 		
 		Path path = new Path();
-		path.getElements().add(new MoveTo(967, 70));
-		path.getElements().add(new LineTo(1100, 70));
-		path.getElements().add(new MoveTo(1100, 70));
-		path.getElements().add(new LineTo(1100, 200));
+		path.getElements().add(new MoveTo(980, 70));
+		path.getElements().add(new LineTo(1215, 70));
 		path.setStroke(Color.DODGERBLUE);
 		TelaPrincipal.adicionarAoPalco(path);
-		pathTransition = new PathTransition();
+		PathTransition pathTransition = new PathTransition();
 		pathTransition.setDuration(Duration.millis(3000));
 		pathTransition.setPath(path);
 		pathTransition.setNode(text);
-		pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
-		pathTransition.setOnFinished(new EventHandler<ActionEvent>(){
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				
-				rotateTransition.play();
-				
-			}
-			
-		});
 		
-		
-		rotateTransition = new RotateTransition(Duration.seconds(0.1));
+		RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.1));
 		rotateTransition.setFromAngle(0);
-		rotateTransition.setToAngle(0);
+		rotateTransition.setToAngle(-90);
 		rotateTransition.setNode(text);
-		rotateTransition.setOnFinished(new EventHandler<ActionEvent>(){
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				
-				pathTransition2.play();
-				
-			}
-			
-		});
 		
 		Path path2 = new Path();
-		path2.getElements().add(new MoveTo(1100, 200));
-		path2.getElements().add(new LineTo(967, 200));
+		path2.getElements().add(new MoveTo(1215, 70));
+		path2.getElements().add(new LineTo(1215, 200));
 		path2.setStroke(Color.DODGERBLUE);
 		TelaPrincipal.adicionarAoPalco(path2);
-		pathTransition2 = new PathTransition();
+		PathTransition pathTransition2 = new PathTransition();
 		pathTransition2.setDuration(Duration.millis(3000));
 		pathTransition2.setPath(path2);
 		pathTransition2.setNode(text);
+		
+		RotateTransition rotateTransition2 = new RotateTransition(Duration.seconds(0.1));
+		rotateTransition2.setFromAngle(0);
+		rotateTransition2.setToAngle(0);
+		rotateTransition2.setNode(text);
+		
+		Path path3 = new Path();
+		path3.getElements().add(new MoveTo(1215, 200));
+		path3.getElements().add(new LineTo(967, 200));
+		path3.setStroke(Color.DODGERBLUE);
+		TelaPrincipal.adicionarAoPalco(path3);
+		PathTransition pathTransition3 = new PathTransition();
+		pathTransition3.setDuration(Duration.millis(3000));
+		pathTransition3.setPath(path3);
+		pathTransition3.setNode(text);
+		
+		sequentialTransition = new SequentialTransition();
+		sequentialTransition.getChildren().addAll(
+				pathTransition,
+				rotateTransition,
+				pathTransition2,
+				rotateTransition2,
+				pathTransition3
+				);*/
 
 		root.getChildren().add(computador.getContent());
 		
@@ -337,7 +334,7 @@ public class TelaPrincipal extends Tela{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				pathTransition.play();
+				//sequentialTransition.play();
 				
 			}
 			

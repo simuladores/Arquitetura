@@ -4,12 +4,13 @@ import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
+import javafx.animation.Animation;
 import javafx.animation.Timeline;
 
 public abstract class Ciclo {
 	
 	protected Controlador controlador;
-	protected Timeline timeline;
+	protected Animation animation;
 	protected boolean continuar = false;
 	protected TelaSimplesMensagem telaMensagem;
 	
@@ -27,13 +28,13 @@ public abstract class Ciclo {
 			telaMensagem = new TelaMensagemCicloBusca
 					(estado);
 			telaMensagem.exibir();
-			controlador.setTimelineAtual(timeline);
+			controlador.setAnimacaoAtual(animation);
 			controlador.getBtnPlay().setPaused(true);
 		}
 		else {
-			controlador.setTimelineAtual(timeline);
+			controlador.setAnimacaoAtual(animation);
 			controlador.getBtnPlay().setPaused(false);
-			timeline.play();
+			animation.play();
 		}
 		
 	}
@@ -46,18 +47,12 @@ public abstract class Ciclo {
 		this.controlador = controlador;
 	}
 
-	public Timeline getTimeline() {
-		return timeline;
+	public Animation getAnimation() {
+		return animation;
 	}
 
-	public void setTimeline(Timeline timeline) {
-		this.timeline = timeline;
-	}
-	
-	protected void exibirMensagem() {
-		
-		//if (TelaPrincipal.isExibirMensagensDeSimulacao())
-		
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
 	}
 
 	public boolean isContinuar() {

@@ -1,6 +1,7 @@
 package br.unipe.simuladores.arquitetura.botoes;
 
 import br.unipe.simuladores.arquitetura.simulacao.Controlador;
+import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -12,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 public class Botao extends Group {
 
 	protected ImageView image;
-	protected Timeline timeline;
+	protected Animation animation;
 	protected Controlador controlador;
 	protected boolean stopped = false;
 	protected Botao este;
@@ -26,10 +27,10 @@ public class Botao extends Group {
 		
 	}
 	
-	public Botao(String pathImg, Timeline timeline) {
+	public Botao(String pathImg, Animation animation) {
 		super();
 		image = new ImageView(new Image(getClass().getResourceAsStream(pathImg)));
-		this.timeline = timeline;
+		this.animation = animation;
         getChildren().add(image);
         definirAcoes();
 	}
@@ -60,12 +61,13 @@ public class Botao extends Group {
 		
 	}
 
-	public Timeline getTimeline() {
-		return timeline;
+
+	public Animation getAnimation() {
+		return animation;
 	}
 
-	public void setTimeline(Timeline timeline) {
-		this.timeline = timeline;
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
 	}
 
 	public Controlador getControlador() {

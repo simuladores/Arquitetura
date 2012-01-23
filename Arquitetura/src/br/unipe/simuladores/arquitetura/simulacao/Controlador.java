@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -31,7 +32,7 @@ public class Controlador{
 	protected ObservableList<Instrucao> instrucoes;
 	protected Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
 	
-	private Timeline timelineAtual;
+	private Animation animacaoAtual;
 		
 	public Controlador() {
 		
@@ -149,15 +150,17 @@ public class Controlador{
 	public void setBarramentoInterno(BarramentoInterno barramentoInterno) {
 		this.barramentoInterno = barramentoInterno;
 	}
+	
+	
 
-	public Timeline getTimelineAtual() {
-		return timelineAtual;
+	public Animation getAnimacaoAtual() {
+		return animacaoAtual;
 	}
 
-	public void setTimelineAtual(Timeline timelineAtual) {
-		this.timelineAtual = timelineAtual;
-		btnPlay.setTimeline(this.timelineAtual);
-		btnStop.setTimeline(this.timelineAtual);
+	public void setAnimacaoAtual(Animation animacaoAtual) {
+		this.animacaoAtual = animacaoAtual;
+		btnPlay.setAnimation(this.animacaoAtual);
+		btnStop.setAnimation(this.animacaoAtual);
 	}
 
 	public BotaoPlay getBtnPlay() {

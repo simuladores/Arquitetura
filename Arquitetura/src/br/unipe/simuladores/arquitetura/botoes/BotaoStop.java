@@ -26,7 +26,7 @@ public class BotaoStop extends Botao{
 				if (!stopped) {
 					
 					esmaecer();
-					timeline.stop();
+					animation.stop();
 					controlador.limpar();
 					btnPlay.parar();
 					

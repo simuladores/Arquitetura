@@ -50,12 +50,12 @@ public class BotaoPlay extends Botao {
 					if (paused) {
 						
 						setPaused(false);
-						timeline.play();
+						animation.play();
 						
 					} else {
 						
 						setPaused(true);
-						timeline.pause();
+						animation.pause();
 						
 					}
 					

@@ -25,7 +25,7 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 	private static final String MOVER_DADOS_BARRAMENTO_MEMORIATXT = "Esses dois valores " +
 			"serão transferidos para a memória, pelo barramento.\n O valor de MAR " +
 			"no barramento de endereços e o comando \"READ\"\n no barramento de instruções";
-	private static final String FORNECER_INSTRUCAOTXT = "A instrução é então lida da memória";
+	private static final String TRANSFERIR_INSTRUCAOTXT = "A instrução é então lida da memória";
 	
 	public TelaMensagemCicloBusca(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));
@@ -45,7 +45,7 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 		case COPIAR_READ_BARRAMENTO: return COPIAR_READ_BARRAMENTOTXT;
 		case COPIAR_VALOR_MAR_BARRAMENTO: return COPIAR_VALOR_MAR_BARRAMENTOTXT;
 		case MOVER_DADOS_BARRAMENTO_MEMORIA: return MOVER_DADOS_BARRAMENTO_MEMORIATXT;
-		case FORNECER_INSTRUCAO: return FORNECER_INSTRUCAOTXT;
+		case TRANSFERIR_INSTRUCAO: return TRANSFERIR_INSTRUCAOTXT;
 		}
 		
 		return null;

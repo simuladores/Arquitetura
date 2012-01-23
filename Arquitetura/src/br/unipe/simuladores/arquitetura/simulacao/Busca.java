@@ -44,9 +44,9 @@ public class Busca extends Ciclo{
 			
 			controlador.getUcpInterna().getPc().getTxtValor().setVisible(false);
 			
-			timeline = new Timeline();
+			animation = new Timeline();
 			
-			timeline.getKeyFrames().addAll(
+			((Timeline)animation).getKeyFrames().addAll(
 					new KeyFrame(Duration.ZERO,
 							new KeyValue(controlador.getUcpInterna().getPc()
 									.getTxtValor().visibleProperty(), true),
@@ -61,7 +61,7 @@ public class Busca extends Ciclo{
 	                )
 			);
 			
-			timeline.setOnFinished(new EventHandler<ActionEvent>(){
+			animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 				@Override
 				public void handle(ActionEvent arg0) {
@@ -95,9 +95,9 @@ public class Busca extends Ciclo{
 			controlador.adicionarElemento(valorTxt);
 			valorTxt.toFront();
 					
-			timeline = new Timeline();
+			animation = new Timeline();
 			
-			timeline.getKeyFrames().addAll(
+			((Timeline)animation).getKeyFrames().addAll(
 					new KeyFrame(Duration.ZERO, 
 							new KeyValue(valorTxt.xProperty(), xDe),
 							new KeyValue(valorTxt.yProperty(), yDe)
@@ -108,7 +108,7 @@ public class Busca extends Ciclo{
 	                )
 			);
 		
-			timeline.setOnFinished(new EventHandler<ActionEvent>(){
+			animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 				@Override
 				public void handle(ActionEvent arg0) {
@@ -147,9 +147,9 @@ public class Busca extends Ciclo{
 			controlador.adicionarElemento(read);
 			read.toFront();
 		
-			timeline = new Timeline();
+			animation = new Timeline();
 			
-				timeline.getKeyFrames().addAll(
+			((Timeline)animation).getKeyFrames().addAll(
 		               new KeyFrame(Duration.ZERO, 
 		                   new KeyValue(read.xProperty(), xDe),
 		                   new KeyValue(read.visibleProperty(), true),
@@ -166,7 +166,7 @@ public class Busca extends Ciclo{
 		               )
 				);
 			
-				timeline.setOnFinished(new EventHandler<ActionEvent>(){
+			animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 				@Override
 				public void handle(ActionEvent arg0) {
@@ -198,9 +198,9 @@ public class Busca extends Ciclo{
 			controlador.adicionarElemento(valorMar);
 			valorMar.toFront();
 		
-			timeline = new Timeline();
+			animation = new Timeline();
 		
-			timeline.getKeyFrames().addAll(
+			((Timeline)animation).getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
 	                   new KeyValue(valorMar.xProperty(), xDe),
 	                   new KeyValue(valorMar.yProperty(), yDe)
@@ -211,7 +211,7 @@ public class Busca extends Ciclo{
 	               )
 			);
 		
-			timeline.setOnFinished(new EventHandler<ActionEvent>(){
+			animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 				@Override
 				public void handle(ActionEvent e) {
@@ -235,9 +235,9 @@ public class Busca extends Ciclo{
 		double xDeMar = valorMar.getX();
 		double yDeMar = valorMar.getY();
 		
-		timeline = new Timeline();
+		animation = new Timeline();
 		
-		timeline.getKeyFrames().addAll(
+		((Timeline)animation).getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
 	                   new KeyValue(read.xProperty(), xDeRead),
 	                   new KeyValue(read.yProperty(), yDeRead),
@@ -252,7 +252,7 @@ public class Busca extends Ciclo{
 	               )
 	     );
 		
-		timeline.setOnFinished(new EventHandler<ActionEvent>(){
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -269,7 +269,7 @@ public class Busca extends Ciclo{
 	
 	public void fornecerInstrucao() {
 		
-		Instrucao instrucao = controlador.getInstrucaoAtual();
+		/*Instrucao instrucao = controlador.getInstrucaoAtual();
 		double xEnd = 1015, y = 70, xOpcode = 995, xOp1 = 975, xOp2 = 955;
 		
 		endInst = new Text(instrucao.enderecoProperty().getValue().toString());
@@ -300,9 +300,9 @@ public class Busca extends Ciclo{
 		controlador.adicionarElemento(op2);
 		op2.toBack();
 		
-		timeline = new Timeline();
+		animation = new Timeline();
 		
-		timeline.getKeyFrames().addAll(
+		((Timeline)animation).getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
 	                   new KeyValue(endInst.xProperty(), xEnd),
 	                   new KeyValue(endInst.yProperty(), y),
@@ -326,7 +326,7 @@ public class Busca extends Ciclo{
 	               )
 	     );
 		
-		timeline.setOnFinished(new EventHandler<ActionEvent>(){
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -347,9 +347,15 @@ public class Busca extends Ciclo{
 				
 			}
 			
-		});
+		});*/
 		
-		nextStep(EstadoCiclo.FORNECER_INSTRUCAO);
+		Instrucao instrucao = controlador.getInstrucaoAtual();
+		String inst = instrucao.enderecoProperty().getValue().toString() + "   ";
+		inst += instrucao.opcodeProperty().getValue().toString() + "   ";
+		inst += instrucao.referenciaOp1Property().getValue().toString() + "   ";
+		inst += instrucao.referenciaOp2Property().getValue().toString();
+		
+		nextStep(EstadoCiclo.TRANSFERIR_INSTRUCAO);
 		
 	}
 	
