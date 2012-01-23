@@ -2,9 +2,17 @@ package br.unipe.simuladores.arquitetura.simulacao;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -16,10 +24,7 @@ public class Busca extends Ciclo{
 	
 	private Text read;
 	private Text valorMar;
-	private Text endInst;
-	private Text opcodeInst;
-	private Text op1;
-	private Text op2;
+	private Text txtInstrucao;
 
 	public Busca(Controlador c) {
 		
@@ -257,7 +262,7 @@ public class Busca extends Ciclo{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				fornecerInstrucao();
+				transferirInstrucao();
 				
 			}
 			
@@ -267,64 +272,89 @@ public class Busca extends Ciclo{
 		
 	}
 	
-	public void fornecerInstrucao() {
+	public void transferirInstrucao() {
 		
-		/*Instrucao instrucao = controlador.getInstrucaoAtual();
-		double xEnd = 1015, y = 70, xOpcode = 995, xOp1 = 975, xOp2 = 955;
+		Point2D p1 = new Point2D(980, 60);
+		Point2D p2 = new Point2D(1215, 60);
+		Point2D p3 = new Point2D(1215, 473);
+		Point2D p4 = new Point2D(967, 473);
 		
-		endInst = new Text(instrucao.enderecoProperty().getValue().toString());
-		endInst.setX(xEnd);
-		endInst.setY(y);
-		controlador.getMemoriaInterna().adicionar(endInst);
-		controlador.adicionarElemento(endInst);
-		endInst.toBack();
+		Instrucao instrucao = controlador.getInstrucaoAtual();
+		String inst = instrucao.enderecoProperty().getValue().toString() + "   ";
+		inst += instrucao.opcodeProperty().getValue().toString() + "   ";
+		inst += instrucao.referenciaOp1Property().getValue().toString() + "   ";
+		inst += instrucao.referenciaOp2Property().getValue().toString();
 		
-		opcodeInst = new Text(instrucao.opcodeProperty().getValue().toString());
-		opcodeInst.setX(xOpcode);
-		opcodeInst.setY(y);
-		controlador.getMemoriaInterna().adicionar(opcodeInst);
-		controlador.adicionarElemento(opcodeInst);
-		opcodeInst.toBack();
+		txtInstrucao = new Text(inst);
 		
-		op1 = new Text(instrucao.referenciaOp1Property().getValue().toString());
-		op1.setX(xOp1);
-		op1.setY(y);
-		controlador.getMemoriaInterna().adicionar(op1);
-		controlador.adicionarElemento(op1);
-		op1.toBack();
+		controlador.getMemoriaInterna().adicionar(txtInstrucao);
+		txtInstrucao.toBack();
+		controlador.adicionarElemento(txtInstrucao);
 		
-		op2 = new Text(instrucao.referenciaOp2Property().getValue().toString());
-		op2.setX(xOp2);
-		op2.setY(y);
-		controlador.getMemoriaInterna().adicionar(op2);
-		controlador.adicionarElemento(op2);
-		op2.toBack();
+		final Path path = new Path();
+		path.getElements().add(new MoveTo(p1.getX(), p1.getY()));
+		path.getElements().add(new LineTo(p2.getX(), p2.getY()));
+		path.setStroke(Color.TRANSPARENT);
+		controlador.getMemoriaInterna().adicionar(path);
+		controlador.adicionarElemento(path);
+		PathTransition pathTransition = new PathTransition();
+		pathTransition.setDuration(Duration.millis(3000));
+		pathTransition.setPath(path);
+		pathTransition.setNode(txtInstrucao);
+		pathTransition.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getMemoriaInterna().remover(txtInstrucao);
+				controlador.getBarramentoInterno().adicionar(txtInstrucao);
+				
+			}
+			
+		});
 		
-		animation = new Timeline();
+		RotateTransition rotateTransition = 
+				new RotateTransition(Duration.seconds(0.1));
+		rotateTransition.setFromAngle(0);
+		rotateTransition.setToAngle(-90);
+		rotateTransition.setNode(txtInstrucao);
 		
-		((Timeline)animation).getKeyFrames().addAll(
-	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(endInst.xProperty(), xEnd),
-	                   new KeyValue(endInst.yProperty(), y),
-	               	   new KeyValue(opcodeInst.xProperty(), xOpcode),
-	               	   new KeyValue(opcodeInst.yProperty(), y),
-	               	   new KeyValue(op1.xProperty(), xOp1),
-	                   new KeyValue(op1.yProperty(), y),
-	               	   new KeyValue(op2.xProperty(), xOp2),
-	               	   new KeyValue(op2.yProperty(), y)
-	               	   
-	               ),
-	               new KeyFrame(new Duration(3000), 
-	            	   new KeyValue(endInst.xProperty(), 1210),
-		               new KeyValue(endInst.yProperty(), y),
-		               new KeyValue(opcodeInst.xProperty(), 1190),
-		               new KeyValue(opcodeInst.yProperty(), y),
-		               new KeyValue(op1.xProperty(), 1170),
-		               new KeyValue(op1.yProperty(), y),
-		               new KeyValue(op2.xProperty(), 1150),
-		               new KeyValue(op2.yProperty(), y)
-	               )
-	     );
+		final Path path2 = new Path();
+		path2.getElements().add(new MoveTo(p2.getX(), p2.getY()));
+		path2.getElements().add(new LineTo(p3.getX(), p3.getY()));
+		path2.setStroke(Color.TRANSPARENT);
+		controlador.getBarramentoInterno().adicionar(path2);
+		controlador.adicionarElemento(path2);
+		PathTransition pathTransition2 = new PathTransition();
+		pathTransition2.setDuration(Duration.millis(3000));
+		pathTransition2.setPath(path2);
+		pathTransition2.setNode(txtInstrucao);
+		
+		RotateTransition rotateTransition2 = 
+				new RotateTransition(Duration.seconds(0.1));
+		rotateTransition2.setFromAngle(0);
+		rotateTransition2.setToAngle(0);
+		rotateTransition2.setNode(txtInstrucao);
+		
+		final Path path3 = new Path();
+		path3.getElements().add(new MoveTo(p3.getX(), p3.getY()));
+		path3.getElements().add(new LineTo(p4.getX(), p4.getY()));
+		path3.setStroke(Color.TRANSPARENT);
+		controlador.getUcpInterna().adicionar(path3);
+		controlador.adicionarElemento(path3);
+		PathTransition pathTransition3 = new PathTransition();
+		pathTransition3.setDuration(Duration.millis(3000));
+		pathTransition3.setPath(path3);
+		pathTransition3.setNode(txtInstrucao);
+		
+		animation = new SequentialTransition();
+		((SequentialTransition)animation).getChildren().addAll(
+				pathTransition,
+				rotateTransition,
+				pathTransition2,
+				rotateTransition2,
+				pathTransition3
+				);
 		
 		animation.setOnFinished(new EventHandler<ActionEvent>(){
 
@@ -335,10 +365,10 @@ public class Busca extends Ciclo{
 					Thread.sleep(2000);
 					controlador.getBarramentoInterno().remover(read);
 					controlador.getBarramentoInterno().remover(valorMar);
-					controlador.getMemoriaInterna().remover(endInst);
-					controlador.getMemoriaInterna().remover(opcodeInst);
-					controlador.getMemoriaInterna().remover(op1);
-					controlador.getMemoriaInterna().remover(op2);
+					controlador.getBarramentoInterno().remover(txtInstrucao);
+					controlador.getMemoriaInterna().remover(path);
+					controlador.getBarramentoInterno().remover(path2);
+					controlador.getBarramentoInterno().remover(path3);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -347,13 +377,7 @@ public class Busca extends Ciclo{
 				
 			}
 			
-		});*/
-		
-		Instrucao instrucao = controlador.getInstrucaoAtual();
-		String inst = instrucao.enderecoProperty().getValue().toString() + "   ";
-		inst += instrucao.opcodeProperty().getValue().toString() + "   ";
-		inst += instrucao.referenciaOp1Property().getValue().toString() + "   ";
-		inst += instrucao.referenciaOp2Property().getValue().toString();
+		});
 		
 		nextStep(EstadoCiclo.TRANSFERIR_INSTRUCAO);
 		

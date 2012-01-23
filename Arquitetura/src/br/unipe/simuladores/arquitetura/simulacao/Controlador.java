@@ -64,12 +64,6 @@ public class Controlador{
 
 		btnPlay.setBtnStop(btnStop);
 		
-		Text teste = new Text("Teste");
-		teste.setX(1150);
-		teste.setY(85);
-		memoriaInterna.adicionar(teste);
-		//teste.toBack();
-		
 		operar();
 		
 	}

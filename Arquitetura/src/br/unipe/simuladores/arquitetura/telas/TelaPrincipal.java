@@ -64,7 +64,7 @@ public class TelaPrincipal extends Tela{
 	private Accordion accordion;
 	
 	//Usado para teste
-	//private SequentialTransition sequentialTransition;
+	private SequentialTransition sequentialTransition;
 	
 	public TelaPrincipal(Stage stage, String titulo, Color cor, double height, double width) {
 		super(stage, titulo, cor, height, width);
@@ -92,8 +92,8 @@ public class TelaPrincipal extends Tela{
 		TelaPrincipal.adicionarAoPalco(text);
 		
 		Path path = new Path();
-		path.getElements().add(new MoveTo(980, 70));
-		path.getElements().add(new LineTo(1215, 70));
+		path.getElements().add(new MoveTo(980, 60));
+		path.getElements().add(new LineTo(1215, 60));
 		path.setStroke(Color.DODGERBLUE);
 		TelaPrincipal.adicionarAoPalco(path);
 		PathTransition pathTransition = new PathTransition();
@@ -107,8 +107,8 @@ public class TelaPrincipal extends Tela{
 		rotateTransition.setNode(text);
 		
 		Path path2 = new Path();
-		path2.getElements().add(new MoveTo(1215, 70));
-		path2.getElements().add(new LineTo(1215, 200));
+		path2.getElements().add(new MoveTo(1215, 60));
+		path2.getElements().add(new LineTo(1215, 473));
 		path2.setStroke(Color.DODGERBLUE);
 		TelaPrincipal.adicionarAoPalco(path2);
 		PathTransition pathTransition2 = new PathTransition();
@@ -122,8 +122,8 @@ public class TelaPrincipal extends Tela{
 		rotateTransition2.setNode(text);
 		
 		Path path3 = new Path();
-		path3.getElements().add(new MoveTo(1215, 200));
-		path3.getElements().add(new LineTo(967, 200));
+		path3.getElements().add(new MoveTo(1215, 473));
+		path3.getElements().add(new LineTo(967, 473));
 		path3.setStroke(Color.DODGERBLUE);
 		TelaPrincipal.adicionarAoPalco(path3);
 		PathTransition pathTransition3 = new PathTransition();
