@@ -1,5 +1,8 @@
 package br.unipe.simuladores.arquitetura.telas;
 
+import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -9,6 +12,7 @@ public abstract class TelaMensagemSimulacao extends TelaSimplesMensagem{
 
 	protected Button continuar;
 	protected Button cancelar;
+	protected EstadoCiclo estado;
 	
 	public TelaMensagemSimulacao(String titulo, Color cor) {
 		
@@ -45,12 +49,42 @@ public abstract class TelaMensagemSimulacao extends TelaSimplesMensagem{
 		
 	}
 	
+	protected abstract String obterTexto();
+	
 	protected void modificarMensagem(String msg) {
 		
 		txtMensagem.setText(msg);
 		
 	}
 	
-	public abstract void definirAcoesBotoes();
+	public void definirAcoesBotoes() {
+		
+		continuar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				
+				stage.close();
+								
+			}
+			
+		});
+		
+		cancelar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				TelaPrincipal.setExibirMensagensDeSimulacao(false);
+				
+				stage.close();
+				
+			}
+			
+		});
+		
+		
+		
+	}
 
 }

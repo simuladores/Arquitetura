@@ -18,7 +18,11 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.PC;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UC;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
+import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
+import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
+import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 
 public class Busca extends Ciclo{
 	
@@ -388,6 +392,10 @@ public class Busca extends Ciclo{
 			endProxTxt.setX(x);
 			endProxTxt.setY(y);
 			
+			UC uc = controlador.getUcpInterna().getUc();
+			uc.atualizarValor("ATUAL_PC", 975, 593);
+			controlador.getUcpInterna().atualizarUnidadeTela(uc);
+			
 			controlador.getUcpInterna().adicionar(endProxTxt);
 			endProxTxt.setVisible(false);
 			controlador.adicionarElemento(endProxTxt);
@@ -495,7 +503,8 @@ public class Busca extends Ciclo{
 				
 				limparElementosTela();
 				
-				controlador.operar();
+				Indireto indireto = new Indireto(controlador);
+				indireto.mostrarAnimacoes();
 				
 			}
 			
@@ -521,6 +530,14 @@ public class Busca extends Ciclo{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+
+
+	@Override
+	protected TelaMensagemSimulacao construirTelaMensagem(EstadoCiclo estado) {
+		
+		return new TelaMensagemCicloBusca(estado);
 		
 	}
 	

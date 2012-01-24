@@ -6,8 +6,6 @@ import javafx.scene.paint.Color;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 
 public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
-
-	private EstadoCiclo estado;
 	
 	private static final String ATUALIZAR_PCTXT = "Será dado início ao ciclo de busca, " +
 			"para buscar a próxima instrução na memória.\n O valor de PC está " +
@@ -39,7 +37,7 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 	public TelaMensagemCicloBusca(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));
 		
-		this.estado = estado;
+		super.estado = estado;
 		
 		modificarMensagem(obterTexto());
 		
@@ -62,38 +60,6 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 		
 		return null;
 		
-	}
-
-	@Override
-	public void definirAcoesBotoes() {
-		
-		continuar.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				
-				stage.close();
-								
-			}
-			
-		});
-		
-		cancelar.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				
-				TelaPrincipal.setExibirMensagensDeSimulacao(false);
-				
-				stage.close();
-				
-			}
-			
-		});
-		
-		
-		
-	}
-	
+	}	
 
 }
