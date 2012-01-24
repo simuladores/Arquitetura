@@ -320,21 +320,6 @@ public class TelaPrincipal extends Tela{
 		dataCol.setCellValueFactory(
         		new PropertyValueFactory<VariavelIdentificador, String>("data"));
 		
-		/*tabVariaveis.getItems().add(new VariavelIdentificador("a", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("b", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("c", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("d", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("e", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));
-		tabVariaveis.getItems().add(new VariavelIdentificador("f", "ahjas"));*/
-		
 		tabVariaveis.getColumns().addAll(idCol, dataCol);
 		
 		ScrollPane scroll = new ScrollPane();
