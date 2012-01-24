@@ -40,7 +40,7 @@ public class Indireto extends Ciclo{
 		Text txtValor = controlador.getUcpInterna().getIr().getTxtValor();
 		
 		UC uc = controlador.getUcpInterna().getUc();
-		uc.atualizarValor("VER_IR", 975, 593);
+		uc.atualizarValor("EXAM_IR", 959, 593);
 		controlador.getUcpInterna().atualizarUnidadeTela(uc);
 		
 		animation = new Timeline();

@@ -18,7 +18,7 @@ public class UC extends UnidadeUCP{
 	public void construirForma(double x, double y) {
 		
 		forma = new Rectangle();
-		((Rectangle)forma).setWidth(50);
+		((Rectangle)forma).setWidth(65);
 		((Rectangle)forma).setHeight(25);
 		forma.setFill(Color.CORAL);
 		((Rectangle)forma).setX(x);

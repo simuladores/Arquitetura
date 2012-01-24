@@ -140,7 +140,7 @@ public class Busca extends Ciclo{
 	public void copiarREADParaBarramento() {
 		
 		
-			double xDe = 975, yDe = 593, xPara = 1100;
+			double xDe = 968, yDe = 593, xPara = 1100;
 		
 			controlador.getUcpInterna().getUc().atualizarValor("READ", xDe, yDe);
 			controlador.getUcpInterna()
@@ -393,7 +393,7 @@ public class Busca extends Ciclo{
 			endProxTxt.setY(y);
 			
 			UC uc = controlador.getUcpInterna().getUc();
-			uc.atualizarValor("ATUAL_PC", 975, 593);
+			uc.atualizarValor("ATUAL_PC", 955, 593);
 			controlador.getUcpInterna().atualizarUnidadeTela(uc);
 			
 			controlador.getUcpInterna().adicionar(endProxTxt);
