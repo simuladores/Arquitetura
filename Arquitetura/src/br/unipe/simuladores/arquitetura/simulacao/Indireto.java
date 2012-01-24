@@ -17,6 +17,7 @@ import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 public class Indireto extends Ciclo{
 	
 	private OperandoCicloIndireto operando;
+	private OperandoCicloIndireto operandoMens;
 	
 	private Text endereco;
 	private Text opcode;
@@ -66,7 +67,19 @@ public class Indireto extends Ciclo{
 			@Override
 			public void handle(ActionEvent e) {
 				
-				transferirOperandoMar();
+				if (operando == OperandoCicloIndireto.NAO_HA) {
+					
+					controlador.operar();
+					nextStep(EstadoCiclo.TRANSFERIR_OPERANDO_MAR);
+					
+				} else if (operando == OperandoCicloIndireto.PRIMEIRO) 
+					transferirOperandoMar(true);
+				else if (operando == OperandoCicloIndireto.SEGUNDO)
+					transferirOperandoMar(false);
+				else {
+					transferirOperandoMar(true);
+					transferirOperandoMar(false);
+				}
 				
 			}
 			
@@ -76,7 +89,7 @@ public class Indireto extends Ciclo{
 		
 	}
 	
-	public void transferirOperandoMar() {
+	public void transferirOperandoMar(boolean primeiroOperando) {
 		
 		double yMbr = controlador.getUcpInterna().getMbr().getTxtValor().getY(); 
 		Instrucao instrucaoAtual = controlador.getInstrucaoAtual();
@@ -84,21 +97,37 @@ public class Indireto extends Ciclo{
 		endereco.setX(controlador.getUcpInterna().getMbr().getTxtValor().getX());
 		endereco.setY(yMbr);
 		opcode = new Text(instrucaoAtual.opcodeProperty().getValue().toString());
-		opcode.setX(endereco.getX() + 16);
+		opcode.setX(endereco.getX() + endereco.getWrappingWidth() + 16);
 		opcode.setY(yMbr);
-		op1 = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
-		op2 = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
+		op1 = new Text(instrucaoAtual.referenciaOp1Property().getValue().toString());
+		op1.setX(opcode.getX() + opcode.getWrappingWidth() + 16);
+		op1.setY(yMbr);
+		op2 = new Text(instrucaoAtual.referenciaOp2Property().getValue().toString());
+		op2.setX(op1.getX() + op1.getWrappingWidth() + 16);
+		op2.setY(yMbr);
 		
-		//controlador.getUcpInterna().getMbr().getTxtValor().visibleProperty()
-			//.setValue(true);
+		if (primeiroOperando) {
+			
+			controlador.getUcpInterna().adicionar(op1);
+			controlador.adicionarElemento(op1);
+			animacaoTransferirOperandoMar(op1, op1.getX(), op1.getY());
+			operandoMens = OperandoCicloIndireto.PRIMEIRO;
+			
+		} else {
+	
+			controlador.getUcpInterna().adicionar(op2);
+			controlador.adicionarElemento(op2);
+			animacaoTransferirOperandoMar(op2, op2.getX(), op2.getY());
+			operandoMens = OperandoCicloIndireto.SEGUNDO;
 		
-		controlador.getUcpInterna().adicionar(endereco);
-		controlador.adicionarElemento(endereco);
-		controlador.getUcpInterna().adicionar(opcode);
-		controlador.adicionarElemento(opcode);
+		}
 		
-		controlador.operar();
+		nextStep(EstadoCiclo.TRANSFERIR_OPERANDO_MAR);
 		
+		
+	}
+	
+	private void animacaoTransferirOperandoMar(Text text, double xDe, double yDe) {
 		
 	}
 	
@@ -141,7 +170,10 @@ public class Indireto extends Ciclo{
 	@Override
 	protected TelaMensagemSimulacao construirTelaMensagem(EstadoCiclo estado) {
 		
-		return new TelaMensagemCicloIndireto(estado);
+		if (estado ==  EstadoCiclo.TRANSFERIR_OPERANDO_MAR)
+			return new TelaMensagemCicloIndireto(estado, operandoMens);
+		else
+			return new TelaMensagemCicloIndireto(estado);
 		
 	}
 

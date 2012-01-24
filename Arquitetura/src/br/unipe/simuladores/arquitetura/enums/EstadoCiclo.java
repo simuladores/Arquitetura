@@ -15,6 +15,7 @@ public enum EstadoCiclo {
 	COPIAR_MBR_PARA_IR,
 	
 	//ciclo indireto
-	VERIFICAR_IR
+	VERIFICAR_IR,
+	TRANSFERIR_OPERANDO_MAR
 
 }
