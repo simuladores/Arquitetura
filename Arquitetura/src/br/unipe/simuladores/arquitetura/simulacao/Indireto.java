@@ -13,11 +13,15 @@ import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.OperandoCicloIndireto;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloIndireto;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
-import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 
 public class Indireto extends Ciclo{
 	
 	private OperandoCicloIndireto operando;
+	
+	private Text endereco;
+	private Text opcode;
+	private Text op1;
+	private Text op2;
 
 	public Indireto(Controlador c) {
 		
@@ -62,13 +66,39 @@ public class Indireto extends Ciclo{
 			@Override
 			public void handle(ActionEvent e) {
 				
-				controlador.operar();
+				transferirOperandoMar();
 				
 			}
 			
 		});
 		
 		nextStep(EstadoCiclo.VERIFICAR_IR);
+		
+	}
+	
+	public void transferirOperandoMar() {
+		
+		double yMbr = controlador.getUcpInterna().getMbr().getTxtValor().getY(); 
+		Instrucao instrucaoAtual = controlador.getInstrucaoAtual();
+		endereco = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
+		endereco.setX(controlador.getUcpInterna().getMbr().getTxtValor().getX());
+		endereco.setY(yMbr);
+		opcode = new Text(instrucaoAtual.opcodeProperty().getValue().toString());
+		opcode.setX(endereco.getX() + 16);
+		opcode.setY(yMbr);
+		op1 = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
+		op2 = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
+		
+		//controlador.getUcpInterna().getMbr().getTxtValor().visibleProperty()
+			//.setValue(true);
+		
+		controlador.getUcpInterna().adicionar(endereco);
+		controlador.adicionarElemento(endereco);
+		controlador.getUcpInterna().adicionar(opcode);
+		controlador.adicionarElemento(opcode);
+		
+		controlador.operar();
+		
 		
 	}
 	
