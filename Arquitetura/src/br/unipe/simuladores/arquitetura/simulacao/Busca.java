@@ -49,9 +49,7 @@ public class Busca extends Ciclo{
 		
 			pc.atualizarValor(controlador.getInstrucaoAtual().enderecoProperty().getValue(), 880, 438);
 			controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getPc());
-			
-			controlador.getUcpInterna().getPc().getTxtValor().setVisible(false);
-			
+						
 			animation = new Timeline();
 			
 			((Timeline)animation).getKeyFrames().addAll(
@@ -466,6 +464,7 @@ public class Busca extends Ciclo{
 		
 		controlador.getUcpInterna().getPc().getTxtValor().opacityProperty().setValue(1.0f);
 
+		animation = new Timeline();
 		
 		((Timeline)animation).getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
@@ -493,8 +492,6 @@ public class Busca extends Ciclo{
 				controlador.getUcpInterna().remover(txtInstrucao);
 				
 				controlador.getUcpInterna().getPc().getTxtValor().opacityProperty().setValue(1.0f);
-				System.out.println(controlador.getUcpInterna().getPc().getTxtValor().visibleProperty().getValue());
-				System.out.println(controlador.getUcpInterna().getPc().getTxtValor().opacityProperty().getValue());
 				
 				limparElementosTela();
 				

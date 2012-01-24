@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Queue;
 
 import javafx.animation.Animation;
-import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TableView.TableViewSelectionModel;
-import javafx.scene.text.Text;
 import br.unipe.simuladores.arquitetura.botoes.BotaoPlay;
 import br.unipe.simuladores.arquitetura.botoes.BotaoStop;
 import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;

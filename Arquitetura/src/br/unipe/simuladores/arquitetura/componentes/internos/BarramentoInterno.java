@@ -1,6 +1,5 @@
 package br.unipe.simuladores.arquitetura.componentes.internos;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;

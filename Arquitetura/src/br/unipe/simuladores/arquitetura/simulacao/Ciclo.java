@@ -5,7 +5,6 @@ import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 import javafx.animation.Animation;
-import javafx.animation.Timeline;
 
 public abstract class Ciclo {
 	
