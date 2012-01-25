@@ -27,9 +27,6 @@ import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 public class Busca extends Ciclo{
 	
 	private Text txtInstrucao;
-	private Path path;
-	private Path path2;
-	private Path path3;
 
 	public Busca(Controlador c) {
 		
@@ -207,74 +204,7 @@ public class Busca extends Ciclo{
 		
 		txtInstrucao = new Text(inst);
 		
-		controlador.getMemoriaInterna().adicionar(txtInstrucao);
-		txtInstrucao.toBack();
-		controlador.adicionarElemento(txtInstrucao);
-		
-		path = new Path();
-		path.getElements().add(new MoveTo(p1.getX(), p1.getY()));
-		path.getElements().add(new LineTo(p2.getX(), p2.getY()));
-		path.setStroke(Color.TRANSPARENT);
-		controlador.getMemoriaInterna().adicionar(path);
-		controlador.adicionarElemento(path);
-		PathTransition pathTransition = new PathTransition();
-		pathTransition.setDuration(Duration.millis(3000));
-		pathTransition.setPath(path);
-		pathTransition.setNode(txtInstrucao);
-		pathTransition.setOnFinished(new EventHandler<ActionEvent>(){
-
-			@Override
-			public void handle(ActionEvent e) {
-				
-				controlador.getMemoriaInterna().remover(txtInstrucao);
-				controlador.getBarramentoInterno().adicionar(txtInstrucao);
-				
-			}
-			
-		});
-		
-		RotateTransition rotateTransition = 
-				new RotateTransition(Duration.seconds(0.1));
-		rotateTransition.setFromAngle(0);
-		rotateTransition.setToAngle(-90);
-		rotateTransition.setNode(txtInstrucao);
-		
-		path2 = new Path();
-		path2.getElements().add(new MoveTo(p2.getX(), p2.getY()));
-		path2.getElements().add(new LineTo(p3.getX(), p3.getY()));
-		path2.setStroke(Color.TRANSPARENT);
-		controlador.getBarramentoInterno().adicionar(path2);
-		controlador.adicionarElemento(path2);
-		PathTransition pathTransition2 = new PathTransition();
-		pathTransition2.setDuration(Duration.millis(3000));
-		pathTransition2.setPath(path2);
-		pathTransition2.setNode(txtInstrucao);
-		
-		RotateTransition rotateTransition2 = 
-				new RotateTransition(Duration.seconds(0.1));
-		rotateTransition2.setFromAngle(0);
-		rotateTransition2.setToAngle(0);
-		rotateTransition2.setNode(txtInstrucao);
-		
-		path3 = new Path();
-		path3.getElements().add(new MoveTo(p3.getX(), p3.getY()));
-		path3.getElements().add(new LineTo(p4.getX(), p4.getY()));
-		path3.setStroke(Color.TRANSPARENT);
-		controlador.getUcpInterna().adicionar(path3);
-		controlador.adicionarElemento(path3);
-		PathTransition pathTransition3 = new PathTransition();
-		pathTransition3.setDuration(Duration.millis(3000));
-		pathTransition3.setPath(path3);
-		pathTransition3.setNode(txtInstrucao);
-		
-		animation = new SequentialTransition();
-		((SequentialTransition)animation).getChildren().addAll(
-				pathTransition,
-				rotateTransition,
-				pathTransition2,
-				rotateTransition2,
-				pathTransition3
-				);
+		transferirDadoBarramento(p1, p2, p3, p4, txtInstrucao);
 		
 		animation.setOnFinished(new EventHandler<ActionEvent>(){
 

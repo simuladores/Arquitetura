@@ -24,6 +24,9 @@ public class TelaMensagemCicloIndireto extends TelaMensagemSimulacao{
 	private static final String MOVER_DADOS_BARRAMENTO_MEMORIA_INDTXT = "Os dados contidos no " +
 			"barramento são então movidos para a memória,\n requisitando o endereço contido " +
 			"no endereço que está no barramento.";
+	private static final String TRANSFERIR_DADO_REFERENCIA_INDIRETA_BARRAMENTOTXT = "O endereço que contém o dado " +
+			"e que é referenciado indiretamente pela referência\n em MAR é transferido para a UCP " +
+			"pelo barramento de dados.";
 	
 	public TelaMensagemCicloIndireto(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));
@@ -59,6 +62,7 @@ public class TelaMensagemCicloIndireto extends TelaMensagemSimulacao{
 		case COPIAR_READ_BARRAMENTO_IND: return COPIAR_READ_BARRAMENTO_INDTXT;
 		case COPIAR_VALOR_MAR_BARRAMENTO_IND: return COPIAR_VALOR_MAR_BARRAMENTO_INDTXT;
 		case MOVER_DADOS_BARRAMENTO_MEMORIA_IND: return MOVER_DADOS_BARRAMENTO_MEMORIA_INDTXT;
+		case TRANSFERIR_DADO_REFERENCIA_INDIRETA_BARRAMENTO: return TRANSFERIR_DADO_REFERENCIA_INDIRETA_BARRAMENTOTXT;
 		}
 		
 		return null;

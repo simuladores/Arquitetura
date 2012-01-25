@@ -2,13 +2,22 @@ package br.unipe.simuladores.arquitetura.simulacao;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UC;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.OperandoCicloIndireto;
@@ -25,6 +34,10 @@ public class Indireto extends Ciclo{
 	private Text op1;
 	private Text op2;
 	private boolean primeiroOperando;
+	
+	private Path path;
+	private Path path2;
+	private Path path3;
 
 	public Indireto(Controlador c) {
 		
@@ -227,7 +240,7 @@ public class Indireto extends Ciclo{
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				controlador.operar();
+				transferirDadoReferenciaIndiretaPeloBarramento();
 				
 			}
 			
@@ -236,6 +249,44 @@ public class Indireto extends Ciclo{
 		nextStep(EstadoCiclo.MOVER_DADOS_BARRAMENTO_MEMORIA_IND);
 		
 	}
+	
+	public void transferirDadoReferenciaIndiretaPeloBarramento() {
+		
+		Point2D p1 = new Point2D(980, 60);
+		Point2D p2 = new Point2D(1215, 60);
+		Point2D p3 = new Point2D(1215, 473);
+		Point2D p4 = new Point2D(926, 473);
+		
+		Integer endereco = new Integer(
+				controlador.getUcpInterna().getMar().getTxtValor().getText());
+		
+		final Integer dado = controlador.getMemoriaInterna().obterDadoVariavel(endereco);
+		
+		final Text txtReferencia = new Text(dado.toString());
+		
+		transferirDadoBarramento(p1, p2, p3, p4, txtReferencia);
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				controlador.getBarramentoInterno().remover(txtReferencia);
+				MBR mbr = controlador.getUcpInterna().getMbr();
+				mbr.atualizarValor(dado, 923, 478);
+				controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_DADO_REFERENCIA_INDIRETA_BARRAMENTO);
+		
+	}
+		
+	
 	
 	private OperandoCicloIndireto operandoCicloIndireto(Instrucao instrucao) {
 		
