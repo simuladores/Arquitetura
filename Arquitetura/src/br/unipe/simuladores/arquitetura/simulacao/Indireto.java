@@ -276,7 +276,7 @@ public class Indireto extends Ciclo{
 				mbr.atualizarValor(dado, 923, 478);
 				controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
 				
-				controlador.operar();
+				transferirMbrParaIr();
 				
 			}
 			
@@ -285,8 +285,58 @@ public class Indireto extends Ciclo{
 		nextStep(EstadoCiclo.TRANSFERIR_DADO_REFERENCIA_INDIRETA_BARRAMENTO);
 		
 	}
-		
 	
+	public void transferirMbrParaIr() {
+		
+		MBR mbr =controlador.getUcpInterna().getMbr(); 
+		double xDe = mbr.getTxtValor().getX();
+		double yDe = mbr.getTxtValor().getY();
+		double xPara, yPara;
+		
+		if (primeiroOperando) {
+			xPara = op1.getX();
+			yPara = op1.getY();
+		} else {
+			xPara = op2.getX();
+			yPara = op2.getY();
+		}
+		
+		final Text txtValor = new Text(mbr.getTxtValor().getText());
+		txtValor.setX(xDe);
+		txtValor.setY(yDe);
+		controlador.getUcpInterna().adicionar(txtValor);
+		controlador.adicionarElemento(txtValor);
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(txtValor.xProperty(), xDe),
+	                   new KeyValue(txtValor.yProperty(), yDe)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(txtValor.xProperty(), xPara),
+		               new KeyValue(txtValor.yProperty(), yPara)
+		           )
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().remover(txtValor);
+				op1.setText(txtValor.getText());
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_MBR_PARA_IR);
+		
+	}	
 	
 	private OperandoCicloIndireto operandoCicloIndireto(Instrucao instrucao) {
 		
