@@ -24,6 +24,7 @@ public class Indireto extends Ciclo{
 	private Text opcode;
 	private Text op1;
 	private Text op2;
+	private boolean primeiroOperando;
 
 	public Indireto(Controlador c) {
 		
@@ -75,12 +76,18 @@ public class Indireto extends Ciclo{
 					operandoMens = OperandoCicloIndireto.NAO_HA;
 					nextStep(EstadoCiclo.TRANSFERIR_OPERANDO_MAR);
 					
-				} else if (operando == OperandoCicloIndireto.PRIMEIRO) 
-					transferirOperandoMar(true);
-				else if (operando == OperandoCicloIndireto.SEGUNDO)
-					transferirOperandoMar(false);
+				} else if (operando == OperandoCicloIndireto.PRIMEIRO){
+					primeiroOperando = true;
+					transferirOperandoMar();
+				}					
+				else if (operando == OperandoCicloIndireto.SEGUNDO) {
+					primeiroOperando = false;
+					transferirOperandoMar();
+				}
+					
 				else {
-					transferirOperandoMar(true);
+					primeiroOperando = true;
+					transferirOperandoMar();
 				}
 				
 			}
@@ -91,35 +98,35 @@ public class Indireto extends Ciclo{
 		
 	}
 	
-	public void transferirOperandoMar(boolean primeiroOperando) {
+	public void transferirOperandoMar() {
 		
-		double yMbr = controlador.getUcpInterna().getMbr().getTxtValor().getY(); 
+		double yIr = controlador.getUcpInterna().getIr().getTxtValor().getY(); 
 		Instrucao instrucaoAtual = controlador.getInstrucaoAtual();
 		endereco = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
-		endereco.setX(controlador.getUcpInterna().getMbr().getTxtValor().getX());
-		endereco.setY(yMbr);
+		endereco.setX(controlador.getUcpInterna().getIr().getTxtValor().getX());
+		endereco.setY(yIr);
 		opcode = new Text(instrucaoAtual.opcodeProperty().getValue().toString());
 		opcode.setX(endereco.getX() + endereco.getWrappingWidth() + 16);
-		opcode.setY(yMbr);
+		opcode.setY(yIr);
 		op1 = new Text(instrucaoAtual.referenciaOp1Property().getValue().toString());
 		op1.setX(opcode.getX() + opcode.getWrappingWidth() + 16);
-		op1.setY(yMbr);
+		op1.setY(yIr);
 		op2 = new Text(instrucaoAtual.referenciaOp2Property().getValue().toString());
 		op2.setX(op1.getX() + op1.getWrappingWidth() + 16);
-		op2.setY(yMbr);
+		op2.setY(yIr);
 		
 		if (primeiroOperando) {
 			
 			controlador.getUcpInterna().adicionar(op1);
 			controlador.adicionarElemento(op1);
-			animacaoTransferirOperandoMar(op1, op1.getX(), op1.getY(), primeiroOperando);
+			animacaoTransferirOperandoMar(op1, op1.getX(), op1.getY());
 			operandoMens = OperandoCicloIndireto.PRIMEIRO;
 			
 		} else {
 	
 			controlador.getUcpInterna().adicionar(op2);
 			controlador.adicionarElemento(op2);
-			animacaoTransferirOperandoMar(op2, op2.getX(), op2.getY(), primeiroOperando);
+			animacaoTransferirOperandoMar(op2, op2.getX(), op2.getY());
 			operandoMens = OperandoCicloIndireto.SEGUNDO;
 		
 		}
@@ -129,7 +136,7 @@ public class Indireto extends Ciclo{
 		
 	}
 	
-	private void animacaoTransferirOperandoMar(final Text text, double xDe, double yDe, final boolean primeiroOperando) {
+	private void animacaoTransferirOperandoMar(final Text text, double xDe, double yDe) {
 		
 		final MAR mar = controlador.getUcpInterna().getMar();
 		final double xPara = mar.getTxtValor().getX();
@@ -157,13 +164,38 @@ public class Indireto extends Ciclo{
 				mar.atualizarValor(new Integer(text.getText()), xPara, yPara);
 				controlador.getUcpInterna().atualizarValorUnidadeTela(mar);
 				
-				if (operando == OperandoCicloIndireto.OS_DOIS && primeiroOperando)
-					transferirOperandoMar(false);
+				/*if (operando == OperandoCicloIndireto.OS_DOIS && primeiroOperando){
+					primeiroOperando = false;
+					transferirOperandoMar();
+					
+				}*/
+					
+				transferirREADParaBarramento();
+				
+			}
+			
+		});
+		
+	}
+	
+	public void transferirREADParaBarramento() {
+		
+		
+		READParaBarramento();
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
 				controlador.operar();
 				
 			}
 			
 		});
+		
+		nextStep(EstadoCiclo.COPIAR_READ_BARRAMENTO_IND);
+		
 		
 	}
 	

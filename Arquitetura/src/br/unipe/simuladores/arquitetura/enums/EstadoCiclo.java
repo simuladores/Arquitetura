@@ -16,6 +16,7 @@ public enum EstadoCiclo {
 	
 	//ciclo indireto
 	VERIFICAR_IR,
-	TRANSFERIR_OPERANDO_MAR
+	TRANSFERIR_OPERANDO_MAR,
+	COPIAR_READ_BARRAMENTO_IND
 
 }

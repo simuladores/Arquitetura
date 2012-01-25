@@ -26,7 +26,6 @@ import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 
 public class Busca extends Ciclo{
 	
-	private Text read;
 	private Text valorMar;
 	private Text txtInstrucao;
 	private Path path;
@@ -138,44 +137,9 @@ public class Busca extends Ciclo{
 	}
 	
 	public void copiarREADParaBarramento() {
-		
-		
-			double xDe = 968, yDe = 593, xPara = 1100;
-		
-			controlador.getUcpInterna().getUc().atualizarValor("READ", xDe, yDe);
-			controlador.getUcpInterna()
-				.atualizarUnidadeTela(controlador.getUcpInterna().getUc());
-		
-			read = new Text("READ");
-			read.setX(xDe);
-			read.setY(yDe);
-			read.setFont(new Font(12));
-			controlador.getUcpInterna().getUc().getTxtValor().setVisible(false);
-			read.setVisible(false);
-		
-			controlador.getBarramentoInterno().adicionar(read);
-			controlador.adicionarElemento(read);
-			read.toFront();
-		
-			animation = new Timeline();
 			
-			((Timeline)animation).getKeyFrames().addAll(
-		               new KeyFrame(Duration.ZERO, 
-		                   new KeyValue(read.xProperty(), xDe),
-		                   new KeyValue(read.visibleProperty(), true),
-		                   new KeyValue(controlador.getUcpInterna().getUc()
-		                		   .getTxtValor().visibleProperty(), true),
-		                   new KeyValue(read.yProperty(), yDe)
-		               ),
-		               new KeyFrame(new Duration(3000), 
-		                	new KeyValue(read.xProperty(), xPara),
-		                	new KeyValue(read.visibleProperty(), true),
-		                	new KeyValue(controlador.getUcpInterna().getUc()
-		                			.getTxtValor().visibleProperty(), true),
-			                new KeyValue(read.yProperty(), yDe)
-		               )
-				);
-			
+			READParaBarramento();
+		
 			animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 				@Override
