@@ -81,7 +81,6 @@ public class Indireto extends Ciclo{
 					transferirOperandoMar(false);
 				else {
 					transferirOperandoMar(true);
-					transferirOperandoMar(false);
 				}
 				
 			}
@@ -113,14 +112,14 @@ public class Indireto extends Ciclo{
 			
 			controlador.getUcpInterna().adicionar(op1);
 			controlador.adicionarElemento(op1);
-			animacaoTransferirOperandoMar(op1, op1.getX(), op1.getY());
+			animacaoTransferirOperandoMar(op1, op1.getX(), op1.getY(), primeiroOperando);
 			operandoMens = OperandoCicloIndireto.PRIMEIRO;
 			
 		} else {
 	
 			controlador.getUcpInterna().adicionar(op2);
 			controlador.adicionarElemento(op2);
-			animacaoTransferirOperandoMar(op2, op2.getX(), op2.getY());
+			animacaoTransferirOperandoMar(op2, op2.getX(), op2.getY(), primeiroOperando);
 			operandoMens = OperandoCicloIndireto.SEGUNDO;
 		
 		}
@@ -130,7 +129,7 @@ public class Indireto extends Ciclo{
 		
 	}
 	
-	private void animacaoTransferirOperandoMar(final Text text, double xDe, double yDe) {
+	private void animacaoTransferirOperandoMar(final Text text, double xDe, double yDe, final boolean primeiroOperando) {
 		
 		final MAR mar = controlador.getUcpInterna().getMar();
 		final double xPara = mar.getTxtValor().getX();
@@ -158,6 +157,8 @@ public class Indireto extends Ciclo{
 				mar.atualizarValor(new Integer(text.getText()), xPara, yPara);
 				controlador.getUcpInterna().atualizarValorUnidadeTela(mar);
 				
+				if (operando == OperandoCicloIndireto.OS_DOIS && primeiroOperando)
+					transferirOperandoMar(false);
 				controlador.operar();
 				
 			}

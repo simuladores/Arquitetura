@@ -10,12 +10,12 @@ public class TelaMensagemCicloIndireto extends TelaMensagemSimulacao{
 	
 	private static final String VERIFICAR_IRTXT = "A unidade de controle examina " +
 			"o conteúdo de IR para determinar\n se ele contém um especificador de " +
-			"operando que use endereçamento\n indireto";
+			"operando que use endereçamento\n indireto.";
 	private static final String TRANSFERIR_OPERANDO_MARXT = "operando faz " +
-			"uma referência indireta a um dado na memória.\n Nesse caso, essa referência " +
-			"será transferida para MAR";
+			"uma referência indireta a um dado na memória.\n Nesse caso, os bits em MBR" +
+			" que fazem essa referência são transferidos para MAR.";
 	private static final String TRANSFERIR_OPERANDO_MARXT_NAO_HA = "Não há operandos " +
-			"nessa instrução que fazem referência indireta à memória";
+			"nessa instrução que fazem referência indireta à memória.";
 	
 	public TelaMensagemCicloIndireto(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));

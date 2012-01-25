@@ -99,8 +99,10 @@ public class UCPInterna extends ComponenteInterno{
 		atualizarUnidadeTela(mar);
 		
 		mbr = new MBR();
-		mbr.construirForma(913, 460);
-		mbr.adicionarTexto(880, 478);
+		//mbr.construirForma(913, 460);
+		mbr.construirForma(870, 460);
+		//mbr.adicionarTexto(880, 478);
+		mbr.adicionarTexto(837, 478);
 		mbr.atualizarValor("", 923, 478);
 		atualizarUnidadeTela(mbr);
 		
