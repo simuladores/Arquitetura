@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UC;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.OperandoCicloIndireto;
@@ -70,6 +71,8 @@ public class Indireto extends Ciclo{
 				if (operando == OperandoCicloIndireto.NAO_HA) {
 					
 					controlador.operar();
+					animation = new Timeline();
+					operandoMens = OperandoCicloIndireto.NAO_HA;
 					nextStep(EstadoCiclo.TRANSFERIR_OPERANDO_MAR);
 					
 				} else if (operando == OperandoCicloIndireto.PRIMEIRO) 
@@ -127,7 +130,39 @@ public class Indireto extends Ciclo{
 		
 	}
 	
-	private void animacaoTransferirOperandoMar(Text text, double xDe, double yDe) {
+	private void animacaoTransferirOperandoMar(final Text text, double xDe, double yDe) {
+		
+		final MAR mar = controlador.getUcpInterna().getMar();
+		final double xPara = mar.getTxtValor().getX();
+		final double yPara = mar.getTxtValor().getY();
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(text.xProperty(), xDe),
+	                   new KeyValue(text.yProperty(), yDe)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(text.xProperty(), xPara),
+		               new KeyValue(text.yProperty(), yPara)
+		           )
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().remover(text);
+				mar.atualizarValor(new Integer(text.getText()), xPara, yPara);
+				controlador.getUcpInterna().atualizarValorUnidadeTela(mar);
+				
+				controlador.operar();
+				
+			}
+			
+		});
 		
 	}
 	

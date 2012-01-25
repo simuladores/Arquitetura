@@ -12,7 +12,7 @@ public class TelaMensagemCicloIndireto extends TelaMensagemSimulacao{
 			"o conteúdo de IR para determinar\n se ele contém um especificador de " +
 			"operando que use endereçamento\n indireto";
 	private static final String TRANSFERIR_OPERANDO_MARXT = "operando faz " +
-			"uma referência indireta a um dado na memória. Nesse caso, essa referência " +
+			"uma referência indireta a um dado na memória.\n Nesse caso, essa referência " +
 			"será transferida para MAR";
 	private static final String TRANSFERIR_OPERANDO_MARXT_NAO_HA = "Não há operandos " +
 			"nessa instrução que fazem referência indireta à memória";
