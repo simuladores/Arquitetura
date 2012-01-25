@@ -18,7 +18,12 @@ public class TelaMensagemCicloIndireto extends TelaMensagemSimulacao{
 			"nessa instrução que fazem referência indireta à memória.";
 	private static final String COPIAR_READ_BARRAMENTO_INDTXT = "O comando \"READ\" é " +
 			"transferido para o barramento de endereços para iniciar a leitura do " +
-			"ciclo indireto";
+			"ciclo indireto.";
+	private static final String COPIAR_VALOR_MAR_BARRAMENTO_INDTXT = "O valor de MAR, que " +
+			"corresponde ao endereço indireto, é transferido para o barramento de endereços.";
+	private static final String MOVER_DADOS_BARRAMENTO_MEMORIA_INDTXT = "Os dados contidos no " +
+			"barramento são então movidos para a memória,\n requisitando o endereço contido " +
+			"no endereço que está no barramento.";
 	
 	public TelaMensagemCicloIndireto(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));
@@ -52,6 +57,8 @@ public class TelaMensagemCicloIndireto extends TelaMensagemSimulacao{
 				return TRANSFERIR_OPERANDO_MARXT_NAO_HA;
 		}
 		case COPIAR_READ_BARRAMENTO_IND: return COPIAR_READ_BARRAMENTO_INDTXT;
+		case COPIAR_VALOR_MAR_BARRAMENTO_IND: return COPIAR_VALOR_MAR_BARRAMENTO_INDTXT;
+		case MOVER_DADOS_BARRAMENTO_MEMORIA_IND: return MOVER_DADOS_BARRAMENTO_MEMORIA_INDTXT;
 		}
 		
 		return null;

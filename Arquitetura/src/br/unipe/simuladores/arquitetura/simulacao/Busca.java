@@ -26,7 +26,6 @@ import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 
 public class Busca extends Ciclo{
 	
-	private Text valorMar;
 	private Text txtInstrucao;
 	private Path path;
 	private Path path2;
@@ -145,7 +144,7 @@ public class Busca extends Ciclo{
 				@Override
 				public void handle(ActionEvent arg0) {
 					
-					copiarValorMARParaBarramento();
+					copiarValorMARParaBarramentoBusca();
 					
 				}
 				
@@ -155,42 +154,16 @@ public class Busca extends Ciclo{
 		
 	}
 	
-	public void copiarValorMARParaBarramento() {
+	public void copiarValorMARParaBarramentoBusca() {
 		
-			Integer valor = (Integer)controlador.getUcpInterna().getMar().getValor();
-		
-			double xDe = controlador.getUcpInterna().getMar().getTxtValor().getX();
-			double yDe = controlador.getUcpInterna().getMar().getTxtValor().getY();
-			double xPara = 1160;
-		
-			valorMar = new Text(valor.toString());
-			valorMar.setX(xDe);
-			valorMar.setY(yDe);
-			valorMar.setFont(new Font(12));
-		
-			controlador.getBarramentoInterno().adicionar(valorMar);
-			controlador.adicionarElemento(valorMar);
-			valorMar.toFront();
-		
-			animation = new Timeline();
-		
-			((Timeline)animation).getKeyFrames().addAll(
-	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(valorMar.xProperty(), xDe),
-	                   new KeyValue(valorMar.yProperty(), yDe)
-	               ),
-	               new KeyFrame(new Duration(3000), 
-	                	new KeyValue(valorMar.xProperty(), xPara),
-		                new KeyValue(valorMar.yProperty(), yDe)
-	               )
-			);
+			copiarValorMARParaBarramento();
 		
 			animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 				@Override
 				public void handle(ActionEvent e) {
 				
-					moverDadosBarramentoParaMemoria();
+					moverDadosBarramentoParaMemoriaBusca();
 				
 				}
 			
@@ -200,31 +173,9 @@ public class Busca extends Ciclo{
 		
 	}
 	
-	public void moverDadosBarramentoParaMemoria() {
+	public void moverDadosBarramentoParaMemoriaBusca() {
 				
-		double xDeRead = read.getX();
-		double yDeRead = read.getY();
-		double yPara = 40;
-		
-		double xDeMar = valorMar.getX();
-		double yDeMar = valorMar.getY();
-		
-		animation = new Timeline();
-		
-		((Timeline)animation).getKeyFrames().addAll(
-	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(read.xProperty(), xDeRead),
-	                   new KeyValue(read.yProperty(), yDeRead),
-	               	   new KeyValue(valorMar.xProperty(), xDeMar),
-                       new KeyValue(valorMar.yProperty(), yDeMar)
-	               ),
-	               new KeyFrame(new Duration(3000), 
-	                	new KeyValue(read.xProperty(), xDeRead),
-		                new KeyValue(read.yProperty(), yPara),
-		                new KeyValue(valorMar.xProperty(), xDeMar),
-		                new KeyValue(valorMar.yProperty(), yPara)
-	               )
-	     );
+		moverDadosLeituraBarramentoMemoria();
 		
 		animation.setOnFinished(new EventHandler<ActionEvent>(){
 

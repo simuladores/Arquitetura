@@ -20,6 +20,7 @@ public abstract class Ciclo {
 	protected boolean continuar = false;
 	protected TelaMensagemSimulacao telaMensagem;
 	protected Text read;
+	protected Text valorMar;
 	
 	public Ciclo(Controlador c) {
 		
@@ -82,6 +83,66 @@ public abstract class Ciclo {
 		                new KeyValue(read.yProperty(), yDe)
 	               )
 			);
+		
+	}
+	
+	protected void copiarValorMARParaBarramento() {
+		
+		Integer valor = (Integer)controlador.getUcpInterna().getMar().getValor();
+		
+		double xDe = controlador.getUcpInterna().getMar().getTxtValor().getX();
+		double yDe = controlador.getUcpInterna().getMar().getTxtValor().getY();
+		double xPara = 1160;
+	
+		valorMar = new Text(valor.toString());
+		valorMar.setX(xDe);
+		valorMar.setY(yDe);
+		valorMar.setFont(new Font(12));
+	
+		controlador.getBarramentoInterno().adicionar(valorMar);
+		controlador.adicionarElemento(valorMar);
+		valorMar.toFront();
+	
+		animation = new Timeline();
+	
+		((Timeline)animation).getKeyFrames().addAll(
+               new KeyFrame(Duration.ZERO, 
+                   new KeyValue(valorMar.xProperty(), xDe),
+                   new KeyValue(valorMar.yProperty(), yDe)
+               ),
+               new KeyFrame(new Duration(3000), 
+                	new KeyValue(valorMar.xProperty(), xPara),
+	                new KeyValue(valorMar.yProperty(), yDe)
+               )
+		);
+		
+	}
+	
+	protected void moverDadosLeituraBarramentoMemoria() {
+		
+		double xDeRead = read.getX();
+		double yDeRead = read.getY();
+		double yPara = 40;
+		
+		double xDeMar = valorMar.getX();
+		double yDeMar = valorMar.getY();
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(read.xProperty(), xDeRead),
+	                   new KeyValue(read.yProperty(), yDeRead),
+	               	   new KeyValue(valorMar.xProperty(), xDeMar),
+                       new KeyValue(valorMar.yProperty(), yDeMar)
+	               ),
+	               new KeyFrame(new Duration(3000), 
+	                	new KeyValue(read.xProperty(), xDeRead),
+		                new KeyValue(read.yProperty(), yPara),
+		                new KeyValue(valorMar.xProperty(), xDeMar),
+		                new KeyValue(valorMar.yProperty(), yPara)
+	               )
+	     );
 		
 	}
 	

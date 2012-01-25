@@ -188,7 +188,7 @@ public class Indireto extends Ciclo{
 			@Override
 			public void handle(ActionEvent e) {
 				
-				controlador.operar();
+				copiarValorMARParaBarramentoIndireto();
 				
 			}
 			
@@ -196,6 +196,44 @@ public class Indireto extends Ciclo{
 		
 		nextStep(EstadoCiclo.COPIAR_READ_BARRAMENTO_IND);
 		
+		
+	}
+	
+	public void copiarValorMARParaBarramentoIndireto() {
+		
+		copiarValorMARParaBarramento();
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				moverDadosBarramentoParaMemoriaIndireto();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.COPIAR_VALOR_MAR_BARRAMENTO_IND);
+		
+	}
+	
+	public void moverDadosBarramentoParaMemoriaIndireto() {
+		
+		moverDadosLeituraBarramentoMemoria();
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.MOVER_DADOS_BARRAMENTO_MEMORIA_IND);
 		
 	}
 	
@@ -231,7 +269,15 @@ public class Indireto extends Ciclo{
 
 	@Override
 	protected void limparElementosTela() {
-		// TODO Auto-generated method stub
+		
+		try {
+			Thread.sleep(2000);
+			controlador.getBarramentoInterno().remover(read);
+			controlador.getBarramentoInterno().remover(valorMar);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
