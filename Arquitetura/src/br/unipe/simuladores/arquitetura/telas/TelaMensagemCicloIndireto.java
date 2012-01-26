@@ -29,7 +29,7 @@ public class TelaMensagemCicloIndireto extends TelaMensagemSimulacao{
 			"pelo barramento de dados.";
 	private static final String TRANSFERIR_MBR_PARA_IRTXT = "O campo de endereço referente " +
 			"ao operando que faz a referência indireta\n é atualizado para conter o valor que " +
-			"ele referencia, ou seja, o endereço\n que contém o dado";
+			"ele referencia, ou seja, o endereço\n que contém o dado.";
 	
 	public TelaMensagemCicloIndireto(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));

@@ -110,34 +110,39 @@ public class Indireto extends Ciclo{
 	
 	public void transferirOperandoMar() {
 		
-		IR ir = controlador.getUcpInterna().getIr();
-		double xIr = ir.getTxtValor().getX();
-		double yIr = ir.getTxtValor().getY(); 
-		Instrucao instrucaoAtual = controlador.getInstrucaoAtual();
-		endereco = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
-		endereco.setX(ir.getTxtValor().getX());
-		endereco.setY(yIr);
-		opcode = new Text(instrucaoAtual.opcodeProperty().getValue().toString());
-		opcode.setX(endereco.getX() + endereco.getWrappingWidth() + 16);
-		opcode.setY(yIr);
-		op1 = new Text(instrucaoAtual.referenciaOp1Property().getValue().toString());
-		op1.setX(opcode.getX() + opcode.getWrappingWidth() + 16);
-		op1.setY(yIr);
-		op2 = new Text(instrucaoAtual.referenciaOp2Property().getValue().toString());
-		op2.setX(op1.getX() + op1.getWrappingWidth() + 16);
-		op2.setY(yIr);
 		
-		controlador.getUcpInterna().getIr().atualizarValor("", xIr, yIr);
-		controlador.getUcpInterna().atualizarValorUnidadeTela(ir);
-		
-		controlador.getUcpInterna().adicionar(endereco);
-		controlador.adicionarElemento(endereco);
-		controlador.getUcpInterna().adicionar(opcode);
-		controlador.adicionarElemento(opcode);
-		controlador.getUcpInterna().adicionar(op1);
-		controlador.adicionarElemento(op1);
-		controlador.getUcpInterna().adicionar(op2);
-		controlador.adicionarElemento(op2);
+		if (!(!primeiroOperando && operando == OperandoCicloIndireto.OS_DOIS)) {
+			
+			IR ir = controlador.getUcpInterna().getIr();
+			double xIr = ir.getTxtValor().getX();
+			double yIr = ir.getTxtValor().getY(); 
+			Instrucao instrucaoAtual = controlador.getInstrucaoAtual();
+			endereco = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
+			endereco.setX(ir.getTxtValor().getX());
+			endereco.setY(yIr);
+			opcode = new Text(instrucaoAtual.opcodeProperty().getValue().toString());
+			opcode.setX(endereco.getX() + endereco.getWrappingWidth() + 16);
+			opcode.setY(yIr);
+			op1 = new Text(instrucaoAtual.referenciaOp1Property().getValue().toString());
+			op1.setX(opcode.getX() + opcode.getWrappingWidth() + 16);
+			op1.setY(yIr);
+			op2 = new Text(instrucaoAtual.referenciaOp2Property().getValue().toString());
+			op2.setX(op1.getX() + op1.getWrappingWidth() + 16);
+			op2.setY(yIr);
+			
+			controlador.getUcpInterna().getIr().atualizarValor("", xIr, yIr);
+			controlador.getUcpInterna().atualizarValorUnidadeTela(ir);
+			
+			controlador.getUcpInterna().adicionar(endereco);
+			controlador.adicionarElemento(endereco);
+			controlador.getUcpInterna().adicionar(opcode);
+			controlador.adicionarElemento(opcode);
+			controlador.getUcpInterna().adicionar(op1);
+			controlador.adicionarElemento(op1);
+			controlador.getUcpInterna().adicionar(op2);
+			controlador.adicionarElemento(op2);
+			
+		}
 		
 		Text trans = new Text();
 		
@@ -288,7 +293,7 @@ public class Indireto extends Ciclo{
 		animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 			@Override
-			public void handle(ActionEvent arg0) {
+			public void handle(ActionEvent e) {
 				
 				controlador.getBarramentoInterno().remover(txtReferencia);
 				MBR mbr = controlador.getUcpInterna().getMbr();
@@ -343,9 +348,24 @@ public class Indireto extends Ciclo{
 			public void handle(ActionEvent e) {
 				
 				controlador.getUcpInterna().remover(txtValor);
-				op1.setText(txtValor.getText());
+				if (primeiroOperando)
+					op1.setText(txtValor.getText());
+				else
+					op2.setText(txtValor.getText());
 				
-				controlador.operar();
+				if (primeiroOperando && operando == OperandoCicloIndireto.OS_DOIS){
+					primeiroOperando = false;
+					limparElementosTela();
+					transferirOperandoMar();
+				}
+		
+				
+				if ((primeiroOperando && operando == OperandoCicloIndireto.PRIMEIRO)
+						|| (!primeiroOperando && operando == 
+						OperandoCicloIndireto.SEGUNDO) || 
+						(!primeiroOperando && operando == 
+						OperandoCicloIndireto.OS_DOIS))
+					controlador.operar();
 				
 			}
 			
@@ -388,14 +408,11 @@ public class Indireto extends Ciclo{
 	@Override
 	protected void limparElementosTela() {
 		
-		try {
-			Thread.sleep(2000);
-			controlador.getBarramentoInterno().remover(read);
-			controlador.getBarramentoInterno().remover(valorMar);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		controlador.getBarramentoInterno().remover(read);
+		controlador.getBarramentoInterno().remover(valorMar);
+		controlador.getMemoriaInterna().remover(path);
+		controlador.getBarramentoInterno().remover(path2);
+		controlador.getBarramentoInterno().remover(path3);
 		
 	}
 
@@ -408,5 +425,7 @@ public class Indireto extends Ciclo{
 			return new TelaMensagemCicloIndireto(estado);
 		
 	}
+	
+	
 
 }
