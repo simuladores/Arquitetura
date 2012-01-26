@@ -1,5 +1,7 @@
 package br.unipe.simuladores.arquitetura.simulacao;
 
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.IR;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
@@ -33,6 +35,11 @@ public abstract class Ciclo {
 	protected Path path;
 	protected Path path2;
 	protected Path path3;
+	
+	protected Text endereco;
+	protected Text opcode;
+	protected Text op1;
+	protected Text op2;
 	
 	public Ciclo(Controlador c) {
 		
@@ -230,6 +237,39 @@ public abstract class Ciclo {
 				rotateTransition2,
 				pathTransition3
 				);
+		
+	}
+	
+	protected void alocarIr() {
+		
+		IR ir = controlador.getUcpInterna().getIr();
+		double xIr = ir.getTxtValor().getX();
+		double yIr = ir.getTxtValor().getY(); 
+		Instrucao instrucaoAtual = controlador.getInstrucaoAtual();
+		endereco = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
+		endereco.setX(ir.getTxtValor().getX());
+		endereco.setY(yIr);
+		opcode = new Text(instrucaoAtual.opcodeProperty().getValue().toString());
+		opcode.setX(endereco.getX() + endereco.getWrappingWidth() + 16);
+		opcode.setY(yIr);
+		op1 = new Text(instrucaoAtual.referenciaOp1Property().getValue().toString());
+		op1.setX(opcode.getX() + opcode.getWrappingWidth() + 16);
+		op1.setY(yIr);
+		op2 = new Text(instrucaoAtual.referenciaOp2Property().getValue().toString());
+		op2.setX(op1.getX() + op1.getWrappingWidth() + 16);
+		op2.setY(yIr);
+		
+		controlador.getUcpInterna().getIr().atualizarValor("", xIr, yIr);
+		controlador.getUcpInterna().atualizarValorUnidadeTela(ir);
+		
+		controlador.getUcpInterna().adicionar(endereco);
+		controlador.adicionarElemento(endereco);
+		controlador.getUcpInterna().adicionar(opcode);
+		controlador.adicionarElemento(opcode);
+		controlador.getUcpInterna().adicionar(op1);
+		controlador.adicionarElemento(op1);
+		controlador.getUcpInterna().adicionar(op2);
+		controlador.adicionarElemento(op2);
 		
 	}
 	

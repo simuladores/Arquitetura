@@ -8,7 +8,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import br.unipe.simuladores.arquitetura.componentes.internos.unidades.IR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
@@ -22,11 +21,8 @@ public class Indireto extends Ciclo{
 	
 	private OperandoCicloIndireto operando;
 	private OperandoCicloIndireto operandoMens;
+	private Execucao execucao;
 	
-	private Text endereco;
-	private Text opcode;
-	private Text op1;
-	private Text op2;
 	private boolean primeiroOperando;
 
 	public Indireto(Controlador c) {
@@ -74,10 +70,26 @@ public class Indireto extends Ciclo{
 				
 				if (operando == OperandoCicloIndireto.NAO_HA) {
 					
-					controlador.operar();
+					alocarIr();
+					
 					animation = new Timeline();
+					((Timeline)animation).setOnFinished(new EventHandler<ActionEvent>(){
+
+						@Override
+						public void handle(ActionEvent e) {
+							
+							execucao = new Execucao
+									(endereco, opcode, op1, op2, controlador);
+							execucao.mostrarAnimacoes();
+							
+						}
+						
+					});
+					
 					operandoMens = OperandoCicloIndireto.NAO_HA;
 					nextStep(EstadoCiclo.TRANSFERIR_OPERANDO_MAR);
+					
+					
 					
 				} else if (operando == OperandoCicloIndireto.PRIMEIRO){
 					primeiroOperando = true;
@@ -104,38 +116,8 @@ public class Indireto extends Ciclo{
 	public void transferirOperandoMar() {
 		
 		
-		if (!(!primeiroOperando && operando == OperandoCicloIndireto.OS_DOIS)) {
-			
-			IR ir = controlador.getUcpInterna().getIr();
-			double xIr = ir.getTxtValor().getX();
-			double yIr = ir.getTxtValor().getY(); 
-			Instrucao instrucaoAtual = controlador.getInstrucaoAtual();
-			endereco = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
-			endereco.setX(ir.getTxtValor().getX());
-			endereco.setY(yIr);
-			opcode = new Text(instrucaoAtual.opcodeProperty().getValue().toString());
-			opcode.setX(endereco.getX() + endereco.getWrappingWidth() + 16);
-			opcode.setY(yIr);
-			op1 = new Text(instrucaoAtual.referenciaOp1Property().getValue().toString());
-			op1.setX(opcode.getX() + opcode.getWrappingWidth() + 16);
-			op1.setY(yIr);
-			op2 = new Text(instrucaoAtual.referenciaOp2Property().getValue().toString());
-			op2.setX(op1.getX() + op1.getWrappingWidth() + 16);
-			op2.setY(yIr);
-			
-			controlador.getUcpInterna().getIr().atualizarValor("", xIr, yIr);
-			controlador.getUcpInterna().atualizarValorUnidadeTela(ir);
-			
-			controlador.getUcpInterna().adicionar(endereco);
-			controlador.adicionarElemento(endereco);
-			controlador.getUcpInterna().adicionar(opcode);
-			controlador.adicionarElemento(opcode);
-			controlador.getUcpInterna().adicionar(op1);
-			controlador.adicionarElemento(op1);
-			controlador.getUcpInterna().adicionar(op2);
-			controlador.adicionarElemento(op2);
-			
-		}
+		if (!(!primeiroOperando && operando == OperandoCicloIndireto.OS_DOIS))
+			alocarIr();
 		
 		Text trans = new Text();
 		
@@ -357,8 +339,12 @@ public class Indireto extends Ciclo{
 						|| (!primeiroOperando && operando == 
 						OperandoCicloIndireto.SEGUNDO) || 
 						(!primeiroOperando && operando == 
-						OperandoCicloIndireto.OS_DOIS))
-					controlador.operar();
+						OperandoCicloIndireto.OS_DOIS)) {
+					
+					execucao = new Execucao(endereco, opcode, op1, op2, controlador);
+						execucao.mostrarAnimacoes();
+						
+				}
 				
 			}
 			
