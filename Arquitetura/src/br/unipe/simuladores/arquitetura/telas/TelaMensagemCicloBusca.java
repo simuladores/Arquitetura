@@ -1,7 +1,5 @@
 package br.unipe.simuladores.arquitetura.telas;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 

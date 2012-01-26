@@ -1,10 +1,8 @@
 package br.unipe.simuladores.arquitetura.simulacao;
 
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
-import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloBusca;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
-import br.unipe.simuladores.arquitetura.telas.TelaSimplesMensagem;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

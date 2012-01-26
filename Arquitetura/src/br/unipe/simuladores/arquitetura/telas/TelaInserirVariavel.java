@@ -135,8 +135,15 @@ public class TelaInserirVariavel extends Tela implements Formulario{
 				TelaPrincipal.getComputador().getMemoriaPrincipal()
 				.getMemoriaInterna().obterEnderecoVariavel(tfIdentificador.getText());
 		
+		String id;
+		
+		if (normal)
+			id = tfIdentificador.getText();
+		else
+			id = "*"+tfIdentificador.getText();
+		
 		TelaPrincipal.getTabVariaveis().getItems().add(
-				new VariavelIdentificador(tfIdentificador.getText(), 
+				new VariavelIdentificador(id, 
 						endereco.toString(),
 						tfValor.getText()));
 		
@@ -183,10 +190,15 @@ public class TelaInserirVariavel extends Tela implements Formulario{
 		}
 		
 		if (!normal) {
+
 			
 			if(!(tipoVariavel == TipoVariavel.INTEIRO))
 				throw new DadosInvalidosException(
 						"Um ponteiro só pode armazenar valores inteiros");
+			
+			if (!TelaPrincipal.getComputador().getMemoriaPrincipal()
+					.getMemoriaInterna().contemVar(new Integer(valor), true))
+				throw new DadosInvalidosException("Não há variável com o endereço informado");
 			
 			if(TelaPrincipal.getComputador().getMemoriaPrincipal()
 					.getMemoriaInterna().ehPonteiro(new Integer(valor), true))
