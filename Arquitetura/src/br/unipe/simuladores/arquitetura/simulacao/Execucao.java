@@ -2,14 +2,23 @@ package br.unipe.simuladores.arquitetura.simulacao;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UC;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
@@ -154,7 +163,14 @@ public class Execucao extends Ciclo {
 				mbr.atualizarValor(text.getText(), xPara, yPara);
 				controlador.getUcpInterna().atualizarUnidadeTela(mbr);
 				
-				transferirDadoMBRParaMemoria();
+				Text txt = new Text(op1.getText());
+				txt.setX(op1.getX());
+				txt.setY(op1.getY());
+				
+				controlador.getUcpInterna().adicionar(txt);
+				controlador.adicionarElemento(txt);
+				
+				moverRefenciaParaMAR(txt);
 				
 			}
 			
@@ -163,8 +179,49 @@ public class Execucao extends Ciclo {
 		nextStep(EstadoCiclo.TRANSFERIR_IR_MBR);
 		
 	}
+		
+	public void moverRefenciaParaMAR(final Text text) {
+			
+			double xDe = text.getX();
+			double yDe = text.getY();
+			final MAR mar = controlador.getUcpInterna().getMar();
+			final double xPara = mar.getTxtValor().getX();
+			final double yPara = mar.getTxtValor().getY();
+			
+			animation = new Timeline();
+			
+			((Timeline)animation).getKeyFrames().addAll(
+		               new KeyFrame(Duration.ZERO, 
+		                   new KeyValue(text.xProperty(), xDe),
+		                   new KeyValue(text.yProperty(), yDe)
+		               ),
+		               new KeyFrame(Duration.millis(3000), 
+		            	   new KeyValue(text.xProperty(), xPara),
+			               new KeyValue(text.yProperty(), yPara)
+			           )
+			           
+		     );
+			
+			animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+				@Override
+				public void handle(ActionEvent e) {
+					
+					controlador.getUcpInterna().remover(text);
+					mar.atualizarValor(text.getText(), xPara, yPara);
+					controlador.getUcpInterna().atualizarUnidadeTela(mar);
+					
+					transferirReferenciaDadoParaMemoria();
+					
+				}
+				
+			});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_IR_MAR);
+		
+	}
 	
-	public void transferirDadoMBRParaMemoria() {
+	public void transferirReferenciaDadoParaMemoria() {
 		
 		Point2D p1 = new Point2D(926, 473);
 		Point2D p2 = new Point2D(1215, 473);
@@ -172,12 +229,103 @@ public class Execucao extends Ciclo {
 		Point2D p4 = new Point2D(980, 60);
 		
 		MBR mbr = controlador.getUcpInterna().getMbr();
+		MAR mar = controlador.getUcpInterna().getMar();
 		
-		Text txtDado = new Text(mbr.getTxtValor().getText());
+		UC uc = controlador.getUcpInterna().getUc();
+		uc.atualizarValor("MOV_DATA", 951, 593);
+		controlador.getUcpInterna().atualizarValorUnidadeTela(uc);
+		
+		final Text txtDado = new Text(mbr.getTxtValor().getText());
 		txtDado.setX(mbr.getTxtValor().getX());
 		txtDado.setY(mbr.getTxtValor().getY());
 		
-		transferirDadoBarramento(p1, p2, p3, p4, txtDado);
+		Text txtReferencia = new Text(mar.getTxtValor().getText());
+		txtReferencia.setX(mar.getTxtValor().getX());
+		txtReferencia.setY(mar.getTxtValor().getY());
+		
+		controlador.getMemoriaInterna().adicionar(txtDado);
+		controlador.adicionarElemento(txtDado);
+		
+		controlador.getMemoriaInterna().adicionar(txtReferencia);
+		controlador.adicionarElemento(txtReferencia);
+		
+		path = new Path();
+		path.getElements().add(new MoveTo(p1.getX(), p1.getY()));
+		path.getElements().add(new LineTo(p2.getX(), p2.getY()));
+		path.setStroke(Color.TRANSPARENT);
+		controlador.getMemoriaInterna().adicionar(path);
+		controlador.adicionarElemento(path);
+		PathTransition pathTransition = new PathTransition();
+		pathTransition.setDuration(Duration.millis(3000));
+		pathTransition.setPath(path);
+		pathTransition.setNode(txtDado);
+		pathTransition.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().remover(txtDado);
+				controlador.getBarramentoInterno().adicionar(txtDado);
+				
+			}
+			
+		});
+		
+		RotateTransition rotateTransition = 
+				new RotateTransition(Duration.seconds(0.1));
+		rotateTransition.setFromAngle(0);
+		rotateTransition.setToAngle(-90);
+		rotateTransition.setNode(txtDado);
+		
+		path2 = new Path();
+		path2.getElements().add(new MoveTo(p2.getX(), p2.getY()));
+		path2.getElements().add(new LineTo(p3.getX(), p3.getY()));
+		path2.setStroke(Color.TRANSPARENT);
+		controlador.getBarramentoInterno().adicionar(path2);
+		controlador.adicionarElemento(path2);
+		PathTransition pathTransition2 = new PathTransition();
+		pathTransition2.setDuration(Duration.millis(3000));
+		pathTransition2.setPath(path2);
+		pathTransition2.setNode(txtDado);
+		pathTransition2.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getBarramentoInterno().remover(txtDado);
+				controlador.getMemoriaInterna().adicionar(txtDado);
+				txtDado.toBack();
+				controlador.adicionarElemento(txtDado);
+				
+			}
+			
+		});
+		
+		RotateTransition rotateTransition2 = 
+				new RotateTransition(Duration.seconds(0.1));
+		rotateTransition2.setFromAngle(0);
+		rotateTransition2.setToAngle(0);
+		rotateTransition2.setNode(txtDado);
+		
+		path3 = new Path();
+		path3.getElements().add(new MoveTo(p3.getX(), p3.getY()));
+		path3.getElements().add(new LineTo(p4.getX(), p4.getY()));
+		path3.setStroke(Color.TRANSPARENT);
+		controlador.getUcpInterna().adicionar(path3);
+		controlador.adicionarElemento(path3);
+		PathTransition pathTransition3 = new PathTransition();
+		pathTransition3.setDuration(Duration.millis(3000));
+		pathTransition3.setPath(path3);
+		pathTransition3.setNode(txtDado);
+		
+		SequentialTransition sequencialTransition = new SequentialTransition();
+		((SequentialTransition)animation).getChildren().addAll(
+				pathTransition,
+				rotateTransition,
+				pathTransition2,
+				rotateTransition2,
+				pathTransition3
+				);
 		
 		animation.setOnFinished(new EventHandler<ActionEvent>(){
 
@@ -190,7 +338,7 @@ public class Execucao extends Ciclo {
 			
 		});
 		
-		nextStep(EstadoCiclo.TRANSFERIR_MBR_MEMORIA);
+		nextStep(EstadoCiclo.TRANSFERIR_MAR_MBR_MEMORIA);
 		
 	}
 	

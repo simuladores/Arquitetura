@@ -25,6 +25,7 @@ public enum EstadoCiclo {
 	
 	//ciclo de execução
 	TRANSFERIR_IR_MBR,
-	TRANSFERIR_MBR_MEMORIA
+	TRANSFERIR_IR_MAR,
+	TRANSFERIR_MAR_MBR_MEMORIA
 
 }
