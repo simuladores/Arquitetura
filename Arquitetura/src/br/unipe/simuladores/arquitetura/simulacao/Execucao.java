@@ -1,11 +1,19 @@
 package br.unipe.simuladores.arquitetura.simulacao;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
+import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloExecucao;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 
 public class Execucao extends Ciclo {
@@ -115,15 +123,74 @@ public class Execucao extends Ciclo {
 		
 	}
 	
-	public void moverDadoParaMBR(Text text) {
+	public void moverDadoParaMBR(final Text text) {
 		
 		double xDe = text.getX();
 		double yDe = text.getY();
+		final MBR mbr = controlador.getUcpInterna().getMbr();
+		final double xPara = 923;
+		final double yPara = 478;
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(text.xProperty(), xDe),
+	                   new KeyValue(text.yProperty(), yDe)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(text.xProperty(), xPara),
+		               new KeyValue(text.yProperty(), yPara)
+		           )
+		           
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().remover(text);
+				mbr.atualizarValor(text.getText(), xPara, yPara);
+				controlador.getUcpInterna().atualizarUnidadeTela(mbr);
+				
+				transferirDadoMBRParaMemoria();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_IR_MBR);
+		
+	}
+	
+	public void transferirDadoMBRParaMemoria() {
+		
+		Point2D p1 = new Point2D(926, 473);
+		Point2D p2 = new Point2D(1215, 473);
+		Point2D p3 = new Point2D(1215, 60);
+		Point2D p4 = new Point2D(980, 60);
+		
 		MBR mbr = controlador.getUcpInterna().getMbr();
-		double xPara = 923;
-		double yPara = 478;
 		
+		Text txtDado = new Text(mbr.getTxtValor().getText());
+		txtDado.setX(mbr.getTxtValor().getX());
+		txtDado.setY(mbr.getTxtValor().getY());
 		
+		transferirDadoBarramento(p1, p2, p3, p4, txtDado);
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+								
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_MBR_MEMORIA);
 		
 	}
 	
@@ -139,7 +206,8 @@ public class Execucao extends Ciclo {
 
 	@Override
 	protected TelaMensagemSimulacao construirTelaMensagem(EstadoCiclo estado) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return new TelaMensagemCicloExecucao(estado);
+		
 	}
 }
