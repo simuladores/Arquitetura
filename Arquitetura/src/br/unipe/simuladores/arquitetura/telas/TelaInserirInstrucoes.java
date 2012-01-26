@@ -275,6 +275,10 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 		case DIRETO:{ 
 			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))
 				throw new DadosInvalidosException("A variável com o valor informado para o operando 1 não existe");
+			else {
+				if (TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().ehPonteiro(valor, false))
+					throw new DadosInvalidosException("A variável com o valor informado para o operando 1 é um ponteiro");
+			};
 		};break;
 		case INDIRETO: {
 			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))
@@ -319,6 +323,10 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 		case DIRETO:{ 
 			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))
 				throw new DadosInvalidosException("A variável com o valor informado para o operando 2 não existe");
+			else {
+				if (TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().ehPonteiro(valor, false))
+					throw new DadosInvalidosException("A variável com o valor informado para o operando 2 é um ponteiro");
+			};
 		};break;
 		case INDIRETO: {
 			if (!TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().contemVar(valor, false))

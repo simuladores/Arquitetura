@@ -131,8 +131,13 @@ public class TelaInserirVariavel extends Tela implements Formulario{
 		TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna().
 			inserirDado(variavel, tfIdentificador.getText());
 		
+		Integer endereco = 
+				TelaPrincipal.getComputador().getMemoriaPrincipal()
+				.getMemoriaInterna().obterEnderecoVariavel(tfIdentificador.getText());
+		
 		TelaPrincipal.getTabVariaveis().getItems().add(
 				new VariavelIdentificador(tfIdentificador.getText(), 
+						endereco.toString(),
 						tfValor.getText()));
 		
 	}
@@ -174,6 +179,21 @@ public class TelaInserirVariavel extends Tela implements Formulario{
 			}catch(NumberFormatException nfe) {
 				throw new DadosInvalidosException("O valor informado não é um número de ponto flutuante");
 			}
+			
+		}
+		
+		if (!normal) {
+			
+			if(!(tipoVariavel == TipoVariavel.INTEIRO))
+				throw new DadosInvalidosException(
+						"Um ponteiro só pode armazenar valores inteiros");
+			
+			if(TelaPrincipal.getComputador().getMemoriaPrincipal()
+					.getMemoriaInterna().ehPonteiro(new Integer(valor), true))
+
+				throw new DadosInvalidosException(
+						"Não é possível, nesse simulador, um ponteiro " +
+						"referenciar outro ponteiro");
 			
 		}
 		

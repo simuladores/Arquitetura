@@ -310,9 +310,16 @@ public class TelaPrincipal extends Tela{
 		TableColumn<VariavelIdentificador, String> idCol = 
         		new TableColumn<VariavelIdentificador, String>();
 		idCol.setText("ID");
+		idCol.setPrefWidth(40);
 		idCol.setCellValueFactory(
         		new PropertyValueFactory<VariavelIdentificador, String>("id"));
-		idCol.setMinWidth(20);
+		
+		TableColumn<VariavelIdentificador, String> endCol = 
+        		new TableColumn<VariavelIdentificador, String>();
+		endCol.setText("END");
+		endCol.setPrefWidth(47);
+		endCol.setCellValueFactory(
+        		new PropertyValueFactory<VariavelIdentificador, String>("endereco"));
 		
 		TableColumn<VariavelIdentificador, String> dataCol = 
         		new TableColumn<VariavelIdentificador, String>();
@@ -320,7 +327,8 @@ public class TelaPrincipal extends Tela{
 		dataCol.setCellValueFactory(
         		new PropertyValueFactory<VariavelIdentificador, String>("data"));
 		
-		tabVariaveis.getColumns().addAll(idCol, dataCol);
+		
+		tabVariaveis.getColumns().addAll(idCol, endCol, dataCol);
 		
 		ScrollPane scroll = new ScrollPane();
 		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
