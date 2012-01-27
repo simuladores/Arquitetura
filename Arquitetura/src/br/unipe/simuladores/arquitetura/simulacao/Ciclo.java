@@ -31,6 +31,7 @@ public abstract class Ciclo {
 	protected TelaMensagemSimulacao telaMensagem;
 	protected Text read;
 	protected Text valorMar;
+	protected Text valorMbr;
 	
 	protected Path path;
 	protected Path path2;
@@ -107,7 +108,7 @@ public abstract class Ciclo {
 	
 	protected void copiarValorMARParaBarramento() {
 		
-		Integer valor = (Integer)controlador.getUcpInterna().getMar().getValor();
+		Integer valor = new Integer(controlador.getUcpInterna().getMar().getTxtValor().getText());
 		
 		double xDe = controlador.getUcpInterna().getMar().getTxtValor().getX();
 		double yDe = controlador.getUcpInterna().getMar().getTxtValor().getY();

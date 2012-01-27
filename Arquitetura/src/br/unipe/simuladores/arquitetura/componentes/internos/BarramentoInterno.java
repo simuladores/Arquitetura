@@ -64,8 +64,10 @@ public class BarramentoInterno extends ComponenteInterno {
 		controle = new Rectangle(1200, 75, 30, 530);
 		controle.setFill(Color.LIGHTBLUE);
 		
+		
 		group.getChildren().addAll(dados, enderecos, controle, ligacaoMar, 
 				ligacaoMbr, ligacaoUc);
+		
 		
 		ligacaoMar.toBack();
 		ligacaoMbr.toBack();
