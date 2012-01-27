@@ -2,29 +2,23 @@ package br.unipe.simuladores.arquitetura.simulacao;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
-import br.unipe.simuladores.arquitetura.componentes.internos.unidades.UC;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Variavel;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelIdentificador;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloExecucao;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
+import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class Execucao extends Ciclo {
 
@@ -32,9 +26,6 @@ public class Execucao extends Ciclo {
 	private ModoEnderecamento modEndOp1;
 	private ModoEnderecamento modEndOp2;
 	private int opcode;
-	
-	private Text txtDado;
-	private Text txtReferencia;
 	
 	public Execucao(Text end, Text opcode, Text op1, Text op2, Controlador c) {
 		
@@ -345,7 +336,7 @@ public class Execucao extends Ciclo {
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				controlador.operar();
+				moverDadoParaMemoria();
 				
 			}
 			
@@ -355,44 +346,65 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	public void moverDadoParaMemoria() {
+		
+		double xDe = valorMbr.getX();
+		double yDe = valorMbr.getY();
+		double xPara = 1010;
+		double yPara = 70;
+		
+		controlador.getBarramentoInterno().remover(valorMbr);
+		controlador.getMemoriaInterna().adicionar(valorMbr);
+		valorMbr.toBack();
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(valorMbr.xProperty(), xDe),
+	                   new KeyValue(valorMbr.yProperty(), yDe)
+	               ),
+	               new KeyFrame(new Duration(3000), 
+	                	new KeyValue(valorMbr.xProperty(), xPara),
+		                new KeyValue(valorMbr.yProperty(), yPara)
+	               )
+			);
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				Variavel variavel = controlador.getMemoriaInterna()
+						.obterVariavel(new Integer(valorMar.getText()));
+				variavel.dataProperty().setValue(valorMbr.getText());
+				controlador.getMemoriaInterna().atualizarValoresVariaveis();
+				
+				ObservableList<VariavelIdentificador> variaveis 
+					= TelaPrincipal.getTabVariaveis().getItems();
+				
+				for (VariavelIdentificador var : variaveis) {
+					
+					if (var.enderecoProperty().getValue().equals(valorMar.getText()))
+						var.dataProperty().setValue(valorMbr.getText());
+					
+				}
+				
+				TelaPrincipal.getTabVariaveis().setItems(variaveis);
+				
+				limparElementosTela();
+				
+				controlador.operar();
+				
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.MOVER_DADO_MEMORIA);
+		
+	}
 	
-	/*public void transferirReferenciaDadoParaMemoria() {
-		
-		Integer valor = (Integer)controlador.getUcpInterna().getMar().getValor();
-		
-		double xDeMar = controlador.getUcpInterna().getMar().getTxtValor().getX();
-		double yDeMar = controlador.getUcpInterna().getMar().getTxtValor().getY();
-		double xParaMar = 1160;
-		double xDeRead = controlador.getUcpInterna().getUc().getTxtValor().getX();
-		double yDeRead = controlador.getUcpInterna().getUc()
-	
-		valorMar = new Text(valor.toString());
-		valorMar.setX(xDeMar);
-		valorMar.setY(yDeMar);
-	
-		controlador.getBarramentoInterno().adicionar(valorMar);
-		controlador.adicionarElemento(valorMar);
-		valorMar.toFront();
-	
-		Timeline timeline = new Timeline();
-	
-		timeline.getKeyFrames().addAll(
-               new KeyFrame(Duration.ZERO, 
-                   new KeyValue(valorMar.xProperty(), xDeMar),
-                   new KeyValue(valorMar.yProperty(), yDeMar)
-               ),
-               new KeyFrame(new Duration(3000), 
-                	new KeyValue(valorMar.xProperty(), xParaMar),
-	                new KeyValue(valorMar.yProperty(), yDeMar)
-               )
-		);
-		
-		
-		
-		
-		nextStep(EstadoCiclo.TRANSFERIR_MAR_MBR_MEMORIA);
-		
-	}*/
 	
 	public void animarOperacaoAritmetica() {
 		
@@ -400,7 +412,10 @@ public class Execucao extends Ciclo {
 
 	@Override
 	protected void limparElementosTela() {
-		// TODO Auto-generated method stub
+		
+		controlador.getBarramentoInterno().remover(valorMar);
+		controlador.getMemoriaInterna().remover(valorMbr);
+		controlador.getBarramentoInterno().remover(valorUc);
 		
 	}
 

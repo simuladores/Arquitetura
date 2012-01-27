@@ -220,6 +220,12 @@ public class MemoriaInterna extends ComponenteInterno{
 		return null;
 		
 	}
+	
+	public void atualizarValoresVariaveis() {
+		
+		tabelaVariaveis.setItems(variaveis);
+		
+	}
 
 	@Override
 	protected void definirAcoesEspecificas() {
@@ -239,6 +245,19 @@ public class MemoriaInterna extends ComponenteInterno{
 		}
 		
 		return null;
+	}
+	
+	public Variavel obterVariavel(Integer endereco) {
+		
+		for (Variavel var : variaveis) {
+			
+			if (var.enderecoProperty().getValue().equals(endereco))
+				return var;
+			
+		}
+		
+		return null;
+		
 	}
 	
 	public ObservableList<Instrucao> getInstrucoes() {
