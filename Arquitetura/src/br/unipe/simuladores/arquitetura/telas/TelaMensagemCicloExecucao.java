@@ -20,6 +20,10 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 	private static final String COPIAR_VALOR_MBR_BARRAMENTO_EXECUCAOTXT = "O valor de MBR, " +
 			"que corresponde ao dado a ser escrito na memória, é transferido para o barramento " +
 			"de dados.";
+	private static final String COPIAR_WRITE_BARRAMENTOTXT = "A instrução \"WRITE\" é copiada " +
+			"da UC para o barramento de instruções";
+	private static final String MOVER_DADOS_BARRAMENTO_MEMORIA_ESCRITATXT = "Os dados " +
+			"contidos no barramento são então transferidos para a memória.";
 
 	public TelaMensagemCicloExecucao(EstadoCiclo estado) {
 		
@@ -39,6 +43,8 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 		case TRANSFERIR_IR_MAR: return TRANSFERIR_IR_MARTXT;
 		case COPIAR_VALOR_MAR_BARRAMENTO_EXECUCAO: return COPIAR_VALOR_MAR_BARRAMENTO_EXECUCAOTXT;
 		case COPIAR_VALOR_MBR_BARRAMENTO_EXECUCAO: return COPIAR_VALOR_MBR_BARRAMENTO_EXECUCAOTXT;
+		case COPIAR_WRITE_BARRAMENTO: return COPIAR_WRITE_BARRAMENTOTXT;
+		case MOVER_DADOS_BARRAMENTO_MEMORIA_ESCRITA: return MOVER_DADOS_BARRAMENTO_MEMORIA_ESCRITATXT;
 		//case TRANSFERIR_MAR_MBR_MEMORIA: return TRANSFERIR_MAR_MBR_MEMORIATXT;
 		}
 		

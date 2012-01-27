@@ -193,7 +193,7 @@ public class Indireto extends Ciclo{
 	public void transferirREADParaBarramento() {
 		
 		
-		READParaBarramento();
+		ValorUCParaBarramento(968, 593, 1100, "READ");
 		
 		animation.setOnFinished(new EventHandler<ActionEvent>(){
 
@@ -387,7 +387,7 @@ public class Indireto extends Ciclo{
 	@Override
 	protected void limparElementosTela() {
 		
-		controlador.getBarramentoInterno().remover(read);
+		controlador.getBarramentoInterno().remover(valorUc);
 		controlador.getBarramentoInterno().remover(valorMar);
 		controlador.getMemoriaInterna().remover(path);
 		controlador.getBarramentoInterno().remover(path2);

@@ -29,7 +29,7 @@ public abstract class Ciclo {
 	protected Animation animation;
 	protected boolean continuar = false;
 	protected TelaMensagemSimulacao telaMensagem;
-	protected Text read;
+	protected Text valorUc;
 	protected Text valorMar;
 	protected Text valorMbr;
 	
@@ -66,41 +66,42 @@ public abstract class Ciclo {
 		
 	}
 	
-	protected void READParaBarramento() {
+	protected void ValorUCParaBarramento(
+			double xDe, double yDe, double xPara, String valor) {
 		
-		double xDe = 968, yDe = 593, xPara = 1100;
+		//double xDe = 968, yDe = 593, xPara = 1100;
 		
-		controlador.getUcpInterna().getUc().atualizarValor("READ", xDe, yDe);
+		controlador.getUcpInterna().getUc().atualizarValor(valor, xDe, yDe);
 		controlador.getUcpInterna()
 			.atualizarUnidadeTela(controlador.getUcpInterna().getUc());
 	
-		read = new Text("READ");
-		read.setX(xDe);
-		read.setY(yDe);
-		read.setFont(new Font(12));
+		valorUc = new Text(valor);
+		valorUc.setX(xDe);
+		valorUc.setY(yDe);
+		valorUc.setFont(new Font(12));
 		controlador.getUcpInterna().getUc().getTxtValor().setVisible(false);
-		read.setVisible(false);
+		valorUc.setVisible(false);
 	
-		controlador.getBarramentoInterno().adicionar(read);
-		controlador.adicionarElemento(read);
-		read.toFront();
+		controlador.getBarramentoInterno().adicionar(valorUc);
+		controlador.adicionarElemento(valorUc);
+		valorUc.toFront();
 	
 		animation = new Timeline();
 		
 		((Timeline)animation).getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(read.xProperty(), xDe),
-	                   new KeyValue(read.visibleProperty(), true),
+	                   new KeyValue(valorUc.xProperty(), xDe),
+	                   new KeyValue(valorUc.visibleProperty(), true),
 	                   new KeyValue(controlador.getUcpInterna().getUc()
 	                		   .getTxtValor().visibleProperty(), true),
-	                   new KeyValue(read.yProperty(), yDe)
+	                   new KeyValue(valorUc.yProperty(), yDe)
 	               ),
 	               new KeyFrame(new Duration(3000), 
-	                	new KeyValue(read.xProperty(), xPara),
-	                	new KeyValue(read.visibleProperty(), true),
+	                	new KeyValue(valorUc.xProperty(), xPara),
+	                	new KeyValue(valorUc.visibleProperty(), true),
 	                	new KeyValue(controlador.getUcpInterna().getUc()
 	                			.getTxtValor().visibleProperty(), true),
-		                new KeyValue(read.yProperty(), yDe)
+		                new KeyValue(valorUc.yProperty(), yDe)
 	               )
 			);
 		
@@ -140,8 +141,8 @@ public abstract class Ciclo {
 	
 	protected void moverDadosLeituraBarramentoMemoria() {
 		
-		double xDeRead = read.getX();
-		double yDeRead = read.getY();
+		double xDeRead = valorUc.getX();
+		double yDeRead = valorUc.getY();
 		double yPara = 40;
 		
 		double xDeMar = valorMar.getX();
@@ -151,14 +152,14 @@ public abstract class Ciclo {
 		
 		((Timeline)animation).getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(read.xProperty(), xDeRead),
-	                   new KeyValue(read.yProperty(), yDeRead),
+	                   new KeyValue(valorUc.xProperty(), xDeRead),
+	                   new KeyValue(valorUc.yProperty(), yDeRead),
 	               	   new KeyValue(valorMar.xProperty(), xDeMar),
                        new KeyValue(valorMar.yProperty(), yDeMar)
 	               ),
 	               new KeyFrame(new Duration(3000), 
-	                	new KeyValue(read.xProperty(), xDeRead),
-		                new KeyValue(read.yProperty(), yPara),
+	                	new KeyValue(valorUc.xProperty(), xDeRead),
+		                new KeyValue(valorUc.yProperty(), yPara),
 		                new KeyValue(valorMar.xProperty(), xDeMar),
 		                new KeyValue(valorMar.yProperty(), yPara)
 	               )

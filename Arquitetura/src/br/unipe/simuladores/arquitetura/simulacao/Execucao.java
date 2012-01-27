@@ -278,7 +278,7 @@ public class Execucao extends Ciclo {
 			@Override
 			public void handle(ActionEvent e) {
 			
-				controlador.operar();
+				copiarWRITEParaBarramento();
 			
 			}
 		
@@ -288,6 +288,72 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	
+	public void copiarWRITEParaBarramento() {
+		
+		ValorUCParaBarramento(965, 593, 1098, "WRITE");
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				moverDadosEscritaParaMemoria();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.COPIAR_WRITE_BARRAMENTO);
+		
+	}
+	
+	public void moverDadosEscritaParaMemoria() {
+		
+		double xWrite = valorUc.getX();
+		double yDeWrite = valorUc.getY();
+		double xEnd = valorMar.getX();
+		double yDeEnd = valorMar.getY();
+		double xDado = valorMbr.getX();
+		double yDeDado = valorMbr.getY();
+		
+		double yPara = 40;
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(valorUc.xProperty(), xWrite),
+	                   new KeyValue(valorUc.yProperty(), yDeWrite),
+	                   new KeyValue(valorMar.xProperty(), xEnd),
+	                   new KeyValue(valorMar.yProperty(), yDeEnd),
+	                   new KeyValue(valorMbr.xProperty(), xDado),
+	                   new KeyValue(valorMbr.yProperty(), yDeDado)
+	               ),
+	               new KeyFrame(new Duration(3000), 
+	            	   new KeyValue(valorUc.xProperty(), xWrite),
+		               new KeyValue(valorUc.yProperty(), yPara),
+		               new KeyValue(valorMar.xProperty(), xEnd),
+		               new KeyValue(valorMar.yProperty(), yPara),
+		               new KeyValue(valorMbr.xProperty(), xDado),
+		               new KeyValue(valorMbr.yProperty(), yPara)
+	               )
+			);
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.MOVER_DADOS_BARRAMENTO_MEMORIA_ESCRITA);
+		
+	}
 	
 	
 	/*public void transferirReferenciaDadoParaMemoria() {

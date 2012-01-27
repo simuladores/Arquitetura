@@ -112,6 +112,7 @@ public class UCPInterna extends ComponenteInterno{
 		uc = new UC();
 		uc.construirForma(950, 575);
 		uc.adicionarTexto(975, 618);
+		//uc.atualizarValor("WRITE", 965, 593);
 		atualizarUnidadeTela(uc);
 		
 		ula = new ULA();
