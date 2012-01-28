@@ -632,7 +632,28 @@ public class Execucao extends Ciclo {
 				
 				op2.setText(valorMbr.getText());
 				
-				controlador.operar();
+				modEndOp2 = ModoEnderecamento.IMEDIATO;
+				
+				Text txt = new Text(op2.getText());
+				txt.setX(op2.getX());
+				txt.setY(op2.getY());
+				controlador.getUcpInterna().adicionar(txt);
+				controlador.adicionarElemento(txt);
+				
+				limparElementosTela();
+				
+				if (modEndOp1 == ModoEnderecamento.DIRETO || 
+						modEndOp1 == ModoEnderecamento.INDIRETO) 
+					
+					moverDadoParaMBR(txt);
+					
+			    else if (modEndOp1 == ModoEnderecamento.REGISTRADOR)
+					
+					moverDadoParaRegistrador(txt);
+				
+				else if (modEndOp1 == ModoEnderecamento.INDIRETO_REGISTRADOR)
+					
+					moverRefenciaIndiretaRegistradorParaIr(txt);
 				
 			}
 			
