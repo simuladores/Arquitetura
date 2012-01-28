@@ -31,7 +31,12 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 			"da UC para o barramento de instruções.";
 	private static final String MOVER_DADOS_BARRAMENTO_MEMORIA_LEITURATXT = "Os dados " +
 			"da requisição da leitura do dado contido no endereço especificado são movidos\n " +
-			"da para a memória pelo barramento.";
+			"para a memória pelo barramento.";
+	private static final String TRANSFERIR_DADO_LEITURA_BARRAMENTOTXT = "O dado lido da " +
+			"memória é então transferido para a UCP pelo barramento de dados.";
+	private static final String TRANSFERIR_MBR_PARA_IR_EXECUCAOTXT = "O valor contido em MBR, " +
+			"que corresponde ao dado buscado da memória, é transferido para o segundo operando " +
+			"de IR.";
 
 	public TelaMensagemCicloExecucao(EstadoCiclo estado) {
 		
@@ -59,6 +64,8 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 		case TRANSFERIR_IR_MAR_2: return TRANSFERIR_IR_MAR_2TXT;
 		case COPIAR_READ_BARRAMENTO_EXECUCAO: return COPIAR_READ_BARRAMENTO_EXECUCAOTXT;
 		case MOVER_DADOS_BARRAMENTO_MEMORIA_LEITURA: return MOVER_DADOS_BARRAMENTO_MEMORIA_LEITURATXT;
+		case TRANSFERIR_DADO_LEITURA_BARRAMENTO: return TRANSFERIR_DADO_LEITURA_BARRAMENTOTXT;
+		case TRANSFERIR_MBR_PARA_IR_EXECUCAO: return TRANSFERIR_MBR_PARA_IR_EXECUCAOTXT;
 		}
 		
 		return null;

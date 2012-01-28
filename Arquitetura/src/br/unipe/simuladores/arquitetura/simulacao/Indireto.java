@@ -22,8 +22,6 @@ public class Indireto extends Ciclo{
 	private OperandoCicloIndireto operando;
 	private OperandoCicloIndireto operandoMens;
 	private Execucao execucao;
-	
-	private boolean primeiroOperando;
 
 	public Indireto(Text end, Text opcode, Text op1, Text op2, Controlador c) {
 		
@@ -256,31 +254,19 @@ public class Indireto extends Ciclo{
 	
 	public void transferirDadoReferenciaIndiretaPeloBarramento() {
 		
-		Point2D p1 = new Point2D(980, 60);
-		Point2D p2 = new Point2D(1215, 60);
-		Point2D p3 = new Point2D(1215, 473);
-		Point2D p4 = new Point2D(926, 473);
-		
-		Integer endereco = new Integer(
-				controlador.getUcpInterna().getMar().getTxtValor().getText());
-		
-		final Integer dado = controlador.getMemoriaInterna().obterDadoVariavel(endereco);
-		
-		final Text txtReferencia = new Text(dado.toString());
-		
-		transferirDadoBarramento(p1, p2, p3, p4, txtReferencia);
+		transferirDadoMemoriaPeloBarramento();
 		
 		animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 			@Override
 			public void handle(ActionEvent e) {
 				
-				controlador.getBarramentoInterno().remover(txtReferencia);
+				controlador.getBarramentoInterno().remover(txtDadoTransferencia);
 				MBR mbr = controlador.getUcpInterna().getMbr();
 				mbr.atualizarValor(dado, 923, 478);
 				controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
 				
-				transferirMbrParaIr();
+				transferirMbrParaIrIndireto();
 				
 			}
 			
@@ -290,48 +276,20 @@ public class Indireto extends Ciclo{
 		
 	}
 	
-	public void transferirMbrParaIr() {
+	public void transferirMbrParaIrIndireto() {
 		
-		MBR mbr =controlador.getUcpInterna().getMbr(); 
-		double xDe = mbr.getTxtValor().getX();
-		double yDe = mbr.getTxtValor().getY();
-		double xPara, 
-			yPara = op1.getY();
-		
-		if (primeiroOperando)
-			xPara = op1.getX();
-		else 
-			xPara = op2.getX();
-		
-		final Text txtValor = new Text(mbr.getTxtValor().getText());
-		txtValor.setX(xDe);
-		txtValor.setY(yDe);
-		controlador.getUcpInterna().adicionar(txtValor);
-		controlador.adicionarElemento(txtValor);
-		
-		animation = new Timeline();
-		
-		((Timeline)animation).getKeyFrames().addAll(
-	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(txtValor.xProperty(), xDe),
-	                   new KeyValue(txtValor.yProperty(), yDe)
-	               ),
-	               new KeyFrame(Duration.millis(3000), 
-	            	   new KeyValue(txtValor.xProperty(), xPara),
-		               new KeyValue(txtValor.yProperty(), yPara)
-		           )
-	     );
+		transferirMbrParaIr();
 		
 		animation.setOnFinished(new EventHandler<ActionEvent>(){
 
 			@Override
 			public void handle(ActionEvent e) {
 				
-				controlador.getUcpInterna().remover(txtValor);
+				controlador.getUcpInterna().remover(valorMbr);
 				if (primeiroOperando)
-					op1.setText(txtValor.getText());
+					op1.setText(valorMbr.getText());
 				else
-					op2.setText(txtValor.getText());
+					op2.setText(valorMbr.getText());
 				
 				if (primeiroOperando && operando == OperandoCicloIndireto.OS_DOIS){
 					primeiroOperando = false;

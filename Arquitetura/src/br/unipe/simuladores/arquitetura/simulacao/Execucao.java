@@ -17,6 +17,7 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelId
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
+import br.unipe.simuladores.arquitetura.enums.OperandoCicloIndireto;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloExecucao;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
@@ -427,7 +428,7 @@ public class Execucao extends Ciclo {
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				controlador.operar();
+				transferirDadoLeituraPeloBarramento();
 				
 			}
 			
@@ -591,11 +592,56 @@ public class Execucao extends Ciclo {
 		
 	}
 	
-	public void buscarDadoMemoria() {
+	public void transferirDadoLeituraPeloBarramento() {
 		
+		transferirDadoMemoriaPeloBarramento();
 		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getBarramentoInterno().remover(txtDadoTransferencia);
+				MBR mbr = controlador.getUcpInterna().getMbr();
+				mbr.atualizarValor(dado, 923, 478);
+				controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
+				
+				primeiroOperando = false;
+				
+				transferirMbrParaIrExecucao();
+
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_DADO_LEITURA_BARRAMENTO);
 		
 	}
+	
+	public void transferirMbrParaIrExecucao() {
+		
+		transferirMbrParaIr();
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().remover(valorMbr);
+				
+				op2.setText(valorMbr.getText());
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_MBR_PARA_IR_EXECUCAO);
+		
+	}
+	
 	
 	public void animarOperacaoAritmetica() {
 		

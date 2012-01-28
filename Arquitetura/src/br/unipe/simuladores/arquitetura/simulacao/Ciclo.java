@@ -2,6 +2,7 @@ package br.unipe.simuladores.arquitetura.simulacao;
 
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.IR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
@@ -41,6 +42,11 @@ public abstract class Ciclo {
 	protected Text opcode;
 	protected Text op1;
 	protected Text op2;
+	
+	protected Integer dado;
+	protected Text txtDadoTransferencia;
+	
+	protected boolean primeiroOperando;
 	
 	public Ciclo(Controlador c) {
 		
@@ -270,6 +276,58 @@ public abstract class Ciclo {
 		controlador.adicionarElemento(op1);
 		controlador.getUcpInterna().adicionar(op2);
 		controlador.adicionarElemento(op2);
+		
+	}
+	
+	protected void transferirDadoMemoriaPeloBarramento() {
+		
+		Point2D p1 = new Point2D(980, 60);
+		Point2D p2 = new Point2D(1215, 60);
+		Point2D p3 = new Point2D(1215, 473);
+		Point2D p4 = new Point2D(926, 473);
+		
+		Integer endereco = new Integer(
+				controlador.getUcpInterna().getMar().getTxtValor().getText());
+		
+		dado = controlador.getMemoriaInterna().obterDadoVariavel(endereco);
+		
+		txtDadoTransferencia = new Text(dado.toString());
+		
+		transferirDadoBarramento(p1, p2, p3, p4, txtDadoTransferencia);
+		
+	}
+	
+	protected void transferirMbrParaIr() {
+		
+		MBR mbr = controlador.getUcpInterna().getMbr(); 
+		double xDe = mbr.getTxtValor().getX();
+		double yDe = mbr.getTxtValor().getY();
+		double xPara, 
+			yPara = op1.getY();
+		
+		if (primeiroOperando)
+			xPara = op1.getX();
+		else 
+			xPara = op2.getX();
+		
+		valorMbr = new Text(mbr.getTxtValor().getText());
+		valorMbr.setX(xDe);
+		valorMbr.setY(yDe);
+		controlador.getUcpInterna().adicionar(valorMbr);
+		controlador.adicionarElemento(valorMbr);
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(valorMbr.xProperty(), xDe),
+	                   new KeyValue(valorMbr.yProperty(), yDe)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(valorMbr.xProperty(), xPara),
+		               new KeyValue(valorMbr.yProperty(), yPara)
+		           )
+	     );
 		
 	}
 	
