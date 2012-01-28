@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Registrador;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Variavel;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelIdentificador;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
@@ -117,11 +118,18 @@ public class Execucao extends Ciclo {
 			controlador.getUcpInterna().adicionar(txt);
 			controlador.adicionarElemento(txt);
 			
-			if (modEndOp1 == ModoEnderecamento.DIRETO) {
+			if (modEndOp1 == ModoEnderecamento.DIRETO || 
+					modEndOp1 == ModoEnderecamento.INDIRETO) 
 				
 				moverDadoParaMBR(txt);
 				
-			}			
+		    else if (modEndOp1 == ModoEnderecamento.REGISTRADOR)
+				
+				moverDadoParaRegistrador(txt);
+			
+			else if (modEndOp1 == ModoEnderecamento.INDIRETO_REGISTRADOR)
+				
+				moverRefenciaIndiretaRegistradorParaIr();
 			
 		}
 		
@@ -405,8 +413,105 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	public void moverDadoParaRegistrador(final Text text) {
+		
+		double xDe = text.getX();
+		double yDe = text.getY();
+		
+		final Registrador registrador = controlador.getUcpInterna()
+				.obterRegistrador(new Integer(op1.getText())); 
+		
+		final double xPara = registrador.getTxtValor().getX();
+		final double yPara = registrador.getTxtValor().getY();
+		
+		controlador.getUcpInterna().getUc().atualizarValor("WRITE", 965, 593);
+		controlador.getUcpInterna()
+			.atualizarUnidadeTela(controlador.getUcpInterna().getUc());
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(text.xProperty(), xDe),
+	                   new KeyValue(text.yProperty(), yDe)
+	               ),
+	               new KeyFrame(new Duration(3000), 
+	                	new KeyValue(text.xProperty(), xPara),
+		                new KeyValue(text.yProperty(), yPara)
+	               )
+			);
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().remover(text);
+				registrador.atualizarValor(text.getText(), xPara, yPara);
+				controlador.getUcpInterna().atualizarValorUnidadeTela(registrador);
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.MOVER_DADO_REGISTRADOR);
+		
+	}
+	
+	public void moverRefenciaIndiretaRegistradorParaIr() {
+		
+		final Registrador registrador = controlador.getUcpInterna().
+				obterRegistrador(new Integer(op1.getText()));
+		
+		double xDe = registrador.getTxtValor().getX();
+		double yDe = registrador.getTxtValor().getY();
+		final double xPara = op1.getX();
+		final double yPara = op1.getY();
+		
+		final Text text = new Text(registrador.getTxtValor().getText());
+		text.setX(xDe);
+		text.setY(yDe);
+		controlador.getUcpInterna().adicionar(text);
+		controlador.adicionarElemento(text);
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(text.xProperty(), xDe),
+	                   new KeyValue(text.yProperty(), yDe)
+	               ),
+	               new KeyFrame(new Duration(3000), 
+	                	new KeyValue(text.xProperty(), xPara),
+		                new KeyValue(text.yProperty(), yPara)
+	               )
+			);
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().remover(text);
+				op1.setText(text.getText());
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.MOVER_REFERENCIA_INDIRETA_REGISTRADOR_IR);
+		
+		
+	}
+	
 	
 	public void animarOperacaoAritmetica() {
+		
+		
 		
 	}
 

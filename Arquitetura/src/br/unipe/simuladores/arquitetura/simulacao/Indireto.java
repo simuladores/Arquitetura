@@ -341,6 +341,8 @@ public class Indireto extends Ciclo{
 						(!primeiroOperando && operando == 
 						OperandoCicloIndireto.OS_DOIS)) {
 					
+					limparElementosTela();
+					
 					execucao = new Execucao(endereco, opcode, op1, op2, controlador);
 						execucao.mostrarAnimacoes();
 						
@@ -392,6 +394,7 @@ public class Indireto extends Ciclo{
 		controlador.getMemoriaInterna().remover(path);
 		controlador.getBarramentoInterno().remover(path2);
 		controlador.getBarramentoInterno().remover(path3);
+		controlador.getBarramentoInterno().remover(valorUc);
 		
 	}
 

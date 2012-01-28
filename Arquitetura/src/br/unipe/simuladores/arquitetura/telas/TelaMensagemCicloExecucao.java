@@ -22,6 +22,10 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 			"contidos no barramento são então transferidos para a memória.";
 	private static final String MOVER_DADO_MEMORIATXT = "O dado é então escrito na " +
 			"memória no endereço requisitado pela UCP.";
+	private static final String MOVER_DADO_REGISTRADORTXT = "O dado, referente ao segundo operando " +
+			"da instrução em IR, é copiado para o registrador especificado no primeiro operando.";
+	private static final String MOVER_REFERENCIA_INDIRETA_REGISTRADOR_IRTXT = "O valor do registrador " +
+			"referenciado no primeiro operando de IR é transferido para esse operando. ";
 
 	public TelaMensagemCicloExecucao(EstadoCiclo estado) {
 		
@@ -44,6 +48,8 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 		case COPIAR_WRITE_BARRAMENTO: return COPIAR_WRITE_BARRAMENTOTXT;
 		case MOVER_DADOS_BARRAMENTO_MEMORIA_ESCRITA: return MOVER_DADOS_BARRAMENTO_MEMORIA_ESCRITATXT;
 		case MOVER_DADO_MEMORIA: return MOVER_DADO_MEMORIATXT;
+		case MOVER_DADO_REGISTRADOR: return MOVER_DADO_REGISTRADORTXT;
+		case MOVER_REFERENCIA_INDIRETA_REGISTRADOR_IR: return MOVER_REFERENCIA_INDIRETA_REGISTRADOR_IRTXT;
 		}
 		
 		return null;

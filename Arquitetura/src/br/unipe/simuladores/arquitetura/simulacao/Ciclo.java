@@ -69,8 +69,6 @@ public abstract class Ciclo {
 	protected void ValorUCParaBarramento(
 			double xDe, double yDe, double xPara, String valor) {
 		
-		//double xDe = 968, yDe = 593, xPara = 1100;
-		
 		controlador.getUcpInterna().getUc().atualizarValor(valor, xDe, yDe);
 		controlador.getUcpInterna()
 			.atualizarUnidadeTela(controlador.getUcpInterna().getUc());
