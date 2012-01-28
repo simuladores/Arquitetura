@@ -205,7 +205,7 @@ public class TelaInserirInstrucoes extends Tela implements Formulario{
 				
 				fechar();
 				
-				Controlador controlador = new Controlador();
+				Controlador controlador = Controlador.obterReferencia();
 				controlador.iniciarSimulacao();
 				
 			}

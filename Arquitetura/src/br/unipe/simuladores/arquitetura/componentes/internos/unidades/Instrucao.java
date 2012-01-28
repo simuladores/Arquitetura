@@ -12,12 +12,15 @@ public class Instrucao extends CelulaMemoria {
 	private IntegerProperty referenciaOperando1;
 	private IntegerProperty referenciaOperando2;
 	
+	private boolean executada;
+	
 	public Instrucao(Integer end, Integer op, Integer refOp1, Integer refOp2) {
 		
 		super(end);
 		opcode = new SimpleIntegerProperty(op);
 		referenciaOperando1 = new SimpleIntegerProperty(refOp1);
 		referenciaOperando2 = new SimpleIntegerProperty(refOp2);
+		executada = false;
 		
 	}
 	
@@ -27,6 +30,7 @@ public class Instrucao extends CelulaMemoria {
 		opcode = new SimpleIntegerProperty(op);
 		referenciaOperando1 = new SimpleIntegerProperty(refOp1);
 		referenciaOperando2 = new SimpleIntegerProperty(refOp2);
+		executada = false;
 		
 	}
 	
@@ -38,6 +42,7 @@ public class Instrucao extends CelulaMemoria {
 		this.gerarOpcode(operacao, modEndOp1, modEndOp2);
 		referenciaOperando1 = new SimpleIntegerProperty(refOp1);
 		referenciaOperando2 = new SimpleIntegerProperty(refOp2);
+		executada = false;
 				
 	}
 	
@@ -100,6 +105,14 @@ public class Instrucao extends CelulaMemoria {
 		
 		return fatorEnderecamentoOp2 + 5 * fatorEndOp1; 
 		
+	}
+
+	public boolean isExecutada() {
+		return executada;
+	}
+
+	public void setExecutada(boolean executada) {
+		this.executada = executada;
 	}
 
 }

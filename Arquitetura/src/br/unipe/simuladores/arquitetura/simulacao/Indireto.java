@@ -25,9 +25,16 @@ public class Indireto extends Ciclo{
 	
 	private boolean primeiroOperando;
 
-	public Indireto(Controlador c) {
+	public Indireto(Text end, Text opcode, Text op1, Text op2, Controlador c) {
 		
 		super(c);
+		
+		super.endereco = end;
+		super.opcode = opcode;
+		super.op1 = op1;
+		super.op2 = op2;
+		
+		execucao = new Execucao(endereco, opcode, op1, op2, controlador);
 		
 	}
 
@@ -78,8 +85,6 @@ public class Indireto extends Ciclo{
 						@Override
 						public void handle(ActionEvent e) {
 							
-							execucao = new Execucao
-									(endereco, opcode, op1, op2, controlador);
 							execucao.mostrarAnimacoes();
 							
 						}
@@ -343,8 +348,7 @@ public class Indireto extends Ciclo{
 					
 					limparElementosTela();
 					
-					execucao = new Execucao(endereco, opcode, op1, op2, controlador);
-						execucao.mostrarAnimacoes();
+					execucao.mostrarAnimacoes();
 						
 				}
 				

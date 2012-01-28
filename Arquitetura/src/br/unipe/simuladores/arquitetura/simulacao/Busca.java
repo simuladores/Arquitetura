@@ -19,10 +19,18 @@ import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 public class Busca extends Ciclo{
 	
 	private Text txtInstrucao;
+	private Indireto indireto;
 
 	public Busca(Controlador c) {
 		
 		super(c);
+		
+		endereco = new Text();
+		opcode = new Text();
+		op1 = new Text();
+		op2 = new Text();
+		
+		indireto = new Indireto(endereco, opcode, op1, op2, c);
 		
 	}
 	
@@ -293,6 +301,11 @@ public class Busca extends Ciclo{
 		
 		String txtInst = txtInstrucao.getText();
 		
+		controlador.getUcpInterna().remover(endereco);
+		controlador.getUcpInterna().remover(opcode);
+		controlador.getUcpInterna().remover(op1);
+		controlador.getUcpInterna().remover(op2);
+		
 		controlador.getUcpInterna().getMbr().atualizarValor(
 				txtInst, xMbr, yMbr);
 		controlador.getUcpInterna().atualizarValorUnidadeTela(
@@ -339,8 +352,7 @@ public class Busca extends Ciclo{
 				controlador.getUcpInterna().getPc().getTxtValor().opacityProperty().setValue(1.0f);
 				
 				limparElementosTela();
-				
-				Indireto indireto = new Indireto(controlador);
+			
 				indireto.mostrarAnimacoes();
 				
 			}

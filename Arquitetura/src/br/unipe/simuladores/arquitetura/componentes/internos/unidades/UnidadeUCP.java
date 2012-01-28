@@ -49,6 +49,10 @@ public abstract class UnidadeUCP {
 		this.txtValor = txtValor;
 	}
 	public Object getValor() {
+		
+		if (valor.equals(""))
+			return new Integer(0);
+		
 		return valor;
 	}
 	public void setValor(Object valor) {

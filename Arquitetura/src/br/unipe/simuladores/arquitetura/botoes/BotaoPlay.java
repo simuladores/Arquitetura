@@ -40,7 +40,7 @@ public class BotaoPlay extends Botao {
 				
 				if (este.isStopped()) {
 					
-					controlador = new Controlador();
+					controlador = Controlador.obterReferencia();
 					controlador.iniciarSimulacao();
 					btnStop.ativar();
 					este.setStopped(false);

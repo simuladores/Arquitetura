@@ -129,7 +129,7 @@ public class Execucao extends Ciclo {
 			
 			else if (modEndOp1 == ModoEnderecamento.INDIRETO_REGISTRADOR)
 				
-				moverRefenciaIndiretaRegistradorParaIr();
+				moverRefenciaIndiretaRegistradorParaIr(txt);
 			
 		}
 		
@@ -460,7 +460,7 @@ public class Execucao extends Ciclo {
 		
 	}
 	
-	public void moverRefenciaIndiretaRegistradorParaIr() {
+	public void moverRefenciaIndiretaRegistradorParaIr(final Text text) {
 		
 		final Registrador registrador = controlador.getUcpInterna().
 				obterRegistrador(new Integer(op1.getText()));
@@ -470,22 +470,22 @@ public class Execucao extends Ciclo {
 		final double xPara = op1.getX();
 		final double yPara = op1.getY();
 		
-		final Text text = new Text(registrador.getTxtValor().getText());
-		text.setX(xDe);
-		text.setY(yDe);
-		controlador.getUcpInterna().adicionar(text);
-		controlador.adicionarElemento(text);
+		final Text txt = new Text(registrador.getTxtValor().getText());
+		txt.setX(xDe);
+		txt.setY(yDe);
+		controlador.getUcpInterna().adicionar(txt);
+		controlador.adicionarElemento(txt);
 		
 		animation = new Timeline();
 		
 		((Timeline)animation).getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(text.xProperty(), xDe),
-	                   new KeyValue(text.yProperty(), yDe)
+	                   new KeyValue(txt.xProperty(), xDe),
+	                   new KeyValue(txt.yProperty(), yDe)
 	               ),
 	               new KeyFrame(new Duration(3000), 
-	                	new KeyValue(text.xProperty(), xPara),
-		                new KeyValue(text.yProperty(), yPara)
+	                	new KeyValue(txt.xProperty(), xPara),
+		                new KeyValue(txt.yProperty(), yPara)
 	               )
 			);
 		
@@ -494,10 +494,10 @@ public class Execucao extends Ciclo {
 			@Override
 			public void handle(ActionEvent e) {
 				
-				controlador.getUcpInterna().remover(text);
-				op1.setText(text.getText());
+				controlador.getUcpInterna().remover(txt);
+				op1.setText(txt.getText());
 				
-				controlador.operar();
+				moverDadoParaMBR(text);
 				
 			}
 			

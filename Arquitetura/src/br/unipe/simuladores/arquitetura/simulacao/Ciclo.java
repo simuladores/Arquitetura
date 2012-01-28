@@ -246,16 +246,16 @@ public abstract class Ciclo {
 		double xIr = ir.getTxtValor().getX();
 		double yIr = ir.getTxtValor().getY(); 
 		Instrucao instrucaoAtual = controlador.getInstrucaoAtual();
-		endereco = new Text(instrucaoAtual.enderecoProperty().getValue().toString());
+		endereco.setText(instrucaoAtual.enderecoProperty().getValue().toString());
 		endereco.setX(ir.getTxtValor().getX());
 		endereco.setY(yIr);
-		opcode = new Text(instrucaoAtual.opcodeProperty().getValue().toString());
+		opcode.setText(instrucaoAtual.opcodeProperty().getValue().toString());
 		opcode.setX(endereco.getX() + endereco.getWrappingWidth() + 16);
 		opcode.setY(yIr);
-		op1 = new Text(instrucaoAtual.referenciaOp1Property().getValue().toString());
+		op1.setText(instrucaoAtual.referenciaOp1Property().getValue().toString());
 		op1.setX(opcode.getX() + opcode.getWrappingWidth() + 16);
 		op1.setY(yIr);
-		op2 = new Text(instrucaoAtual.referenciaOp2Property().getValue().toString());
+		op2.setText(instrucaoAtual.referenciaOp2Property().getValue().toString());
 		op2.setX(op1.getX() + op1.getWrappingWidth() + 16);
 		op2.setY(yIr);
 		

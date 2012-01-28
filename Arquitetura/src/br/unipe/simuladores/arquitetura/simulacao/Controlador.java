@@ -27,12 +27,15 @@ public class Controlador{
 	private BotaoStop btnStop;
 	private List<Node> elementosAdicionados;
 	
-	protected ObservableList<Instrucao> instrucoes;
-	protected Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
+	protected static ObservableList<Instrucao> instrucoes;
+	protected static Queue<Instrucao> instrucoesQueue = new LinkedList<Instrucao>();
 	
 	private Animation animacaoAtual;
+	
+	private static Controlador referencia;
+	private static Busca busca;
 		
-	public Controlador() {
+	private Controlador() {
 		
 		memoriaInterna = TelaPrincipal.getComputador().getMemoriaPrincipal().getMemoriaInterna();
 		ucpInterna = TelaPrincipal.getComputador().getUCP().getUCPInterna();
@@ -41,13 +44,31 @@ public class Controlador{
 		btnStop = TelaPrincipal.getBotaoStop();
 
 		instrucoes = memoriaInterna.getInstrucoes();
-		instrucoesQueue = new LinkedList<Instrucao>();
 		
-		for (Instrucao instr : instrucoes)
-			instrucoesQueue.add(instr);
 		
 		elementosAdicionados = new ArrayList<Node>();
 		
+		busca = new Busca(this);
+		
+		
+	}
+	
+	public static Controlador obterReferencia() {
+		
+		
+		if (referencia == null) 
+			referencia = new Controlador();
+		
+		instrucoesQueue = new LinkedList<Instrucao>();
+		
+		for (Instrucao instr : instrucoes) {
+			
+			if (!instr.isExecutada())
+				instrucoesQueue.add(instr);
+			
+		}
+		
+		return referencia;
 		
 	}
 	
@@ -78,9 +99,15 @@ public class Controlador{
 			selectionModel.select(instrucaoAtual);
 			memoriaInterna.getTabelaInstrucoes().selectionModelProperty().setValue(selectionModel);
 					
-			Busca busca = new Busca(this);
-			//acaoIniciarSimulacao(busca.timeline);
 			busca.mostrarAnimacoes();
+			
+			for(Instrucao instrucao : instrucoes) {
+				
+				if (instrucao.enderecoProperty().getValue().equals(
+						instrucaoAtual.enderecoProperty().getValue()))
+					instrucao.setExecutada(true);
+				
+			}
 			
 										
 		}
