@@ -132,7 +132,8 @@ public class Execucao extends Ciclo {
 				
 				moverRefenciaIndiretaRegistradorParaIr(txt);
 			
-		} else if (modEndOp2 == ModoEnderecamento.DIRETO) {
+		} else if (modEndOp2 == ModoEnderecamento.DIRETO 
+				|| modEndOp2 == ModoEnderecamento.INDIRETO) {
 			
 			Text text = new Text(op2.getText());
 			text.setX(op2.getX());
@@ -255,7 +256,8 @@ public class Execucao extends Ciclo {
 				
 					copiarValorMbrBarramento();
 				
-				else if (modEndOp2 == ModoEnderecamento.DIRETO)
+				else if (modEndOp2 == ModoEnderecamento.DIRETO 
+						|| modEndOp2 == ModoEnderecamento.INDIRETO)
 					
 					copiarREADParaBarramento();
 			
