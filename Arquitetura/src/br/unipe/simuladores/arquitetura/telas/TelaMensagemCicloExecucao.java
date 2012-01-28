@@ -8,9 +8,8 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 	private static final String TRANSFERIR_IR_MBRTXT = "O valor contido no " +
 			"segundo operando de IR é copiado para MBR,\n para em seguida, ser " +
 			"transferido para a memória.";
-	private static final String COPIAR_VALOR_MAR_BARRAMENTO_EXECUCAOTXT = "O valor de MAR, que é " +
-			"o endereço para onde o dado será inserido na memória,\n é transferido para o barramento " +
-			"de endereços.";
+	private static final String COPIAR_VALOR_MAR_BARRAMENTO_EXECUCAOTXT = "O valor de MAR é " +
+			"transferido para o barramento de endereços.";
 	private static final String TRANSFERIR_IR_MARTXT = "A referência do endereço para " +
 			"onde será transferido o dado é copiado para MAR.";
 	private static final String COPIAR_VALOR_MBR_BARRAMENTO_EXECUCAOTXT = "O valor de MBR, " +
@@ -26,6 +25,13 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 			"da instrução em IR, é copiado para o registrador especificado no primeiro operando.";
 	private static final String MOVER_REFERENCIA_INDIRETA_REGISTRADOR_IRTXT = "O valor do registrador " +
 			"referenciado no primeiro operando de IR é transferido para esse operando. ";
+	private static final String TRANSFERIR_IR_MAR_2TXT = "O segundo operando de IR, que contém a referência " +
+			"do dado a ser buscado na memória, é transferido para MAR.";
+	private static final String COPIAR_READ_BARRAMENTO_EXECUCAOTXT = "O valor \"READ\" é copiado " +
+			"da UC para o barramento de instruções.";
+	private static final String MOVER_DADOS_BARRAMENTO_MEMORIA_LEITURATXT = "Os dados " +
+			"da requisição da leitura do dado contido no endereço especificado são movidos\n " +
+			"da para a memória pelo barramento.";
 
 	public TelaMensagemCicloExecucao(EstadoCiclo estado) {
 		
@@ -50,6 +56,9 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 		case MOVER_DADO_MEMORIA: return MOVER_DADO_MEMORIATXT;
 		case MOVER_DADO_REGISTRADOR: return MOVER_DADO_REGISTRADORTXT;
 		case MOVER_REFERENCIA_INDIRETA_REGISTRADOR_IR: return MOVER_REFERENCIA_INDIRETA_REGISTRADOR_IRTXT;
+		case TRANSFERIR_IR_MAR_2: return TRANSFERIR_IR_MAR_2TXT;
+		case COPIAR_READ_BARRAMENTO_EXECUCAO: return COPIAR_READ_BARRAMENTO_EXECUCAOTXT;
+		case MOVER_DADOS_BARRAMENTO_MEMORIA_LEITURA: return MOVER_DADOS_BARRAMENTO_MEMORIA_LEITURATXT;
 		}
 		
 		return null;

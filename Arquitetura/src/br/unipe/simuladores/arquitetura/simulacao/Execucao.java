@@ -131,6 +131,17 @@ public class Execucao extends Ciclo {
 				
 				moverRefenciaIndiretaRegistradorParaIr(txt);
 			
+		} else if (modEndOp2 == ModoEnderecamento.DIRETO) {
+			
+			Text text = new Text(op2.getText());
+			text.setX(op2.getX());
+			text.setY(op2.getY());
+			
+			controlador.getUcpInterna().adicionar(text);
+			controlador.adicionarElemento(text);
+			
+			moverRefenciaParaMAR(text);
+			
 		}
 		
 	}
@@ -220,7 +231,13 @@ public class Execucao extends Ciclo {
 				
 			});
 		
-		nextStep(EstadoCiclo.TRANSFERIR_IR_MAR);
+		if (modEndOp2 == ModoEnderecamento.IMEDIATO)
+			
+			nextStep(EstadoCiclo.TRANSFERIR_IR_MAR);
+		
+		else 
+			
+			nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_2);
 		
 	}
 	
@@ -233,7 +250,13 @@ public class Execucao extends Ciclo {
 			@Override
 			public void handle(ActionEvent e) {
 			
-				copiarValorMbrBarramento();
+				if (modEndOp2 == ModoEnderecamento.IMEDIATO)
+				
+					copiarValorMbrBarramento();
+				
+				else if (modEndOp2 == ModoEnderecamento.DIRETO)
+					
+					copiarREADParaBarramento();
 			
 			}
 		
@@ -307,6 +330,25 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	public void copiarREADParaBarramento() {
+		
+		ValorUCParaBarramento(965, 593, 1098, "READ");
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				moverDadosLeituraParaMemoria();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.COPIAR_READ_BARRAMENTO_EXECUCAO);
+		
+	}
+	
 	public void moverDadosEscritaParaMemoria() {
 		
 		double xWrite = valorUc.getX();
@@ -351,6 +393,47 @@ public class Execucao extends Ciclo {
 		});
 		
 		nextStep(EstadoCiclo.MOVER_DADOS_BARRAMENTO_MEMORIA_ESCRITA);
+		
+	}
+	
+	public void moverDadosLeituraParaMemoria() {
+		
+		double xWrite = valorUc.getX();
+		double yDeWrite = valorUc.getY();
+		double xEnd = valorMar.getX();
+		double yDeEnd = valorMar.getY();
+		
+		double yPara = 40;
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(valorUc.xProperty(), xWrite),
+	                   new KeyValue(valorUc.yProperty(), yDeWrite),
+	                   new KeyValue(valorMar.xProperty(), xEnd),
+	                   new KeyValue(valorMar.yProperty(), yDeEnd)
+	               ),
+	               new KeyFrame(new Duration(3000), 
+	            	   new KeyValue(valorUc.xProperty(), xWrite),
+		               new KeyValue(valorUc.yProperty(), yPara),
+		               new KeyValue(valorMar.xProperty(), xEnd),
+		               new KeyValue(valorMar.yProperty(), yPara)
+	               )
+			);
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				controlador.operar();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.MOVER_DADOS_BARRAMENTO_MEMORIA_LEITURA);
 		
 	}
 	
@@ -508,6 +591,11 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	public void buscarDadoMemoria() {
+		
+		
+		
+	}
 	
 	public void animarOperacaoAritmetica() {
 		
