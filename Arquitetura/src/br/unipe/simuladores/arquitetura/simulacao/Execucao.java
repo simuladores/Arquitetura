@@ -109,28 +109,34 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	private void direcionarMovimentacaoDado() {
+		
+		Text txt = new Text(op2.getText());
+		txt.setX(op2.getX());
+		txt.setY(op2.getY());
+		controlador.getUcpInterna().adicionar(txt);
+		controlador.adicionarElemento(txt);
+		
+		if (modEndOp1 == ModoEnderecamento.DIRETO || 
+				modEndOp1 == ModoEnderecamento.INDIRETO) 
+			
+			moverDadoParaMBR(txt);
+			
+	    else if (modEndOp1 == ModoEnderecamento.REGISTRADOR)
+			
+			moverDadoParaRegistrador(txt);
+		
+		else if (modEndOp1 == ModoEnderecamento.INDIRETO_REGISTRADOR)
+			
+			moverRefenciaIndiretaRegistradorParaIr(txt);
+		
+	}
+	
 	public void animarOperacaoMovimentacao() {
 		
 		if (modEndOp2 == ModoEnderecamento.IMEDIATO){
 			
-			Text txt = new Text(op2.getText());
-			txt.setX(op2.getX());
-			txt.setY(op2.getY());
-			controlador.getUcpInterna().adicionar(txt);
-			controlador.adicionarElemento(txt);
-			
-			if (modEndOp1 == ModoEnderecamento.DIRETO || 
-					modEndOp1 == ModoEnderecamento.INDIRETO) 
-				
-				moverDadoParaMBR(txt);
-				
-		    else if (modEndOp1 == ModoEnderecamento.REGISTRADOR)
-				
-				moverDadoParaRegistrador(txt);
-			
-			else if (modEndOp1 == ModoEnderecamento.INDIRETO_REGISTRADOR)
-				
-				moverRefenciaIndiretaRegistradorParaIr(txt);
+			direcionarMovimentacaoDado();
 			
 		} else if (modEndOp2 == ModoEnderecamento.DIRETO 
 				|| modEndOp2 == ModoEnderecamento.INDIRETO) {
@@ -143,6 +149,10 @@ public class Execucao extends Ciclo {
 			controlador.adicionarElemento(text);
 			
 			moverRefenciaParaMAR(text);
+			
+		} else if (modEndOp2 == ModoEnderecamento.REGISTRADOR) {
+			
+			moverDadoRegistradorParaIr();
 			
 		}
 		
@@ -636,27 +646,10 @@ public class Execucao extends Ciclo {
 				
 				modEndOp2 = ModoEnderecamento.IMEDIATO;
 				
-				Text txt = new Text(op2.getText());
-				txt.setX(op2.getX());
-				txt.setY(op2.getY());
-				controlador.getUcpInterna().adicionar(txt);
-				controlador.adicionarElemento(txt);
-				
 				limparElementosTela();
 				
-				if (modEndOp1 == ModoEnderecamento.DIRETO || 
-						modEndOp1 == ModoEnderecamento.INDIRETO) 
-					
-					moverDadoParaMBR(txt);
-					
-			    else if (modEndOp1 == ModoEnderecamento.REGISTRADOR)
-					
-					moverDadoParaRegistrador(txt);
-				
-				else if (modEndOp1 == ModoEnderecamento.INDIRETO_REGISTRADOR)
-					
-					moverRefenciaIndiretaRegistradorParaIr(txt);
-				
+				direcionarMovimentacaoDado();
+							
 			}
 			
 		});
@@ -665,6 +658,55 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	public void moverDadoRegistradorParaIr() {
+		
+		
+		Registrador registrador = 
+				controlador.getUcpInterna().obterRegistrador(new Integer(op2.getText()));
+		
+		double xDe = registrador.getTxtValor().getX();
+		double yDe = registrador.getTxtValor().getY();
+		double xPara = op2.getX();
+		double yPara = op2.getY();
+		
+		final Text text = new Text(registrador.getTxtValor().getText());
+		text.setX(xDe);
+		text.setY(yDe);
+		controlador.getUcpInterna().adicionar(text);
+		controlador.adicionarElemento(text);
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(text.xProperty(), xDe),
+	                   new KeyValue(text.yProperty(), yDe)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(text.xProperty(), xPara),
+		               new KeyValue(text.yProperty(), yPara)
+		           )
+		           
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				controlador.getUcpInterna().remover(text);
+				op2.setText(text.getText());
+				
+				direcionarMovimentacaoDado();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.MOVER_DADO_REGISTRADOR_IR);
+		
+		
+	}
 	
 	public void animarOperacaoAritmetica() {
 		
