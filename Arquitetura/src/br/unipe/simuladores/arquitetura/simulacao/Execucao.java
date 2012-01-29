@@ -150,7 +150,8 @@ public class Execucao extends Ciclo {
 			
 			moverRefenciaParaMAR(text);
 			
-		} else if (modEndOp2 == ModoEnderecamento.REGISTRADOR) {
+		} else if (modEndOp2 == ModoEnderecamento.REGISTRADOR 
+				|| modEndOp2 == ModoEnderecamento.INDIRETO_REGISTRADOR) {
 			
 			moverDadoRegistradorParaIr();
 			
@@ -698,7 +699,25 @@ public class Execucao extends Ciclo {
 				controlador.getUcpInterna().remover(text);
 				op2.setText(text.getText());
 				
-				direcionarMovimentacaoDado();
+				if (modEndOp2 == ModoEnderecamento.REGISTRADOR)
+					
+					direcionarMovimentacaoDado();
+				
+				else {
+					
+					modEndOp2 = ModoEnderecamento.DIRETO;
+					
+					Text text = new Text(op2.getText());
+					text.setX(op2.getX());
+					text.setY(op2.getY());
+					
+					controlador.getUcpInterna().adicionar(text);
+					controlador.adicionarElemento(text);
+					
+					moverRefenciaParaMAR(text);
+					
+				}
+
 				
 			}
 			
