@@ -262,7 +262,8 @@ public class Execucao extends Ciclo {
 			@Override
 			public void handle(ActionEvent e) {
 			
-				if (modEndOp2 == ModoEnderecamento.IMEDIATO)
+				if (modEndOp2 == ModoEnderecamento.IMEDIATO || 
+						modEndOp2 == ModoEnderecamento.REGISTRADOR)
 				
 					copiarValorMbrBarramento();
 				

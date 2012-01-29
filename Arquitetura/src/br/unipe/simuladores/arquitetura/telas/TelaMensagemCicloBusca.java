@@ -29,8 +29,8 @@ public class TelaMensagemCicloBusca extends TelaMensagemSimulacao{
 			"para conter o valor da próxima instrução.";
 	private static final String NAO_HA_PROX_INSTRUCAOTXT = "Como não há próxima instrução a ser executada, " +
 			"o valor de PC não é alterado.";
-	private static final String COPIAR_MBR_PARA_IRTXT = "O endereço da instrução, que está " +
-			"contido em MBR, é copiado para IR, o registrador de instruções.";
+	private static final String COPIAR_MBR_PARA_IRTXT = "A instrução, que está " +
+			"em MBR, é copiada para IR, o registrador de instruções.";
 	
 	public TelaMensagemCicloBusca(EstadoCiclo estado) {
 		super("Mensagem", Color.rgb(245, 245, 245));
