@@ -84,6 +84,9 @@ public class Controlador{
 
 		btnPlay.setBtnStop(btnStop);
 		
+		btnPlay.ativar();
+		btnStop.ativar();
+		
 		operar();
 		
 	}
@@ -116,7 +119,8 @@ public class Controlador{
 			TelaFinal telaFinal = new TelaFinal();
 			telaFinal.exibir();
 			
-			btnPlay.setPaused(true);
+			btnPlay.esmaecer();
+			btnStop.esmaecer();
 			
 		}
 				

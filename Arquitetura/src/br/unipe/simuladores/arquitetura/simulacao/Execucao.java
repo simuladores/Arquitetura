@@ -17,7 +17,6 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelId
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
-import br.unipe.simuladores.arquitetura.enums.OperandoCicloIndireto;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloExecucao;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;

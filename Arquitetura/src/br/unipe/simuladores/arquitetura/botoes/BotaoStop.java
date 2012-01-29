@@ -37,21 +37,6 @@ public class BotaoStop extends Botao{
 		});
 		
 	}
-
-
-	public void esmaecer() {
-		
-		setOpacity(0.5f);
-		stopped = true;
-		
-	}
-	
-	public void ativar() {
-		
-		setOpacity(1.0f);
-		stopped = false;
-		
-	}
 	
 	public BotaoPlay getBtnPlay() {
 		return btnPlay;

@@ -40,10 +40,16 @@ public class BotaoPlay extends Botao {
 				
 				if (este.isStopped()) {
 					
-					controlador = Controlador.obterReferencia();
-					controlador.iniciarSimulacao();
-					btnStop.ativar();
-					este.setStopped(false);
+					if (este.opacityProperty().getValue() != 0.5f || 
+							btnStop.opacityProperty().getValue() != 0.5f) {
+						
+						controlador = Controlador.obterReferencia();
+						controlador.iniciarSimulacao();
+						btnStop.ativar();
+						este.setStopped(false);
+						
+					}
+					
 					
 				} else {
 					
