@@ -288,6 +288,10 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 		
 		timeline.play();
 		
+		if (TelaPrincipal.getComputador().todosComponentesInternosExpandidos())
+			TelaPrincipal.getMenuSuperior().getMenus().get(0).getItems().get(0)
+				.setDisable(false);
+		
 		broken = true;
 		
 	}

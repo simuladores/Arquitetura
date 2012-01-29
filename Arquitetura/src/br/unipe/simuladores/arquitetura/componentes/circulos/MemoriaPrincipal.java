@@ -259,8 +259,10 @@ public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 		
 		timeline.play();
 		
-		TelaPrincipal.getMenuSuperior().getMenus().get(0).getItems().get(0)
-			.setDisable(false);
+		if (TelaPrincipal.getComputador().todosComponentesInternosExpandidos())
+			TelaPrincipal.getMenuSuperior().getMenus().get(0).getItems().get(0)
+				.setDisable(false);
+		
 		TelaPrincipal.getMenuSuperior().getMenus().get(0).getItems().get(1)
 			.setDisable(false);
 		

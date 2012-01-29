@@ -230,6 +230,14 @@ public class Computador extends ComponenteCirculo {
 		
 	}
 	
+	public boolean todosComponentesInternosExpandidos() {
+		
+		return ucp.getUCPInterna() != null && 
+				memoriaPrincipal.getMemoriaInterna() != null && 
+				sistemaInterconexao.getBarramentoInterno() != null;
+		
+	}
+	
 
 	public void definirAcoesEspecificas() {
 		
