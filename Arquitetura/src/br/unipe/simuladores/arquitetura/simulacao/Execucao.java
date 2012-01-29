@@ -498,9 +498,7 @@ public class Execucao extends Ciclo {
 				
 				TelaPrincipal.getTabVariaveis().setItems(variaveis);
 				
-				limparElementosTela();
-				
-				controlador.operar();
+				fimExecucao();
 				
 				
 			}
@@ -548,7 +546,7 @@ public class Execucao extends Ciclo {
 				registrador.atualizarValor(text.getText(), xPara, yPara);
 				controlador.getUcpInterna().atualizarValorUnidadeTela(registrador);
 				
-				controlador.operar();
+				fimExecucao();
 				
 			}
 			
@@ -725,6 +723,18 @@ public class Execucao extends Ciclo {
 		
 		nextStep(EstadoCiclo.MOVER_DADO_REGISTRADOR_IR);
 		
+		
+	}
+	
+	public void fimExecucao() {
+		
+		limparElementosTela();
+		
+		animation = new Timeline();
+		
+		nextStep(EstadoCiclo.FIM_EXECUCAO);
+		
+		controlador.operar();
 		
 	}
 	

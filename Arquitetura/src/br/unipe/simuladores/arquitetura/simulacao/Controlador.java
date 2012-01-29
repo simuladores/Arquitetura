@@ -15,6 +15,7 @@ import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.UCPInterna;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
+import br.unipe.simuladores.arquitetura.telas.TelaFinal;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 
 public class Controlador{
@@ -110,6 +111,13 @@ public class Controlador{
 			}
 			
 										
+		} else {
+			
+			TelaFinal telaFinal = new TelaFinal();
+			telaFinal.exibir();
+			
+			btnPlay.setPaused(true);
+			
 		}
 				
 	}
