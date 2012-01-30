@@ -40,6 +40,8 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 	private static final String MOVER_DADO_REGISTRADOR_IRTXT = "O valor contido no registrador " +
 			"referenciado no segundo operando de IR é transferido para esse operando.";
 	private static final String FIM_EXECUCAOTXT = "Acabou a execução dessa instrução.";
+	private static final String TRANSFERIR_IR_MAR_1TXT =  "O primeiro operando de IR, que contém a referência " +
+			"do dado a ser buscado na memória, é transferido para MAR.";
 	
 
 	public TelaMensagemCicloExecucao(EstadoCiclo estado) {
@@ -72,6 +74,7 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 		case TRANSFERIR_MBR_PARA_IR_EXECUCAO: return TRANSFERIR_MBR_PARA_IR_EXECUCAOTXT;
 		case MOVER_DADO_REGISTRADOR_IR: return MOVER_DADO_REGISTRADOR_IRTXT;
 		case FIM_EXECUCAO: return FIM_EXECUCAOTXT;
+		case TRANSFERIR_IR_MAR_1: return TRANSFERIR_IR_MAR_1TXT;
 		}
 		
 		return null;

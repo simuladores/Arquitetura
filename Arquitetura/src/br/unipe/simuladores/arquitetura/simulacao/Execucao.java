@@ -27,6 +27,7 @@ public class Execucao extends Ciclo {
 	private ModoEnderecamento modEndOp1;
 	private ModoEnderecamento modEndOp2;
 	private int opcode;
+	private boolean leitura;
 	
 	public Execucao(Text end, Text opcode, Text op1, Text op2, Controlador c) {
 		
@@ -158,6 +159,31 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	public void animarOperacaoAritmetica() {
+		
+		if (modEndOp2 == ModoEnderecamento.IMEDIATO) {
+			
+			if (modEndOp1 == ModoEnderecamento.DIRETO 
+					|| modEndOp1 == ModoEnderecamento.INDIRETO) {
+				
+				Text text = new Text(op1.getText());
+				text.setX(op1.getX());
+				text.setY(op1.getY());
+				
+				controlador.getUcpInterna().adicionar(text);
+				controlador.adicionarElemento(text);
+				
+				primeiroOperando = true;
+				leitura = true;
+				
+				moverRefenciaParaMAR(text);
+				
+			}
+			
+		}
+		
+	}
+	
 	public void moverDadoParaMBR(final Text text) {
 		
 		double xDe = text.getX();
@@ -242,14 +268,19 @@ public class Execucao extends Ciclo {
 				}
 				
 			});
-		
-		if (modEndOp2 == ModoEnderecamento.IMEDIATO)
 			
-			nextStep(EstadoCiclo.TRANSFERIR_IR_MAR);
+		if (operacao == Operacao.MOV) {
 		
-		else 
+			if (modEndOp2 == ModoEnderecamento.IMEDIATO)
 			
-			nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_2);
+				nextStep(EstadoCiclo.TRANSFERIR_IR_MAR);
+		
+			else 
+			
+				nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_2);
+		} else
+			
+			nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_1);
 		
 	}
 	
@@ -261,16 +292,30 @@ public class Execucao extends Ciclo {
 
 			@Override
 			public void handle(ActionEvent e) {
-			
-				if (modEndOp2 == ModoEnderecamento.IMEDIATO || 
-						modEndOp2 == ModoEnderecamento.REGISTRADOR)
 				
-					copiarValorMbrBarramento();
-				
-				else if (modEndOp2 == ModoEnderecamento.DIRETO 
-						|| modEndOp2 == ModoEnderecamento.INDIRETO)
+				if (operacao == Operacao.MOV) {
 					
-					copiarREADParaBarramento();
+					if (modEndOp2 == ModoEnderecamento.IMEDIATO || 
+							modEndOp2 == ModoEnderecamento.REGISTRADOR)
+					
+						copiarValorMbrBarramento();
+					
+					else if (modEndOp2 == ModoEnderecamento.DIRETO 
+							|| modEndOp2 == ModoEnderecamento.INDIRETO)
+						
+						copiarREADParaBarramento();
+					
+				} else {
+					
+					if (leitura) 
+						
+						copiarREADParaBarramento();
+					
+					else
+						
+						copiarValorMbrBarramento();
+					
+				}
 			
 			}
 		
@@ -617,9 +662,17 @@ public class Execucao extends Ciclo {
 				mbr.atualizarValor(dado, 923, 478);
 				controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
 				
-				primeiroOperando = false;
+				if (operacao == Operacao.MOV) {
 				
-				transferirMbrParaIrExecucao();
+					primeiroOperando = false;
+					
+					transferirMbrParaIrExecucao();
+				
+				} else {
+					
+					direcionarOperandoOperacaoAritmetica();
+					
+				}
 
 				
 			}
@@ -640,14 +693,13 @@ public class Execucao extends Ciclo {
 			public void handle(ActionEvent e) {
 				
 				controlador.getUcpInterna().remover(valorMbr);
-				
+								
 				op2.setText(valorMbr.getText());
-				
+					
 				modEndOp2 = ModoEnderecamento.IMEDIATO;
-				
+					
 				limparElementosTela();
-				
-				direcionarMovimentacaoDado();
+					
 							
 			}
 			
@@ -725,6 +777,22 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	public void direcionarOperandoOperacaoAritmetica() {
+		
+		if (primeiroOperando) {
+			
+			if (modEndOp2 == ModoEnderecamento.IMEDIATO)
+				
+				transferirMbrIrParaULA();
+			
+		}
+		
+	}
+	
+	public void transferirMbrIrParaULA() {
+		
+	}
+	
 	public void fimExecucao() {
 		
 		limparElementosTela();
@@ -737,11 +805,6 @@ public class Execucao extends Ciclo {
 		
 	}
 	
-	public void animarOperacaoAritmetica() {
-		
-		
-		
-	}
 
 	@Override
 	protected void limparElementosTela() {
