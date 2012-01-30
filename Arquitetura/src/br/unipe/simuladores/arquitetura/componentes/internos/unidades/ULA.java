@@ -95,14 +95,24 @@ public class ULA extends UnidadeUCP{
 	public void construirForma(double x, double y) {
 		
 		forma = new Polyline(new double[]{
-				x, y,
+				/*x, y,
 				x + 30, y,
 				x + 35, y + 10,
 				x + 40, y,
 				x + 70, y,
 				x + 60, y + 40,
 				x + 10, y + 40,
+				x, y*/
+				
+				x, y,
+				x + 45, y,
+				x + 52.5, y + 15,
+				x + 60, y,
+				x + 105, y,
+				x + 90, y + 50,
+				x + 15, y + 50,
 				x, y
+				
 		});
 		
 		/*forma = new Polyline(new double[]{

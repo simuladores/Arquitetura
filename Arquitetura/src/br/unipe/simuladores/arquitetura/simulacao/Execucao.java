@@ -791,6 +791,8 @@ public class Execucao extends Ciclo {
 	
 	public void transferirMbrIrParaULA() {
 		
+		fimExecucao();
+		
 	}
 	
 	public void fimExecucao() {

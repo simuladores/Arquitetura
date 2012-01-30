@@ -116,9 +116,14 @@ public class UCPInterna extends ComponenteInterno{
 		atualizarUnidadeTela(uc);
 		
 		ula = new ULA();
-		ula.construirForma(850, 550);
-		ula.adicionarTexto(885, 630);
-		ula.atualizarValor("1 + 1", 882, 600);
+		//ula.construirForma(850, 550);
+		ula.construirForma(830, 550);
+		//ula.adicionarTexto(885, 630);
+		ula.adicionarTexto(885, 638);
+		//ula.atualizarValor("536 + 270", 872, 600);
+		//1 dígito
+		ula.atualizarValor("1 + 123456", 879, 603);
+		//ula.atualizarValor("1 + 1", 852, 603);
 		atualizarUnidadeTela(ula);
 		
 		mapaRegistradores = new HashMap<String, Registrador>();
