@@ -126,6 +126,7 @@ public class UCPInterna extends ComponenteInterno{
 		//mbr.atualizarValor("123456", 898, 587);
 		//ula.atualizarValor("+", 865, 600);
 		//ula.atualizarValor("=", 915, 600);
+		//ula.atualizarValor("5", 890, 610);
 		atualizarUnidadeTela(ula);
 		
 		mapaRegistradores = new HashMap<String, Registrador>();

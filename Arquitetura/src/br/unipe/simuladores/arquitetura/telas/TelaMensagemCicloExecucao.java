@@ -44,6 +44,10 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 			"do dado a ser buscado na memória, é transferido para MAR.";
 	private static final String TRANSFERIR_MBR_IR_ULATXT = "O valor contidos em MBR e " +
 			"o segundo operando de IR são transferidos para a ULA.";
+	private static final String EFETUAR_OPERACAO_ARITMETICATXT = "A operação aritmética " +
+			"com os dados é então efetuada.";
+	private static final String TRANSFERIR_ULA_MBRTXT = "O resultado da operação é " +
+			"transferido para MBR, para ser escrito na memória.";
 	
 
 	public TelaMensagemCicloExecucao(EstadoCiclo estado) {
@@ -78,6 +82,8 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 		case FIM_EXECUCAO: return FIM_EXECUCAOTXT;
 		case TRANSFERIR_IR_MAR_1: return TRANSFERIR_IR_MAR_1TXT;
 		case TRANSFERIR_MBR_IR_ULA: return TRANSFERIR_MBR_IR_ULATXT;
+		case EFETUAR_OPERACAO_ARITMETICA: return EFETUAR_OPERACAO_ARITMETICATXT;
+		case TRANSFERIR_ULA_MBR: return TRANSFERIR_ULA_MBRTXT;
 		}
 		
 		return null;

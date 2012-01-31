@@ -13,11 +13,13 @@ import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Registrador;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.ULA;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Variavel;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.VariavelIdentificador;
 import br.unipe.simuladores.arquitetura.enums.EstadoCiclo;
 import br.unipe.simuladores.arquitetura.enums.ModoEnderecamento;
 import br.unipe.simuladores.arquitetura.enums.Operacao;
+import br.unipe.simuladores.arquitetura.enums.OperacaoAritmetica;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemCicloExecucao;
 import br.unipe.simuladores.arquitetura.telas.TelaMensagemSimulacao;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
@@ -29,6 +31,12 @@ public class Execucao extends Ciclo {
 	private ModoEnderecamento modEndOp2;
 	private int opcode;
 	private boolean leitura;
+	
+	private Text operando1;
+	private Text operando2;
+	private Text txtOperacao;
+	private Text igual;
+	private Text resultado;
 	
 	public Execucao(Text end, Text opcode, Text op1, Text op2, Controlador c) {
 		
@@ -229,7 +237,10 @@ public class Execucao extends Ciclo {
 			
 		});
 		
-		nextStep(EstadoCiclo.TRANSFERIR_IR_MBR);
+		if (!leitura && !(operacao == Operacao.MOV))
+			nextStep(EstadoCiclo.TRANSFERIR_ULA_MBR);
+		else
+			nextStep(EstadoCiclo.TRANSFERIR_IR_MBR);
 		
 	}
 		
@@ -663,6 +674,8 @@ public class Execucao extends Ciclo {
 				mbr.atualizarValor(dado, 923, 478);
 				controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
 				
+				limparElementosTela();
+				
 				if (operacao == Operacao.MOV) {
 				
 					primeiroOperando = false;
@@ -802,32 +815,32 @@ public class Execucao extends Ciclo {
 		double yPara = 587;
 		double xParaIr = 898;
 		
-		valorMbr = new Text(mbr.getTxtValor().getText());
-		valorMbr.setX(xDeMbr);
-		valorMbr.setY(yDeMbr);
-		controlador.getUcpInterna().adicionar(valorMbr);
-		controlador.adicionarElemento(valorMbr);
+		operando1 = new Text(mbr.getTxtValor().getText());
+		operando1.setX(xDeMbr);
+		operando1.setY(yDeMbr);
+		controlador.getUcpInterna().adicionar(operando1);
+		controlador.adicionarElemento(operando1);
 		
-		valorIr = new Text(op2.getText());
-		valorIr.setX(xDeIr);
-		valorIr.setY(yDeIr);
-		controlador.getUcpInterna().adicionar(valorIr);
-		controlador.adicionarElemento(valorIr);
+		operando2 = new Text(op2.getText());
+		operando2.setX(xDeIr);
+		operando2.setY(yDeIr);
+		controlador.getUcpInterna().adicionar(operando2);
+		controlador.adicionarElemento(operando2);
 		
 		animation = new Timeline();
 		
 		((Timeline)animation).getKeyFrames().addAll(
 	               new KeyFrame(Duration.ZERO, 
-	                   new KeyValue(valorMbr.xProperty(), xDeMbr),
-	                   new KeyValue(valorMbr.yProperty(), yDeMbr),
-	                   new KeyValue(valorIr.xProperty(), xDeIr),
-	                   new KeyValue(valorIr.yProperty(), yDeIr)
+	                   new KeyValue(operando1.xProperty(), xDeMbr),
+	                   new KeyValue(operando1.yProperty(), yDeMbr),
+	                   new KeyValue(operando2.xProperty(), xDeIr),
+	                   new KeyValue(operando2.yProperty(), yDeIr)
 	               ),
 	               new KeyFrame(Duration.millis(3000), 
-	            	   new KeyValue(valorMbr.xProperty(), xParaMbr),
-		               new KeyValue(valorMbr.yProperty(), yPara),
-		               new KeyValue(valorIr.xProperty(), xParaIr),
-		               new KeyValue(valorIr.yProperty(), yPara)
+	            	   new KeyValue(operando1.xProperty(), xParaMbr),
+		               new KeyValue(operando1.yProperty(), yPara),
+		               new KeyValue(operando2.xProperty(), xParaIr),
+		               new KeyValue(operando2.yProperty(), yPara)
 		           )
 		           
 	     );
@@ -837,7 +850,7 @@ public class Execucao extends Ciclo {
 			@Override
 			public void handle(ActionEvent e) {
 				
-				fimExecucao();
+				realizarOperacaoAritmetica();
 				
 			}
 			
@@ -845,6 +858,80 @@ public class Execucao extends Ciclo {
 		
 		nextStep(EstadoCiclo.TRANSFERIR_MBR_IR_ULA);
 		
+		
+	}
+	
+	public void realizarOperacaoAritmetica() {
+		
+		ULA ula = controlador.getUcpInterna().getUla();
+		txtOperacao = new Text();
+		txtOperacao.setX(865);
+		txtOperacao.setY(600);
+		
+		switch(operacao) {
+		case ADD: {
+			ula.setOperacao(OperacaoAritmetica.SOMA);
+			txtOperacao.setText("+");
+		}break;
+		case SUB: {
+			ula.setOperacao(OperacaoAritmetica.SUBTRACAO);
+			txtOperacao.setText("-");
+		}break;
+		case MUL: {
+			ula.setOperacao(OperacaoAritmetica.MULTIPLICACAO);
+			txtOperacao.setText("x");
+		}break;
+		case DIV: {
+			ula.setOperacao(OperacaoAritmetica.DIVISAO);
+			txtOperacao.setText("/");
+		}break;
+		}
+		
+		controlador.getUcpInterna().adicionar(txtOperacao);
+		controlador.adicionarElemento(txtOperacao);
+		igual = new Text("=");
+		igual.setX(915);
+		igual.setY(600);
+		controlador.getUcpInterna().adicionar(igual);
+		controlador.adicionarElemento(igual);
+		
+		ula.setOperando1(new Integer(operando1.getText()));
+		ula.setOperando2(new Integer(operando2.getText()));
+		ula.operar();
+		
+		resultado = new Text(ula.getResultado().toString());
+		resultado.setX(890);
+		resultado.setY(610);
+		resultado.setOpacity(0.0f);
+		controlador.getUcpInterna().adicionar(resultado);
+		controlador.adicionarElemento(resultado);
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(resultado.opacityProperty(), 0.0f)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(resultado.opacityProperty(), 1.0f)
+		           )
+		           
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				leitura = false;
+				moverDadoParaMBR(resultado);
+				
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.EFETUAR_OPERACAO_ARITMETICA);
 		
 	}
 	
@@ -867,6 +954,11 @@ public class Execucao extends Ciclo {
 		controlador.getBarramentoInterno().remover(valorMar);
 		controlador.getMemoriaInterna().remover(valorMbr);
 		controlador.getBarramentoInterno().remover(valorUc);
+		controlador.getUcpInterna().remover(operando1);
+		controlador.getUcpInterna().remover(operando2);
+		controlador.getUcpInterna().remover(txtOperacao);
+		controlador.getUcpInterna().remover(igual);
+		controlador.getUcpInterna().remover(resultado);
 		
 	}
 
