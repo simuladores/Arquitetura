@@ -122,9 +122,10 @@ public class UCPInterna extends ComponenteInterno{
 		ula.adicionarTexto(885, 638);
 		//ula.atualizarValor("536 + 270", 872, 600);
 		//1 dígito
-		//ula.atualizarValor("1 + 123456", 879, 603);
-		//ula.atualizarValor("123456", 848, 583);
-		ula.atualizarValor("123456 + 123456", 852, 603);
+		//mar.atualizarValor("123456", 846, 587);
+		//mbr.atualizarValor("123456", 898, 587);
+		//ula.atualizarValor("+", 865, 600);
+		//ula.atualizarValor("=", 915, 600);
 		atualizarUnidadeTela(ula);
 		
 		mapaRegistradores = new HashMap<String, Registrador>();

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import br.unipe.simuladores.arquitetura.componentes.internos.unidades.IR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
@@ -791,7 +792,59 @@ public class Execucao extends Ciclo {
 	
 	public void transferirMbrIrParaULA() {
 		
-		fimExecucao();
+		MBR mbr = controlador.getUcpInterna().getMbr();
+		
+		double xDeMbr = mbr.getTxtValor().getX();
+		double yDeMbr = mbr.getTxtValor().getY();
+		double xDeIr = op2.getX();
+		double yDeIr = op2.getY();
+		double xParaMbr = 846;
+		double yPara = 587;
+		double xParaIr = 898;
+		
+		valorMbr = new Text(mbr.getTxtValor().getText());
+		valorMbr.setX(xDeMbr);
+		valorMbr.setY(yDeMbr);
+		controlador.getUcpInterna().adicionar(valorMbr);
+		controlador.adicionarElemento(valorMbr);
+		
+		valorIr = new Text(op2.getText());
+		valorIr.setX(xDeIr);
+		valorIr.setY(yDeIr);
+		controlador.getUcpInterna().adicionar(valorIr);
+		controlador.adicionarElemento(valorIr);
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(valorMbr.xProperty(), xDeMbr),
+	                   new KeyValue(valorMbr.yProperty(), yDeMbr),
+	                   new KeyValue(valorIr.xProperty(), xDeIr),
+	                   new KeyValue(valorIr.yProperty(), yDeIr)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(valorMbr.xProperty(), xParaMbr),
+		               new KeyValue(valorMbr.yProperty(), yPara),
+		               new KeyValue(valorIr.xProperty(), xParaIr),
+		               new KeyValue(valorIr.yProperty(), yPara)
+		           )
+		           
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				fimExecucao();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_MBR_IR_ULA);
+		
 		
 	}
 	

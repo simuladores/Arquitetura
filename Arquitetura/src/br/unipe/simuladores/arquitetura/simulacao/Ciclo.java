@@ -33,6 +33,7 @@ public abstract class Ciclo {
 	protected Text valorUc;
 	protected Text valorMar;
 	protected Text valorMbr;
+	protected Text valorIr;
 	
 	protected Path path;
 	protected Path path2;
