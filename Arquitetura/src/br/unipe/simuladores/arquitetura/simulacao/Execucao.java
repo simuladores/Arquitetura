@@ -187,6 +187,10 @@ public class Execucao extends Ciclo {
 				
 				moverRefenciaParaMAR(text);
 				
+			} else if (modEndOp1 == ModoEnderecamento.REGISTRADOR) {
+				
+				transferirRegistradorIrParaULA();
+				
 			}
 			
 		}
@@ -608,7 +612,13 @@ public class Execucao extends Ciclo {
 			
 		});
 		
-		nextStep(EstadoCiclo.MOVER_DADO_REGISTRADOR);
+		if (operacao == Operacao.MOV)
+			
+			nextStep(EstadoCiclo.MOVER_DADO_REGISTRADOR);
+		
+		else
+			
+			nextStep(EstadoCiclo.MOVER_DADO_ULA_REGISTRADOR);
 		
 	}
 	
@@ -861,6 +871,64 @@ public class Execucao extends Ciclo {
 		
 	}
 	
+	public void transferirRegistradorIrParaULA() {
+		
+		Integer numeroRegistrador = new Integer(op1.getText());
+		Registrador registrador 
+			= controlador.getUcpInterna().obterRegistrador(numeroRegistrador);
+		double xDeReg = registrador.getTxtValor().getX();
+		double yDeReg = registrador.getTxtValor().getY();
+		double xParaReg = 846;
+		double yPara = 587;
+		double xDeIr = op2.getX();
+		double yDeIr = op2.getY();
+		double xParaIr = 898;
+		
+		operando1 = new Text(registrador.getTxtValor().getText());
+		operando1.setX(xDeReg);
+		operando1.setY(yDeReg);
+		controlador.getUcpInterna().adicionar(operando1);
+		controlador.adicionarElemento(operando1);
+		
+		operando2 = new Text(op2.getText());
+		operando2.setX(xDeIr);
+		operando2.setY(yDeIr);
+		controlador.getUcpInterna().adicionar(operando2);
+		controlador.adicionarElemento(operando2);
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(operando1.xProperty(), xDeReg),
+	                   new KeyValue(operando1.yProperty(), yDeReg),
+	                   new KeyValue(operando2.xProperty(), xDeIr),
+	                   new KeyValue(operando2.yProperty(), yDeIr)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(operando1.xProperty(), xParaReg),
+		               new KeyValue(operando1.yProperty(), yPara),
+		               new KeyValue(operando2.xProperty(), xParaIr),
+		               new KeyValue(operando2.yProperty(), yPara)
+		           )
+		           
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				realizarOperacaoAritmetica();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_REGISTRADOR_IR_ULA);
+		
+	}
+	
 	public void realizarOperacaoAritmetica() {
 		
 		ULA ula = controlador.getUcpInterna().getUla();
@@ -923,9 +991,15 @@ public class Execucao extends Ciclo {
 			@Override
 			public void handle(ActionEvent e) {
 				
-				leitura = false;
-				moverDadoParaMBR(resultado);
+				if (modEndOp1 == ModoEnderecamento.DIRETO 
+						|| modEndOp1 == ModoEnderecamento.INDIRETO) {
+					
+					leitura = false;
+					moverDadoParaMBR(resultado);
+					
+				} else if (modEndOp1 == ModoEnderecamento.REGISTRADOR)
 				
+					moverDadoParaRegistrador(resultado);
 				
 			}
 			
