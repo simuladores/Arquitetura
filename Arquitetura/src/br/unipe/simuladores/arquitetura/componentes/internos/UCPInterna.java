@@ -136,8 +136,8 @@ public class UCPInterna extends ComponenteInterno{
 			registrador = new Registrador("R"+(i + 1));
 			registrador.construirForma(780, 420 + y);
 			registrador.adicionarTexto(760, 438 + y);
-			//registrador.atualizarValor(0, 802, 438 + y);
-			registrador.atualizarValor("", 790, 438 + y);
+			registrador.atualizarValor(0, 790, 438 + y);
+			//registrador.atualizarValor("", 790, 438 + y);
 			atualizarUnidadeTela(registrador);
 			mapaRegistradores.put("R"+(i + 1), registrador);
 		}

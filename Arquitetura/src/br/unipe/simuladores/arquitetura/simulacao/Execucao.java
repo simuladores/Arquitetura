@@ -198,6 +198,21 @@ public class Execucao extends Ciclo {
 			}
 			
 			
+		} else if (modEndOp2 == ModoEnderecamento.DIRETO 
+				|| modEndOp2 == ModoEnderecamento.INDIRETO) {
+			
+			Text text = new Text(op2.getText());
+			text.setX(op2.getX());
+			text.setY(op2.getY());
+			
+			controlador.getUcpInterna().adicionar(text);
+			controlador.adicionarElemento(text);
+			
+			leitura = true;
+			primeiroOperando = false;
+			
+			moverRefenciaParaMAR(text);
+			
 		}
 		
 	}
@@ -299,9 +314,16 @@ public class Execucao extends Ciclo {
 			else 
 			
 				nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_2);
-		} else
+		} else {
 			
-			nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_1);
+			if (primeiroOperando)
+				
+				nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_1);
+			
+			else
+				
+				nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_2);
+		}
 		
 	}
 	
@@ -708,8 +730,13 @@ public class Execucao extends Ciclo {
 				
 				} else {
 					
-					direcionarOperandoOperacaoAritmetica();
+					if (primeiroOperando)
 					
+						direcionarOperandoOperacaoAritmetica();
+					
+					else
+						
+						transferirMbrParaIrExecucao();
 				}
 
 				
@@ -737,7 +764,16 @@ public class Execucao extends Ciclo {
 				modEndOp2 = ModoEnderecamento.IMEDIATO;
 					
 				limparElementosTela();
+				
+				if (operacao == Operacao.MOV) {
 					
+					direcionarMovimentacaoDado();
+					
+				} else {
+					
+					direcionarOperandoOperacaoAritmetica();
+					
+				}
 							
 			}
 			
@@ -822,6 +858,10 @@ public class Execucao extends Ciclo {
 			if (modEndOp2 == ModoEnderecamento.IMEDIATO)
 				
 				transferirMbrIrParaULA();
+			
+		} else {
+			
+			animarOperacaoAritmetica();
 			
 		}
 		
