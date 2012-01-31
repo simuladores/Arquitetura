@@ -191,7 +191,12 @@ public class Execucao extends Ciclo {
 				
 				transferirRegistradorIrParaULA();
 				
+			} else if (modEndOp1 == ModoEnderecamento.INDIRETO_REGISTRADOR) {
+				
+				moverRefenciaIndiretaRegistradorParaIr(null);
+				
 			}
+			
 			
 		}
 		
@@ -659,7 +664,16 @@ public class Execucao extends Ciclo {
 				controlador.getUcpInterna().remover(txt);
 				op1.setText(txt.getText());
 				
-				moverDadoParaMBR(text);
+				if (operacao == Operacao.MOV)
+				
+					moverDadoParaMBR(text);
+				
+				else {
+					
+					modEndOp1 = ModoEnderecamento.DIRETO;
+					animarOperacaoAritmetica();
+					
+				}
 				
 			}
 			
