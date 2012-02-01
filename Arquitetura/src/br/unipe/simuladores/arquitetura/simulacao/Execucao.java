@@ -242,7 +242,9 @@ public class Execucao extends Ciclo {
 			
 		} else if (modEndOp2 == ModoEnderecamento.INDIRETO_REGISTRADOR) {
 			
-			//TODO
+			primeiroOperando = false;
+			leitura = true;
+			moverDadoRegistradorParaIr();
 			
 		}
 		
