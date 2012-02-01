@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import br.unipe.simuladores.arquitetura.componentes.internos.unidades.IR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.Instrucao;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MAR;
 import br.unipe.simuladores.arquitetura.componentes.internos.unidades.MBR;
