@@ -56,6 +56,8 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 			"e o que está em MBR, são então copiados para a ULA.";
 	private static final String TRANSFERIR_REG_REG_ULATXT = "Os dados contidos nos dois " +
 			"registradores especificados nos operandos 1 e 2 de IR são copiados para a ULA.";
+	private static final String TRANSFEIR_IR_MAR_WRITETXT = "O primeiro operando de IR, que é a referência " +
+			"para onde o resultado da operação\n será escrito na memória, é copiado para MAR.";
 	
 
 	public TelaMensagemCicloExecucao(EstadoCiclo estado) {
@@ -96,6 +98,7 @@ public class TelaMensagemCicloExecucao extends TelaMensagemSimulacao{
 		case MOVER_DADO_ULA_REGISTRADOR: return MOVER_DADO_ULA_REGISTRADORTXT;
 		case TRANSFERIR_MBR_EGISTRADOR_ULA: return TRANSFERIR_MBR_EGISTRADOR_ULATXT;
 		case TRANSFERIR_REG_REG_ULA: return TRANSFERIR_REG_REG_ULATXT;
+		case TRANSFEIR_IR_MAR_WRITE: return TRANSFEIR_IR_MAR_WRITETXT;
 		}
 		
 		return null;

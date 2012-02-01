@@ -240,6 +240,10 @@ public class Execucao extends Ciclo {
 				
 			}
 			
+		} else if (modEndOp2 == ModoEnderecamento.INDIRETO_REGISTRADOR) {
+			
+			//TODO
+			
 		}
 		
 	}
@@ -341,15 +345,26 @@ public class Execucao extends Ciclo {
 			else 
 			
 				nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_2);
+			
 		} else {
 			
-			if (primeiroOperando)
+			if (leitura) {
 				
-				nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_1);
+				if (primeiroOperando)
+					
+					nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_1);
+				
+				else
+					
+					nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_2);
+				
+			} else {
+				
+				nextStep(EstadoCiclo.TRANSFEIR_IR_MAR_WRITE);
+				
+			}
 			
-			else
-				
-				nextStep(EstadoCiclo.TRANSFERIR_IR_MAR_2);
+			
 		}
 		
 	}
