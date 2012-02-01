@@ -213,6 +213,24 @@ public class Execucao extends Ciclo {
 			
 			moverRefenciaParaMAR(text);
 			
+		} else if (modEndOp2 == ModoEnderecamento.REGISTRADOR) {
+			
+			if (modEndOp1 == ModoEnderecamento.DIRETO) {
+				
+				Text text = new Text(op1.getText());
+				text.setX(op1.getX());
+				text.setY(op1.getY());
+				
+				controlador.getUcpInterna().adicionar(text);
+				controlador.adicionarElemento(text);
+				
+				leitura = true;
+				primeiroOperando = true;
+				
+				moverRefenciaParaMAR(text);
+				
+			}
+			
 		}
 		
 	}
@@ -859,6 +877,10 @@ public class Execucao extends Ciclo {
 				
 				transferirMbrIrParaULA();
 			
+			else if (modEndOp2 == ModoEnderecamento.REGISTRADOR) 
+				
+				transferirMbrRegistradorParaULA();
+
 		} else {
 			
 			animarOperacaoAritmetica();
@@ -980,6 +1002,66 @@ public class Execucao extends Ciclo {
 		});
 		
 		nextStep(EstadoCiclo.TRANSFERIR_REGISTRADOR_IR_ULA);
+		
+	}
+	
+	public void transferirMbrRegistradorParaULA() {
+		
+		MBR mbr = controlador.getUcpInterna().getMbr();
+		Registrador registrador 
+			= controlador.getUcpInterna().obterRegistrador(new Integer(op2.getText()));
+		
+		double xDeReg = registrador.getTxtValor().getX();
+		double yDeReg = registrador.getTxtValor().getY();
+		double xDeMbr = mbr.getTxtValor().getX();
+		double yDeMbr = mbr.getTxtValor().getY();
+		double xParaMbr = 846;
+		double xParaReg = 898;
+		double yPara = 587;
+		
+		operando1 = new Text(mbr.getTxtValor().getText());
+		operando1.setX(xDeMbr);
+		operando1.setY(yDeMbr);
+		controlador.getUcpInterna().adicionar(operando1);
+		controlador.adicionarElemento(operando1);
+		
+		operando2 = new Text(registrador.getTxtValor().getText());
+		operando2.setX(xDeReg);
+		operando2.setY(yDeReg);
+		controlador.getUcpInterna().adicionar(operando2);
+		controlador.adicionarElemento(operando2);
+		
+		animation = new Timeline();
+		
+		((Timeline)animation).getKeyFrames().addAll(
+	               new KeyFrame(Duration.ZERO, 
+	                   new KeyValue(operando1.xProperty(), xDeMbr),
+	                   new KeyValue(operando1.yProperty(), yDeMbr),
+	                   new KeyValue(operando2.xProperty(), xDeReg),
+	                   new KeyValue(operando2.yProperty(), yDeReg)
+	               ),
+	               new KeyFrame(Duration.millis(3000), 
+	            	   new KeyValue(operando1.xProperty(), xParaMbr),
+		               new KeyValue(operando1.yProperty(), yPara),
+		               new KeyValue(operando2.xProperty(), xParaReg),
+		               new KeyValue(operando2.yProperty(), yPara)
+		           )
+		           
+	     );
+		
+		animation.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				
+				realizarOperacaoAritmetica();
+				
+			}
+			
+		});
+		
+		nextStep(EstadoCiclo.TRANSFERIR_MBR_EGISTRADOR_ULA);
+		
 		
 	}
 	
