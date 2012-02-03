@@ -55,7 +55,7 @@ public class TelaInserirVariavel extends Tela implements Formulario{
 		hBox1.getChildren().add(tfIdentificador);
 		Text txtTipo = new Text("Tipo:");
 		hBox1.getChildren().add(txtTipo);
-		cbTipo.getItems().addAll("Inteiro", "String", "Ponto flutuante");
+		cbTipo.getItems().addAll("Inteiro", "Ponto flutuante");
 		cbTipo.getSelectionModel().selectFirst();
 		hBox1.getChildren().add(cbTipo);
 		vBox.getChildren().add(hBox1);
@@ -219,8 +219,7 @@ public class TelaInserirVariavel extends Tela implements Formulario{
 		switch( cbTipo.getSelectionModel().
 				selectedIndexProperty().intValue()) {
 		case 0: tpVariavel = TipoVariavel.INTEIRO; break;
-		case 1: tpVariavel = TipoVariavel.STRING; break;
-		case 2: tpVariavel = TipoVariavel.PONTO_FLUTUANTE; break;
+		case 1: tpVariavel = TipoVariavel.PONTO_FLUTUANTE; break;
 		}
 		
 		return tpVariavel;

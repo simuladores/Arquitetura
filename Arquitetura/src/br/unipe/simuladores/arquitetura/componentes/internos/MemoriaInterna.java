@@ -208,12 +208,12 @@ public class MemoriaInterna extends ComponenteInterno{
 		
 	}
 	
-	public Integer obterDadoVariavel(Integer end) {
+	public String obterDadoVariavel(Integer end) {
 		
 		for (Variavel var : variaveis) {
 			
 			if (var.endereco.getValue().equals(end))
-				return new Integer(var.dataProperty().getValue());
+				return var.dataProperty().getValue();
 			
 		}
 		

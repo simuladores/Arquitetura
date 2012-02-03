@@ -413,13 +413,13 @@ public class Execucao extends Ciclo {
 	
 	public void copiarValorMbrBarramento() {
 		
-		Integer valor = new Integer(controlador.getUcpInterna().getMbr().getTxtValor().getText());
+		String valor = controlador.getUcpInterna().getMbr().getTxtValor().getText();
 		
 		double xDe = controlador.getUcpInterna().getMbr().getTxtValor().getX();
 		double yDe = controlador.getUcpInterna().getMbr().getTxtValor().getY();
 		double xPara = 1210;
 	
-		valorMbr = new Text(valor.toString());
+		valorMbr = new Text(valor);
 		valorMbr.setX(xDe);
 		valorMbr.setY(yDe);
 	
@@ -1187,8 +1187,8 @@ public class Execucao extends Ciclo {
 		controlador.getUcpInterna().adicionar(igual);
 		controlador.adicionarElemento(igual);
 		
-		ula.setOperando1(new Integer(operando1.getText()));
-		ula.setOperando2(new Integer(operando2.getText()));
+		ula.setOperando1(operando1.getText());
+		ula.setOperando2(operando2.getText());
 		ula.operar();
 		
 		resultado = new Text(ula.getResultado().toString());

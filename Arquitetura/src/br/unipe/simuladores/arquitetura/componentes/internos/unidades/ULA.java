@@ -5,26 +5,32 @@ import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import br.unipe.simuladores.arquitetura.enums.OperacaoAritmetica;
+import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
 
 public class ULA extends UnidadeUCP{
 	
-	private Integer operando1;
-	private Integer operando2;
-	private Integer resultado;
+	private String operando1;
+	private String operando2;
+	private Number op1;
+	private Number op2;
+	private Number resultado;
 	private OperacaoAritmetica operacao;
+	private TipoVariavel tpOp1;
+	private TipoVariavel tpOp2;
 	
 	public ULA() {
 		
 		super();
 		
-		operando1 = 0;
-		operando2 = 0;
-		resultado = 0;
+		operando1 = new String("0");
+		operando2 = new String("0");
 		operacao = OperacaoAritmetica.SOMA;
 		
 	}
 	
 	public void operar() {
+		
+		obterTipoOperandos();
 		
 		switch(operacao) {
 		case SOMA: somar(); break;
@@ -37,41 +43,127 @@ public class ULA extends UnidadeUCP{
 	
 	public void somar() {
 		
-		resultado = operando1 + operando2;
+		if (tpOp1 == TipoVariavel.INTEIRO) {
+			
+			if (tpOp2 == TipoVariavel.INTEIRO)
+				
+				resultado = op1.intValue() + op2.intValue();
+			
+			else
+				
+				resultado = op1.intValue() + op2.floatValue();
+			
+		} else {
+			
+			if (tpOp2 == TipoVariavel.INTEIRO)
+				
+				resultado = op1.floatValue() + op2.intValue();
+			
+			else
+				
+				resultado = op1.floatValue() + op2.floatValue();
+			
+		}
+		
 		
 	}
 	
 	public void subtrair() {
 		
-		resultado = operando1 - operando2;
+		if (tpOp1 == TipoVariavel.INTEIRO) {
+			
+			if (tpOp2 == TipoVariavel.INTEIRO)
+				
+				resultado = op1.intValue() - op2.intValue();
+			
+			else
+				
+				resultado = op1.intValue() - op2.floatValue();
+			
+		} else {
+			
+			if (tpOp2 == TipoVariavel.INTEIRO)
+				
+				resultado = op1.floatValue() - op2.intValue();
+			
+			else
+				
+				resultado = op1.floatValue() - op2.floatValue();
+			
+		}
+
 		
 	}
 	
 	public void multiplicar() {
 		
-		resultado = operando1 * operando2;
+		
+		if (tpOp1 == TipoVariavel.INTEIRO) {
+			
+			if (tpOp2 == TipoVariavel.INTEIRO)
+				
+				resultado = op1.intValue() * op2.intValue();
+			
+			else
+				
+				resultado = op1.intValue() * op2.floatValue();
+			
+		} else {
+			
+			if (tpOp2 == TipoVariavel.INTEIRO)
+				
+				resultado = op1.floatValue() * op2.intValue();
+			
+			else
+				
+				resultado = op1.floatValue() * op2.floatValue();
+			
+		}
+		
 		
 	}
 	
 	public void dividir() {
 		
-		resultado = operando1 / operando2;
+		
+		if (tpOp1 == TipoVariavel.INTEIRO) {
+			
+			if (tpOp2 == TipoVariavel.INTEIRO)
+				
+				resultado = op1.intValue() / op2.intValue();
+			
+			else
+				
+				resultado = op1.intValue() / op2.floatValue();
+			
+		} else {
+			
+			if (tpOp2 == TipoVariavel.INTEIRO)
+				
+				resultado = op1.floatValue() / op2.intValue();
+			
+			else
+				
+				resultado = op1.floatValue() / op2.floatValue();
+			
+		}
+		
 		
 	}
 
-	public Integer getOperando1() {
+	public String getOperando1() {
 		return operando1;
 	}
 
-	public void setOperando1(Integer operando1) {
+	public void setOperando1(String operando1) {
 		this.operando1 = operando1;
 	}
 
-	public Integer getOperando2() {
+	public String getOperando2() {
 		return operando2;
 	}
 
-	public void setOperando2(Integer operando2) {
+	public void setOperando2(String operando2) {
 		this.operando2 = operando2;
 	}
 
@@ -83,7 +175,7 @@ public class ULA extends UnidadeUCP{
 		this.operacao = operacao;
 	}
 
-	public Integer getResultado() {
+	public Number getResultado() {
 		return resultado;
 	}
 
@@ -150,6 +242,37 @@ public class ULA extends UnidadeUCP{
 		super.valor = valor;
 		
 		atualizarTexto((String)valor, x, y);
+		
+	}
+	
+	public void obterTipoOperandos() {
+		
+		try {
+			
+			Integer.parseInt(operando1);
+			tpOp1 = TipoVariavel.INTEIRO;
+			op1 = new Integer(operando1);
+			
+		} catch(NumberFormatException nfe) {
+			
+			tpOp1 = TipoVariavel.PONTO_FLUTUANTE;
+			op1 = new Float(operando1);
+			
+		}
+		
+		try {
+			
+			Integer.parseInt(operando2);
+			tpOp2 = TipoVariavel.INTEIRO;
+			op2 = new Integer(operando2);
+			
+		} catch(NumberFormatException nfe) {
+			
+			tpOp2 = TipoVariavel.PONTO_FLUTUANTE;
+			op2 = new Float(operando2);
+			
+		}
+		
 		
 	}
 

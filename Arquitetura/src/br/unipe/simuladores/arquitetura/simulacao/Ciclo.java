@@ -44,7 +44,7 @@ public abstract class Ciclo {
 	protected Text op1;
 	protected Text op2;
 	
-	protected Integer dado;
+	protected String dado;
 	protected Text txtDadoTransferencia;
 	
 	protected boolean primeiroOperando;
@@ -292,7 +292,7 @@ public abstract class Ciclo {
 		
 		dado = controlador.getMemoriaInterna().obterDadoVariavel(endereco);
 		
-		txtDadoTransferencia = new Text(dado.toString());
+		txtDadoTransferencia = new Text(dado);
 		
 		transferirDadoBarramento(p1, p2, p3, p4, txtDadoTransferencia);
 		
