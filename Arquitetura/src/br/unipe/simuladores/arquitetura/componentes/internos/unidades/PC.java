@@ -7,9 +7,9 @@ import javafx.scene.text.Text;
 
 public class PC extends UnidadeUCP{
 
-	private static final String PC_TXT = "PC - Armazena o valor da próxima instrução, " +
-			"para que quando uma instrução terminar de ser executada, o UCP saiba " +
-			"qual é a próxima que ela deve executar.";
+	private static final String PC_TXT = "O PC armazena o valor da próxima instrução,\n " +
+			"para que quando uma instrução terminar de ser\n executada, a UCP saiba " +
+			"qual é a próxima que ela\n deve executar.";
 	
 	public PC() {
 		

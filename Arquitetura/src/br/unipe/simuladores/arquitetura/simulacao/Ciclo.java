@@ -267,7 +267,7 @@ public abstract class Ciclo {
 		op2.setY(yIr);
 		
 		controlador.getUcpInterna().getIr().atualizarValor("", xIr, yIr);
-		controlador.getUcpInterna().atualizarValorUnidadeTela(ir);
+		//controlador.getUcpInterna().atualizarValorUnidadeTela(ir);
 		
 		controlador.getUcpInterna().adicionar(endereco);
 		controlador.adicionarElemento(endereco);

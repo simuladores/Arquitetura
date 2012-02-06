@@ -176,7 +176,7 @@ public class Indireto extends Ciclo{
 				
 				controlador.getUcpInterna().remover(text);
 				mar.atualizarValor(new Integer(text.getText()), xPara, yPara);
-				controlador.getUcpInterna().atualizarValorUnidadeTela(mar);
+				//controlador.getUcpInterna().atualizarValorUnidadeTela(mar);
 				
 				/*if (operando == OperandoCicloIndireto.OS_DOIS && primeiroOperando){
 					primeiroOperando = false;
@@ -263,7 +263,7 @@ public class Indireto extends Ciclo{
 				controlador.getBarramentoInterno().remover(txtDadoTransferencia);
 				MBR mbr = controlador.getUcpInterna().getMbr();
 				mbr.atualizarValor(dado, 923, 478);
-				controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
+				//controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
 				
 				transferirMbrParaIrIndireto();
 				

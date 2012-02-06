@@ -674,7 +674,7 @@ public class Execucao extends Ciclo {
 				
 				controlador.getUcpInterna().remover(text);
 				registrador.atualizarValor(text.getText(), xPara, yPara);
-				controlador.getUcpInterna().atualizarValorUnidadeTela(registrador);
+				//controlador.getUcpInterna().atualizarValorUnidadeTela(registrador);
 				
 				fimExecucao();
 				
@@ -761,7 +761,7 @@ public class Execucao extends Ciclo {
 				controlador.getBarramentoInterno().remover(txtDadoTransferencia);
 				MBR mbr = controlador.getUcpInterna().getMbr();
 				mbr.atualizarValor(dado, 923, 478);
-				controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
+				//controlador.getUcpInterna().atualizarValorUnidadeTela(mbr);
 				
 				limparElementosTela();
 				

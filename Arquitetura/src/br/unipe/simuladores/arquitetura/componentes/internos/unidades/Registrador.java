@@ -9,9 +9,9 @@ public class Registrador extends UnidadeUCP{
 
 	private String nome;
 	
-	private static final String REGISTRADOR_TXT = "Registradores - Armazenam dados " +
-			"e referências à memória. O tempo de acesso aos registradores é muito " +
-			"mais rápido, se comparado ao da memória principal.\n";
+	private static final String REGISTRADOR_TXT = "Os registradores armazenam dados " +
+			"e referências à memória.\n O tempo de acesso aos registradores é muito " +
+			"mais rápido,\n se comparado ao da memória principal.\n";
 
 	public Registrador(String nome, double y) {
 		
@@ -64,8 +64,9 @@ public class Registrador extends UnidadeUCP{
 
 	@Override
 	public String obterTextoExplicativo() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return REGISTRADOR_TXT;
+		
 	}
 
 }

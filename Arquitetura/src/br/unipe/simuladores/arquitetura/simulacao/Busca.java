@@ -47,7 +47,7 @@ public class Busca extends Ciclo{
 			final PC pc = controlador.getUcpInterna().getPc();
 		
 			pc.atualizarValor(controlador.getInstrucaoAtual().enderecoProperty().getValue(), 880, 438);
-			controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getPc());
+			//controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getPc());
 						
 			animation = new Timeline();
 			
@@ -120,7 +120,7 @@ public class Busca extends Ciclo{
 				
 					controlador.getUcpInterna().remover(valorTxt);
 					controlador.getUcpInterna().getMar().atualizarValor(valor, 975, 438);
-					controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getMar());	
+					//controlador.getUcpInterna().atualizarValorUnidadeTela(controlador.getUcpInterna().getMar());	
 				
 					copiarREADParaBarramento();
 				
@@ -267,8 +267,8 @@ public class Busca extends Ciclo{
 					
 					controlador.getUcpInterna().remover(endProxTxt);
 					controlador.getUcpInterna().getPc().atualizarValor(endProx, x, y);
-					controlador.getUcpInterna().atualizarValorUnidadeTela(
-							controlador.getUcpInterna().getPc());
+					//controlador.getUcpInterna().atualizarValorUnidadeTela(
+							//controlador.getUcpInterna().getPc());
 					controlador.getUcpInterna().getPc().getTxtValor().opacityProperty().setValue(1.0f);
 					controlador.getUcpInterna().getPc().getTxtValor().visibleProperty().setValue(true);
 
@@ -308,8 +308,8 @@ public class Busca extends Ciclo{
 		
 		controlador.getUcpInterna().getMbr().atualizarValor(
 				txtInst, xMbr, yMbr);
-		controlador.getUcpInterna().atualizarValorUnidadeTela(
-				controlador.getUcpInterna().getMbr());
+		//controlador.getUcpInterna().atualizarValorUnidadeTela(
+				//controlador.getUcpInterna().getMbr());
 		controlador.adicionarElemento(
 				controlador.getUcpInterna().getMbr().getTxtValor());
 		
@@ -343,8 +343,8 @@ public class Busca extends Ciclo{
 				
 				controlador.getUcpInterna().getIr().atualizarValor(
 						txtInstrucao.getText(), xIr, yIr);
-				controlador.getUcpInterna().atualizarValorUnidadeTela(
-						controlador.getUcpInterna().getIr());
+				//controlador.getUcpInterna().atualizarValorUnidadeTela(
+						//controlador.getUcpInterna().getIr());
 				controlador.adicionarElemento(
 						controlador.getUcpInterna().getIr().getTxtValor());
 				controlador.getUcpInterna().remover(txtInstrucao);
