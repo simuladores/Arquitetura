@@ -32,6 +32,21 @@ public class MemoriaInterna extends ComponenteInterno{
 	
 	private Integer nextEnd;
 	
+	private static final String MEMORIA_INTERNATXT = "A memória principal está aqui " +
+			"representada por duas tabelas:\n " +
+			"uma que armazena instruções e outra que armazena dados.\n Na tabela " +
+			"de instruções, as colunas são as seguintes:\n" +
+			"- Endereço : O endereço da memória que a instrução ocupa\n" +
+			"- Opcode: Um código que identifica o tipo da instrução,\n relacionado " +
+			"com os operandos 1 e 2.\n" +
+			"- Operandos 1 e 2: Números que indentificam o endereço de\n memória de " +
+			"um dado, um dado ou um dos registradores\n da UCP, dependendo do modo de" +
+			" endereçamento desses\n operandos.\n" +
+			"Cada linha da tabela de dados, contém o que programadores\n definem como " +
+			"variávies. Essa tabela possui duas colunas,\n na primeira está contido " +
+			"o endereço de uma variável\n inserida e na segunda, o dado que essa " +
+			"variável armazena.";
+	
 	public MemoriaInterna() {
 		
 		super();
@@ -319,7 +334,7 @@ public class MemoriaInterna extends ComponenteInterno{
 	@Override
 	public String obterTextoExplicativo() {
 		
-		return "Isso é uma memória interna";
+		return MEMORIA_INTERNATXT;
 		
 	}
 	

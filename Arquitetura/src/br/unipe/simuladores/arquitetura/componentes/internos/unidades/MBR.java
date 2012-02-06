@@ -11,6 +11,14 @@ public class MBR extends UnidadeUCP{
 		
 		super();
 		
+		construirForma(913, 460);
+		adicionarTexto(880, 478);
+		atualizarValor("", 923, 478);
+		
+		group.getChildren().addAll(forma, txtNome, txtValor);
+		
+		definirAcoes();
+		
 	}
 	
 	@Override
@@ -42,6 +50,12 @@ public class MBR extends UnidadeUCP{
 		
 		atualizarTexto(valor.toString(), x, y);
 		
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

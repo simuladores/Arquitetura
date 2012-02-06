@@ -33,6 +33,14 @@ public class Computador extends ComponenteCirculo {
 	
 	private boolean encolhido = false;
 	
+	private static final String COMPUTADOR_NAO_EPANDIDO_TXT = "Este círculo " +
+			"representa um computador.\n Clique nesse círculo para" +
+			" ver seus componentes\n internos e para iniciar a simulação.";
+	private static final String COMPUTADOR_EXPANDIDO_TXT = "Essa figura representa um computador com seus\n componentes " +
+			"principais representados por círculos.\n Para ver datalhes de cada" +
+			" um deles e iniciar a simulação\n com eles envolvidos, clique no " +
+			"círculo que os representam. ";
+	
 	public Computador() {
 		
 		super();
@@ -264,8 +272,12 @@ public class Computador extends ComponenteCirculo {
 			public void handle(MouseEvent event) {
 				
 				if (!encolhido) {
-					if (expanded)
+					if (expanded) {
+						
 						group.setCursor(Cursor.DEFAULT);
+						
+						exibirMensagemExplicativa();
+					}
 					else{
 						
 						group.setCursor(Cursor.HAND);
@@ -419,13 +431,9 @@ public class Computador extends ComponenteCirculo {
 	public String obterTextoExplicativo() {
 		
 		if (!expanded)
-			return "Isso é um computador";
+			return COMPUTADOR_NAO_EPANDIDO_TXT;
 		else
-			return "Essa figura representa um computador com seus\n componentes " +
-					"principais representados por círculos.\n Para ver datalhes de cada" +
-					" um deles e iniciar a simulação\n com eles envolvidos, clique no " +
-					"círculo que os representam. ";
-		
+			return COMPUTADOR_EXPANDIDO_TXT;
 		
 	}
 

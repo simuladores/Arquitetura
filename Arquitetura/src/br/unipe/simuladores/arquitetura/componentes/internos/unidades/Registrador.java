@@ -8,11 +8,24 @@ import javafx.scene.text.Text;
 public class Registrador extends UnidadeUCP{
 
 	private String nome;
+	
+	private static final String REGISTRADOR_TXT = "Registradores - Armazenam dados " +
+			"e referências à memória. O tempo de acesso aos registradores é muito " +
+			"mais rápido, se comparado ao da memória principal.\n";
 
-	public Registrador(String nome) {
+	public Registrador(String nome, double y) {
 		
 		super();
 		this.nome = nome;
+		
+		construirForma(780, 420 + y);
+		adicionarTexto(760, 438 + y);
+		atualizarValor(0, 790, 438 + y);
+		//atualizarValor("", 790, 438 + y);
+		
+		group.getChildren().addAll(forma, txtNome, txtValor);
+		
+		definirAcoes();
 		
 	}
 	
@@ -47,6 +60,12 @@ public class Registrador extends UnidadeUCP{
 		
 		atualizarTexto(valor.toString(), x, y);
 		
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

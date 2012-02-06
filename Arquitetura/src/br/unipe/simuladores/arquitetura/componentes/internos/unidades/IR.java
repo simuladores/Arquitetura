@@ -12,6 +12,14 @@ public class IR extends UnidadeUCP{
 		
 		super();
 		
+		construirForma(870, 510);
+		adicionarTexto(848, 528);
+		atualizarValor("", 878, 528);
+		
+		group.getChildren().addAll(forma, txtNome, txtValor);
+		
+		definirAcoes();
+		
 	}
 	
 	@Override
@@ -43,6 +51,12 @@ public class IR extends UnidadeUCP{
 		
 		atualizarTexto((String)valor, x, y);
 		
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

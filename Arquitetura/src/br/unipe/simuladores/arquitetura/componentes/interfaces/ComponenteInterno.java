@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public abstract class ComponenteInterno extends Componente{
+public abstract class ComponenteInterno extends ComponenteExpansivel{
 	
 	protected Rectangle retangulo;
 	

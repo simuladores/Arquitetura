@@ -26,6 +26,22 @@ public class ULA extends UnidadeUCP{
 		operando2 = new String("0");
 		operacao = OperacaoAritmetica.SOMA;
 		
+		//construirForma(850, 550);
+		construirForma(830, 550);
+		//adicionarTexto(885, 630);
+		adicionarTexto(885, 638);
+		//atualizarValor("536 + 270", 872, 600);
+	    //1 dígito
+		//mar.atualizarValor("123456", 846, 587);
+		//mbr.atualizarValor("123456", 898, 587);
+		//ula.atualizarValor("+", 865, 600);
+		//ula.atualizarValor("=", 915, 600);
+		//ula.atualizarValor("5", 890, 610);
+		
+		group.getChildren().addAll(forma, txtNome, txtValor);
+		
+		definirAcoes();
+		
 	}
 	
 	public void operar() {
@@ -274,6 +290,12 @@ public class ULA extends UnidadeUCP{
 		}
 		
 		
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

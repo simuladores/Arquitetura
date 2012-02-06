@@ -12,6 +12,14 @@ public class UC extends UnidadeUCP{
 		
 		super();
 		
+		construirForma(950, 575);
+		adicionarTexto(975, 618);
+		//atualizarValor("WRITE", 965, 593);
+		
+		group.getChildren().addAll(forma, txtNome, txtValor);
+		
+		definirAcoes();
+		
 	}
 	
 	@Override
@@ -43,6 +51,12 @@ public class UC extends UnidadeUCP{
 		
 		atualizarTexto((String)valor, x, y);
 		
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

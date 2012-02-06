@@ -3,6 +3,7 @@ package br.unipe.simuladores.arquitetura.componentes.internos;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -25,10 +26,23 @@ public class UCPInterna extends ComponenteInterno{
 	private ULA ula;
 	private MAR mar;
 	private MBR mbr;
+	
+	private Group groupUc;
+	private Group groupPC;
+	private Group groupIR;
+	private Group groupULA;
+	private Group groupMAR;
+	private Group groupMBR;
+	
 	private Rectangle ioar;
 	private Rectangle iobr;
 	private Map<String, Registrador> mapaRegistradores;
 	
+	private static final String UCP_INTERNATXT = "Essa figura representa a UCP " +
+			"interna. A UCP é responsável pela execução das instruções da memória " +
+			"principal. Para isso, ela possui alguns componentes internos para " +
+			"auxiliar nessa tarefa. Para saber mais detalhes sobre cada um desses " +
+			"componentes, passe o mouse por cima de cada um deles.";
 	
 	public UCPInterna() {
 		
@@ -88,56 +102,28 @@ public class UCPInterna extends ComponenteInterno{
 		group.getChildren().addAll(retangulo, ioar, iobr);
 		
 		ir = new IR();
-		ir.construirForma(870, 510);
-		ir.adicionarTexto(848, 528);
-		ir.atualizarValor("", 878, 528);
 		atualizarUnidadeTela(ir);
 		
 		mar = new MAR();
-		mar.construirForma(965, 420);
-		mar.adicionarTexto(932, 438);
 		atualizarUnidadeTela(mar);
 		
 		mbr = new MBR();
-		mbr.construirForma(913, 460);
-		mbr.adicionarTexto(880, 478);
-		mbr.atualizarValor("", 923, 478);
 		atualizarUnidadeTela(mbr);
 		
 		pc = new PC();
-		pc.construirForma(870, 420);
-		pc.adicionarTexto(848, 438);
 		atualizarUnidadeTela(pc);
 		
 		uc = new UC();
-		uc.construirForma(950, 575);
-		uc.adicionarTexto(975, 618);
-		//uc.atualizarValor("WRITE", 965, 593);
 		atualizarUnidadeTela(uc);
 		
 		ula = new ULA();
-		//ula.construirForma(850, 550);
-		ula.construirForma(830, 550);
-		//ula.adicionarTexto(885, 630);
-		ula.adicionarTexto(885, 638);
-		//ula.atualizarValor("536 + 270", 872, 600);
-		//1 dígito
-		//mar.atualizarValor("123456", 846, 587);
-		//mbr.atualizarValor("123456", 898, 587);
-		//ula.atualizarValor("+", 865, 600);
-		//ula.atualizarValor("=", 915, 600);
-		//ula.atualizarValor("5", 890, 610);
 		atualizarUnidadeTela(ula);
 		
 		mapaRegistradores = new HashMap<String, Registrador>();
 		Registrador registrador;
 		int i, y;
 		for (i = 0, y = 0; i < 4; i++, y += 25) {
-			registrador = new Registrador("R"+(i + 1));
-			registrador.construirForma(780, 420 + y);
-			registrador.adicionarTexto(760, 438 + y);
-			registrador.atualizarValor(0, 790, 438 + y);
-			//registrador.atualizarValor("", 790, 438 + y);
+			registrador = new Registrador("R"+(i + 1), y);
 			atualizarUnidadeTela(registrador);
 			mapaRegistradores.put("R"+(i + 1), registrador);
 		}
@@ -191,19 +177,22 @@ public class UCPInterna extends ComponenteInterno{
 	
 	public void atualizarUnidadeTela(UnidadeUCP unidade) {
 		
-		group.getChildren().remove(unidade.getTxtNome());
+		/*group.getChildren().remove(unidade.getTxtNome());
 		group.getChildren().remove(unidade.getForma());
 		group.getChildren().remove(unidade.getTxtValor());
 		group.getChildren().add(unidade.getTxtNome());
 		group.getChildren().add(unidade.getForma());
-		group.getChildren().add(unidade.getTxtValor());
+		group.getChildren().add(unidade.getTxtValor());*/
+		
+		group.getChildren().remove(unidade.getGroup());
+		group.getChildren().add(unidade.getGroup());
 		
 	}
 	
 	public void atualizarValorUnidadeTela(UnidadeUCP unidade) {
 		
-		group.getChildren().remove(unidade.getTxtValor());
-		group.getChildren().add(unidade.getTxtValor());
+		/*group.getChildren().remove(unidade.getTxtValor());
+		group.getChildren().add(unidade.getTxtValor());*/
 		
 	}
 	
@@ -214,7 +203,9 @@ public class UCPInterna extends ComponenteInterno{
 	}
 
 	public UC getUc() {
+		
 		return uc;
+		
 	}
 
 	public void setUc(UC uc) {

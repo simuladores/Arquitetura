@@ -11,6 +11,13 @@ public class MAR extends UnidadeUCP{
 		
 		super();
 		
+		construirForma(965, 420);
+		adicionarTexto(932, 438);
+		
+		group.getChildren().addAll(forma, txtNome, txtValor);
+		
+		definirAcoes();
+		
 	}
 	
 	@Override
@@ -41,6 +48,12 @@ public class MAR extends UnidadeUCP{
 		super.valor = valor;
 		atualizarTexto(valor.toString(), x, y);
 		
+	}
+
+	@Override
+	public String obterTextoExplicativo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

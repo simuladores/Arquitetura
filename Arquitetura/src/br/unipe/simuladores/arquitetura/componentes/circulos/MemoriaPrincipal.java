@@ -26,6 +26,11 @@ public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 	
 	private MemoriaInterna memoriaInterna;
 	
+	private static final String MEMORIA_PRINCIPALTXT =  "Essa figura representa uma " +
+			"memória principal.\n A memória principal " +
+			"pode armazenar tanto instruções\n quanto dados. Para visualizar " +
+			"melhor a organização da\n memória principal, clique nesse círculo.";
+	
 	public MemoriaPrincipal(){
 		
 		super();
@@ -279,7 +284,7 @@ public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 	@Override
 	public String obterTextoExplicativo() {
 		
-		return "Isso é uma memória principal";
+		return MEMORIA_PRINCIPALTXT;
 		
 	}
 

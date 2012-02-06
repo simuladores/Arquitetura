@@ -5,7 +5,7 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
-public abstract class ComponenteCirculo extends Componente{
+public abstract class ComponenteCirculo extends ComponenteExpansivel{
 	
 	protected Circle circulo;
 	
