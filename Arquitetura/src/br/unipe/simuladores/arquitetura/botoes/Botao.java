@@ -16,7 +16,11 @@ public class Botao extends Group {
 	protected Controlador controlador;
 	protected boolean stopped = false;
 	protected Botao este;
-		
+	
+	protected static final String PLAY_IMAGE_DIR = "play.png";
+	protected static final String PAUSE_IMAGE_DIR = "pause.png";
+	protected static final String STOP_IMAGE_DIR = "stop.png";
+	
 	public Botao(String pathImg) {
 		
 		super();

@@ -9,7 +9,7 @@ public class BotaoStop extends Botao{
 	
 	public BotaoStop() {
 		
-		super("stop.png");
+		super(STOP_IMAGE_DIR);
 		definirAcoesEspecificas();
 		
 	}

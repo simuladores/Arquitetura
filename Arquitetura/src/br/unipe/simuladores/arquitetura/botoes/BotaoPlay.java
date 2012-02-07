@@ -16,8 +16,8 @@ public class BotaoPlay extends Botao {
 	
 	public BotaoPlay() {
 		
-		super("play.png");
-		imgPause = new ImageView(new Image(getClass().getResourceAsStream("pause.png")));
+		super(PLAY_IMAGE_DIR);
+		imgPause = new ImageView(new Image(getClass().getResourceAsStream(PAUSE_IMAGE_DIR)));
 		curImg = image;
 		definirAcoesEspecificas();
 		
@@ -25,7 +25,7 @@ public class BotaoPlay extends Botao {
 	
 	public BotaoPlay(Timeline timeline) {
 		
-		super("play.png", timeline);
+		super(PLAY_IMAGE_DIR, timeline);
 		definirAcoesEspecificas();
 		
 	}

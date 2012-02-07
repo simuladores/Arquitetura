@@ -10,7 +10,7 @@
 	<property name="vendor" value="Unipê"/>
 	
     <target name="app-config">
-        <property name="applet.width" value="1180"/>
+        <property name="applet.width" value="1250"/>
         <property name="applet.height" value="700"/>
     </target>
  
@@ -40,8 +40,16 @@
 			<classpath refid="classpath" />
 		</javac>
 	</target>
+	
+	<target name="imagens" depends ="compilar">
+			<copy todir="${basedir}/bin/br/unipe/simuladores/arquitetura/botoes">
+				<fileset dir="${basedir}/src/br/unipe/simuladores/arquitetura/botoes">
+					<include name = "*.png"/>
+				</fileset>
+			</copy>
+	</target>
  
-    <target name="deploy" depends="compilar">
+    <target name="deploy" depends="imagens">
         <delete file="jar/${nomeAplicacao}.jar"/>
         <fxjar destfile="jar/${nomeAplicacao}.jar">
         	<application mainClass="br.unipe.simuladores.arquitetura.principal.Main"/>
@@ -69,7 +77,8 @@
                </fileset>
             </resources>
         </fxdeploy>
+    	
 
     </target>
-
+	
 </project>
