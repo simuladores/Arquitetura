@@ -8,6 +8,12 @@ import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteInterno
 
 public class BarramentoInterno extends ComponenteInterno {
 	
+	private static final String BARRAMENTO_INTERNOTXT = "O barramento é por onde " +
+			"fluem os dados ou\ninstruções da memória principal para a UCP, ou\n" +
+			"vice-versa. É formado por três sub-barramentos:\no barramento " +
+			"de instruções, o de endereços e o de\ndados, por onde fluem instruções " +
+			"da UC, endereços\nde memória e dados, respectivamente.";
+	
 	private Rectangle dados;
 	private Rectangle enderecos;
 	private Rectangle controle;
@@ -87,7 +93,7 @@ public class BarramentoInterno extends ComponenteInterno {
 	@Override
 	public String obterTextoExplicativo() {
 		
-		return "Isso é um barramento interno";
+		return BARRAMENTO_INTERNOTXT;
 		
 	}
 	

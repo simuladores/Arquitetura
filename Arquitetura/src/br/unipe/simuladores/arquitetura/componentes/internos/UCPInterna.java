@@ -27,21 +27,14 @@ public class UCPInterna extends ComponenteInterno{
 	private MAR mar;
 	private MBR mbr;
 	
-	private Group groupUc;
-	private Group groupPC;
-	private Group groupIR;
-	private Group groupULA;
-	private Group groupMAR;
-	private Group groupMBR;
-	
 	private Rectangle ioar;
 	private Rectangle iobr;
 	private Map<String, Registrador> mapaRegistradores;
 	
 	private static final String UCP_INTERNATXT = "Essa figura representa a UCP " +
-			"interna. A UCP é responsável pela execução das instruções da memória " +
-			"principal. Para isso, ela possui alguns componentes internos para " +
-			"auxiliar nessa tarefa. Para saber mais detalhes sobre cada um desses " +
+			"interna.\n A UCP é responsável pela execução das instruções\n da memória " +
+			"principal. Para isso, ela possui alguns\n componentes internos para " +
+			"auxiliar nessa tarefa.\n Para saber mais detalhes sobre cada um desses\n " +
 			"componentes, passe o mouse por cima de cada um deles.";
 	
 	public UCPInterna() {
@@ -263,7 +256,7 @@ public class UCPInterna extends ComponenteInterno{
 	@Override
 	public String obterTextoExplicativo() {
 
-		return "Isso é uma UCP Interna";
+		return UCP_INTERNATXT;
 		
 	}
 

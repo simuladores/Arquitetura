@@ -6,8 +6,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class UC extends UnidadeUCP{
-
-
+	
+	private static final String UC_TXT = "A UC (Unidade de Controle) é quem " +
+			"coordena as atividades\n da UCP. Ela emite as instruções de leitura " +
+			"de dados ou\n instruções e de escrita de dados para o barramento de\n " +
+			"instruções. Além disso, ela é responsável por emitir\n instruções " +
+			"que vão realizar operações internas na UCP,\ncomo atualizar o PC, " +
+			"realizar operações aritméticas e\ntransferir dados entre componentes " +
+			"da UCP pelo\n barramento interno dessa."; 
+	
 	public UC() {
 		
 		super();
@@ -55,8 +62,9 @@ public class UC extends UnidadeUCP{
 
 	@Override
 	public String obterTextoExplicativo() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return UC_TXT;
+		
 	}
 
 }

@@ -6,6 +6,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MBR extends UnidadeUCP{
+	
+	private static final String MBR_TXT = "O MBR (Memory Buffer Register) é " +
+			"responsável por\n armazenar os dados a serem escritos na memória\n" +
+			"principal pelo barramento de dados e por receber\n os dados ou " +
+			"instruções da memória, em uma\n operação de leitura, através desse " +
+			"mesmo barramento.";
 
 	public MBR() {
 		
@@ -54,8 +60,9 @@ public class MBR extends UnidadeUCP{
 
 	@Override
 	public String obterTextoExplicativo() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return MBR_TXT;
+		
 	}
 
 }

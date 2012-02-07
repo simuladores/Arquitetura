@@ -6,6 +6,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MAR extends UnidadeUCP{
+	
+	private static final String MAR_TXT = "O MAR (Memory Address Register) é " +
+			"responsável por\n armazenar as referências de endereços de memória\n" +
+			"que serão transferidas para o barramento de endereços\n numa leitura " +
+			"de um dado ou instrução da memória principal.";
 
 	public MAR() {
 		
@@ -52,8 +57,9 @@ public class MAR extends UnidadeUCP{
 
 	@Override
 	public String obterTextoExplicativo() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return MAR_TXT;
+		
 	}
 
 }

@@ -9,6 +9,10 @@ import br.unipe.simuladores.arquitetura.enums.TipoVariavel;
 
 public class ULA extends UnidadeUCP{
 	
+	private static final String ULA_TXT = "A ULA (Unidade Lógica e Aritmética) é " +
+			"a reponsável\n por executar operações aritméticas, como somar,\nsubtrair, " +
+			"multiplicar e dividir.";
+	
 	private String operando1;
 	private String operando2;
 	private Number op1;
@@ -294,8 +298,9 @@ public class ULA extends UnidadeUCP{
 
 	@Override
 	public String obterTextoExplicativo() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return ULA_TXT;
+		
 	}
 
 }

@@ -27,6 +27,12 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 	private Group grupoUnidadeControle;
 	private UCPInterna ucpInterna;
 	
+	private static final String UCP_TXT = "Esse figura representa uma UCP " +
+			"(Unidade Central de\n Processamento), ou do inglês, CPU. Uma UCP é " +
+			"formada por\n registradores, unidade lógica e aritmética, barramento " +
+			"interno\n e unidade de controle. Para saber mais detalhes sobre cada\n " +
+			"um desses componentes, clique com o mouse.";
+	
 	public UCP() {
 		
 		super();
@@ -305,7 +311,7 @@ public class UCP extends ComponenteCirculo implements Quebravel{
 	@Override
 	public String obterTextoExplicativo() {
 
-		return "Isso é uma CPU";
+		return UCP_TXT;
 		
 	}
 	

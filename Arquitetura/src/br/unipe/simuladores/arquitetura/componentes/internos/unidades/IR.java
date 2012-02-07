@@ -7,6 +7,8 @@ import javafx.scene.text.Text;
 
 public class IR extends UnidadeUCP{
 	
+	private static final String IR_TXT = "O IR (Instruction Register) é " +
+			"responsável por\n armazenar as instruções que chegam da memória.";
 
 	public IR() {
 		
@@ -55,8 +57,9 @@ public class IR extends UnidadeUCP{
 
 	@Override
 	public String obterTextoExplicativo() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return IR_TXT;
+		
 	}
 
 }
