@@ -1,8 +1,7 @@
 package br.unipe.simuladores.arquitetura.componentes.circulos;
 
-import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
+import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculoQuebravel;
 import br.unipe.simuladores.arquitetura.componentes.internos.BarramentoInterno;
-import br.unipe.simuladores.arquitetura.componentes.internos.Quebravel;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -18,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
+public class SistemaInterconexao extends ComponenteCirculoQuebravel{
 
 	private Group grupoBarramento;
 	private Group grupoModuloES;
@@ -257,6 +256,8 @@ public class SistemaInterconexao extends ComponenteCirculo implements Quebravel{
 				.setDisable(false);
 		
 		broken = true;
+		
+		exibirMenus();
 		
 	}
 

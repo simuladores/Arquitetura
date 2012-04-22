@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Instrucao extends CelulaMemoria {
 	
-	//teste teste teste
 	private IntegerProperty opcode;
 	private IntegerProperty referenciaOperando1;
 	private IntegerProperty referenciaOperando2;

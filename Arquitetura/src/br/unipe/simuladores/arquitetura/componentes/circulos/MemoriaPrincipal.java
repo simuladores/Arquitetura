@@ -1,8 +1,7 @@
 package br.unipe.simuladores.arquitetura.componentes.circulos;
 
-import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculo;
+import br.unipe.simuladores.arquitetura.componentes.interfaces.ComponenteCirculoQuebravel;
 import br.unipe.simuladores.arquitetura.componentes.internos.MemoriaInterna;
-import br.unipe.simuladores.arquitetura.componentes.internos.Quebravel;
 import br.unipe.simuladores.arquitetura.telas.TelaPrincipal;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -19,7 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
+public class MemoriaPrincipal extends ComponenteCirculoQuebravel{
 	
 	private Group grupoInstrucoes;
 	private Group grupoDados;
@@ -264,14 +263,9 @@ public class MemoriaPrincipal extends ComponenteCirculo implements Quebravel{
 		
 		timeline.play();
 		
-		if (TelaPrincipal.getComputador().todosComponentesInternosExpandidos())
-			TelaPrincipal.getMenuSuperior().getMenus().get(0).getItems().get(0)
-				.setDisable(false);
-		
-		TelaPrincipal.getMenuSuperior().getMenus().get(0).getItems().get(1)
-			.setDisable(false);
-		
 		broken = true;
+		
+		exibirMenus();
 		
 	}
 	
