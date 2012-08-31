@@ -233,7 +233,7 @@ public class Computador extends ComponenteCirculo {
 		else
 			definirAcoesEspecificas();
 		
-		adicionarTexto();	
+		adicionarTexto();
 
 		
 	}
