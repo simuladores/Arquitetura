@@ -224,7 +224,7 @@ public class Computador extends ComponenteCirculo {
 			circulo.setCenterX(600);
 			circulo.setCenterY(400);
 			
-			group.getChildren().addAll(circulo, textClique);
+			group.getChildren().add(circulo);
 			
 		}
 		
